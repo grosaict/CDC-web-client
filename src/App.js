@@ -1,20 +1,15 @@
-import 'react-perfect-scrollbar/dist/css/styles.css';
-import { useRoutes } from 'react-router-dom';
-import { ThemeProvider } from '@material-ui/core';
-import GlobalStyles from 'src/components/GlobalStyles';
-import 'src/mixins/chartjs';
-import theme from 'src/theme';
-import routes from 'src/routes';
+import React from 'react';
+import Routes from './routes/index';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import { ToastProvider } from 'react-toast-notifications'
 
-const App = () => {
-  const routing = useRoutes(routes);
-
-  return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      {routing}
-    </ThemeProvider>
-  );
-};
+const App = () => (
+    <ToastProvider placement={'bottom-right'}>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <Routes />
+        </MuiPickersUtilsProvider>
+    </ToastProvider>
+);
 
 export default App;
