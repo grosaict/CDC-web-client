@@ -22,7 +22,7 @@ export const atualizarItem = async (id, data) => {
 
 export const getKids = async () => {
     try {
-        return await axios.get('http://localhost:5000/api/item/', {
+        return await axios.get('http://localhost:5000/api/kid/', {
             headers: { token: localStorage.getItem('token') }
         });
     } catch (err) {

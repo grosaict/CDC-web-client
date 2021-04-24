@@ -62,7 +62,7 @@ const Kids = () => {
     }
 
     useEffect(() =>{
-        if(!data.length){
+        /* if(!data.length){
             let kidsParams = getParams(window.location.href);
             let hasValues = false;
             let keys = Object.keys(kidsParams);
@@ -71,13 +71,14 @@ const Kids = () => {
                     hasValues = true; break
                 }
             }
-
+            
             if(kidsParams && hasValues){
                 loadKids(kidsParams);
             } else {
                 loadKidsData();
             }
-        }
+        } */
+        //loadKidsData();
     }, [data]);
     
     return (
@@ -96,7 +97,7 @@ const Kids = () => {
                     </> 
                     : 
                     <div className="p-8">
-                        <h3>carregando ...</h3>
+                        <h3>carregando ... </h3>
                     </div>
                 }
             </Grid>

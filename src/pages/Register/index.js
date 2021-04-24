@@ -47,10 +47,11 @@ const Register = (props) => {
     const [emailError, setEmailError] = useState(false);
     const [nameLogin, setNameLogin] = useState('');
     const [nameError, setNameError] = useState(false);
-    const [phoneLogin, setPhoneLogin] = useState('');
+/*     const [phoneLogin, setPhoneLogin] = useState('');
     const [phoneError, setPhoneError] = useState(false);
     const [genderLogin, setGenderLogin] = useState('');
     const [genderError, setGenderError] = useState(false);
+ */ 
     const [passwordLogin, setPasswordLogin] = useState('');
     const [passwordError, setPasswordError] = useState(false);
     const [confirmPasswordLogin, setConfirmPasswordLogin] = useState('');
@@ -82,12 +83,12 @@ const Register = (props) => {
         setNameLogin(e.target.value)
     }
 
-    const handlePhone = (value, data) => {
+/*     const handlePhone = (value, data) => {
         setPhoneLogin(value)
     }
     const handleGender = (e) => {
         setGenderLogin(e.target.value)
-    }
+    } */
 
     const handleEmail = (e) => {
         setEmailLogin(e.target.value)
@@ -107,7 +108,7 @@ const Register = (props) => {
             setNameError(true);
         } else { setNameError(false); }
 
-        if (!phoneLogin || phoneLogin === '' || phoneLogin === undefined) {
+/*         if (!phoneLogin || phoneLogin === '' || phoneLogin === undefined) {
             isValid = false;
             setPhoneError(true);
         } else { setPhoneError(false); }
@@ -115,7 +116,7 @@ const Register = (props) => {
         if (!genderLogin || genderLogin === '' || genderLogin === undefined) {
             isValid = false;
             setGenderError(true);
-        } else { setGenderError(false); }
+        } else { setGenderError(false); } */
 
         if (!passwordLogin || passwordLogin === '' || passwordLogin === undefined) {
             isValid = false;
@@ -141,7 +142,7 @@ const Register = (props) => {
                 addToast("Confirme sua senha novamente.", { appearance: 'error' });
             } else { setConfirmPasswordError(false); }
 
-            let request = await realizarCadastro({ email: emailLogin, password: passwordLogin, confirmPassword: confirmPasswordLogin, name: nameLogin, phone: phoneLogin, gender: genderLogin  });
+            let request = await realizarCadastro({ email: emailLogin, password: passwordLogin, confirmPassword: confirmPasswordLogin, name: nameLogin, /* phone: phoneLogin, gender: genderLogin */  });
             (request.status === 200) ? localStorage.setItem('token', request.data.token) : addToast(request.data.message, { appearance: 'error' });
             history.push("/");
         } else {
@@ -173,7 +174,7 @@ const Register = (props) => {
                                             <TextField variant="outlined" id="input-name" label="Nome" onChange={handleName} error={nameError} value={nameLogin} />
                                         </FormControl>
                                     </Grid>
-                                    <Grid item xs={12}>
+                                    {/* <Grid item xs={12}>
                                         <FormControl className="form-control">
                                             <PhoneInput
                                             country={'br'}
@@ -182,7 +183,7 @@ const Register = (props) => {
                                             className={phoneError ? 'required' : null}
                                             />
                                         </FormControl>
-                                    </Grid>
+                                    </Grid> */}
                                     <Grid item xs={12}>
                                         <FormControl variant="outlined" className="form-control">
                                             <InputLabel htmlFor="input-senha-label">Senha</InputLabel>
@@ -233,7 +234,7 @@ const Register = (props) => {
                                             />
                                         </FormControl>
                                     </Grid>
-                                    <Grid item xs={12}>
+                                   {/*  <Grid item xs={12}>
                                         <FormControl variant="outlined" className="form-control">
                                             <InputLabel id="input-gender-label">Sexo</InputLabel>
                                             <Select
@@ -248,7 +249,7 @@ const Register = (props) => {
                                                 <MenuItem value="F">Feminino</MenuItem>
                                             </Select>
                                         </FormControl>
-                                    </Grid>
+                                    </Grid> */}
                                 </Grid>
                                 <Grid container spacing={2} direction="row" justify="flex-end" alignItems="flex-end">
                                     <Grid item>
