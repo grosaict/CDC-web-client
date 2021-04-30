@@ -1,12 +1,12 @@
 import React from 'react';
 
 import AppBar from '../../components/AppBar';
-import FormItemRegister from '../../components/FormItemRegister';
+import FormKidCreate from '../../components/FormKidCreate';
 
 import Typography from '@material-ui/core/Typography';
 
 
-const ItemRegister = () => {
+const CreateKid = () => {
 
     return (
         <>
@@ -14,12 +14,12 @@ const ItemRegister = () => {
             <main className="fixed-main-wrapper p-8 pt-32">
                 <div className="welcome">
                     <Typography style={{ 'fontWeight': "bold" }} variant="h4" component="h2" >
-                        O que você está publicando?
+                        Informe os dados da criança
                     </Typography>
                 </div>
 
                 <div className="content-wrapper">
-                    <FormItemRegister/>
+                    <FormKidCreate/>
                 </div>
 
             </main>
@@ -29,4 +29,4 @@ const ItemRegister = () => {
 
 };
 
-export default ItemRegister;
+export default CreateKid;

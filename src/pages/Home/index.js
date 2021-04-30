@@ -15,7 +15,7 @@ const Home = (props) => {
                 <div id="div-button-register">
                     <Link 
                         to={{
-                            pathname: "/item/register",
+                            pathname: "/kid/create",
                           }}
                     >
                         <button type="button" id="button-register">

@@ -17,7 +17,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
-import { realizarLogin } from '../../services/api';
+import { userLogin } from '../../services/api';
 
 import { Link } from 'react-router-dom'
 
@@ -40,8 +40,8 @@ const Login = (props) => {
 
     const [ emailLogin, setEmailLogin ] = useState('');
     const [ emailError, setEmailError ] = useState(false);
-    const [ senhaLogin, setSenhaLogin ] = useState('');
-    const [ senhaError, setSenhaError ] = useState(false);
+    const [ pwdLogin, setPwdLogin ] = useState('');
+    const [ pwdError, setPwdError ] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
     const handleClickShowPassword = () => {
@@ -53,7 +53,7 @@ const Login = (props) => {
     };
 
     const handlePassword = (e) => {
-        setSenhaLogin(e.target.value)
+        setPwdLogin(e.target.value)
     }
 
     const handleEmail = (e) => {
@@ -69,10 +69,10 @@ const Login = (props) => {
             setEmailError(true);
         } else { setEmailError(false); }
 
-        if(!senhaLogin || senhaLogin === '' || senhaLogin === undefined){
+        if(!pwdLogin || pwdLogin === '' || pwdLogin === undefined){
             isValid = false;
-            setSenhaError(true);
-        } else { setSenhaError(false); }
+            setPwdError(true);
+        } else { setPwdError(false); }
 
         return isValid;
     }
@@ -81,8 +81,8 @@ const Login = (props) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if(verificarCamposPrenchidos()){
-            let request = await realizarLogin({email: emailLogin, password: senhaLogin});
+        if(true /* verificarCamposPrenchidos() */){         // #### RETIRAR COMENTÁRIOS E VALORES DEFAULT
+            let request = await userLogin({email: 'cdc1@mail.com'/* emailLogin */, password: 'cdc1'/* pwdLogin */});
             (request.status === 200) ? localStorage.setItem('token', request.data.token) : addToast(request.data.message, { appearance: 'error', placement: 'bottom-right' });
             history.push("/");
         } else {
@@ -111,13 +111,13 @@ const Login = (props) => {
                                     </Grid>
                                     <Grid item xs={12}>
                                         <FormControl variant="outlined" className="form-control">
-                                            <InputLabel htmlFor="input-senha-label">Senha</InputLabel>
+                                            <InputLabel htmlFor="input-pwd-label">Senha</InputLabel>
                                             <OutlinedInput
-                                                id="input-senha" 
+                                                id="input-pwd" 
                                                 type={showPassword ? 'text' : 'password'}
-                                                error={senhaError} 
-                                                value={senhaLogin}
-                                                label="Senha"
+                                                error={pwdError} 
+                                                value={pwdLogin}
+                                                label="Pwd"
                                                 onChange={handlePassword}
                                                 endAdornment={
                                                 <InputAdornment position="end">

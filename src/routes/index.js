@@ -7,7 +7,7 @@ import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Home from '../pages/Home';
 import KidDashboard from '../pages/KidDashboard';
-import ItemRegister from '../pages/ItemRegister';
+import CreateKid from '../pages/CreateKid';
 import ItemEdit from '../pages/ItemEdit';
 
 
@@ -28,7 +28,7 @@ export default function Routes() {
             <PrivateRoute exact path='/' component={Home}/>
             <PrivateRoute exact path='/item/edit/:id' component={ItemEdit}/>
             <PrivateRoute exact path='/item/detail/:id' component={KidDashboard}/>
-            <PrivateRoute exact path='/item/register' component={ItemRegister}/>
+            <PrivateRoute exact path='/kid/create' component={CreateKid}/>
             <Route exact path='/login' component={Login}/>
             <Route exact path='/register' component={Register}/>
             <PrivateRoute exact path='*' component={Error}/>

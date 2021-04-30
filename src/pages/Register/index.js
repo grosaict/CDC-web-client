@@ -6,8 +6,6 @@ import { useToasts } from 'react-toast-notifications';
 import { useHistory } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
@@ -19,10 +17,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
-import PhoneInput from 'react-phone-input-2'
-import 'react-phone-input-2/lib/style.css'
-
-import { realizarCadastro } from '../../services/api';
+import { createUser } from '../../services/api';
 import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles({
@@ -47,11 +42,6 @@ const Register = (props) => {
     const [emailError, setEmailError] = useState(false);
     const [nameLogin, setNameLogin] = useState('');
     const [nameError, setNameError] = useState(false);
-/*     const [phoneLogin, setPhoneLogin] = useState('');
-    const [phoneError, setPhoneError] = useState(false);
-    const [genderLogin, setGenderLogin] = useState('');
-    const [genderError, setGenderError] = useState(false);
- */ 
     const [passwordLogin, setPasswordLogin] = useState('');
     const [passwordError, setPasswordError] = useState(false);
     const [confirmPasswordLogin, setConfirmPasswordLogin] = useState('');
@@ -83,13 +73,6 @@ const Register = (props) => {
         setNameLogin(e.target.value)
     }
 
-/*     const handlePhone = (value, data) => {
-        setPhoneLogin(value)
-    }
-    const handleGender = (e) => {
-        setGenderLogin(e.target.value)
-    } */
-
     const handleEmail = (e) => {
         setEmailLogin(e.target.value)
     }
@@ -107,16 +90,6 @@ const Register = (props) => {
             isValid = false;
             setNameError(true);
         } else { setNameError(false); }
-
-/*         if (!phoneLogin || phoneLogin === '' || phoneLogin === undefined) {
-            isValid = false;
-            setPhoneError(true);
-        } else { setPhoneError(false); }
-
-        if (!genderLogin || genderLogin === '' || genderLogin === undefined) {
-            isValid = false;
-            setGenderError(true);
-        } else { setGenderError(false); } */
 
         if (!passwordLogin || passwordLogin === '' || passwordLogin === undefined) {
             isValid = false;
@@ -142,7 +115,7 @@ const Register = (props) => {
                 addToast("Confirme sua senha novamente.", { appearance: 'error' });
             } else { setConfirmPasswordError(false); }
 
-            let request = await realizarCadastro({ email: emailLogin, password: passwordLogin, confirmPassword: confirmPasswordLogin, name: nameLogin, /* phone: phoneLogin, gender: genderLogin */  });
+            let request = await createUser({ email: emailLogin, password: passwordLogin, confirmPassword: confirmPasswordLogin, name: nameLogin, /* phone: phoneLogin, gender: genderLogin */  });
             (request.status === 200) ? localStorage.setItem('token', request.data.token) : addToast(request.data.message, { appearance: 'error' });
             history.push("/");
         } else {
@@ -174,16 +147,6 @@ const Register = (props) => {
                                             <TextField variant="outlined" id="input-name" label="Nome" onChange={handleName} error={nameError} value={nameLogin} />
                                         </FormControl>
                                     </Grid>
-                                    {/* <Grid item xs={12}>
-                                        <FormControl className="form-control">
-                                            <PhoneInput
-                                            country={'br'}
-                                            value={phoneLogin}
-                                            onChange={handlePhone}
-                                            className={phoneError ? 'required' : null}
-                                            />
-                                        </FormControl>
-                                    </Grid> */}
                                     <Grid item xs={12}>
                                         <FormControl variant="outlined" className="form-control">
                                             <InputLabel htmlFor="input-senha-label">Senha</InputLabel>
@@ -234,22 +197,6 @@ const Register = (props) => {
                                             />
                                         </FormControl>
                                     </Grid>
-                                   {/*  <Grid item xs={12}>
-                                        <FormControl variant="outlined" className="form-control">
-                                            <InputLabel id="input-gender-label">Sexo</InputLabel>
-                                            <Select
-                                                id="input-categoria"
-                                                value={genderLogin}
-                                                onChange={handleGender}
-                                                style={{ width: 150 }}
-                                                label="Gender"
-                                                error={genderError}
-                                            >
-                                                <MenuItem value="M">Masculino</MenuItem>
-                                                <MenuItem value="F">Feminino</MenuItem>
-                                            </Select>
-                                        </FormControl>
-                                    </Grid> */}
                                 </Grid>
                                 <Grid container spacing={2} direction="row" justify="flex-end" alignItems="flex-end">
                                     <Grid item>

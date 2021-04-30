@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import AppBar from '../../components/AppBar';
-import FormItemRegister from '../../components/FormItemRegister';
+import FormKidCreate from '../../components/FormKidCreate';
 
 import { getKidById } from '../../services/api'
 
@@ -42,7 +42,7 @@ const ItemEdit = (props) => {
                 </div>
 
                 <div className="content-wrapper">
-                    <FormItemRegister dataEdit={data} idItem={idItem}/>
+                    <FormKidCreate dataEdit={data} idItem={idItem}/>
                 </div>
             </main>
         </>
