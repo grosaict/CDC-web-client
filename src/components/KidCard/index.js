@@ -27,6 +27,8 @@ export default function KidCard(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const [open, setOpen] = useState(false);
 
+            console.log(data)
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -58,11 +60,11 @@ export default function KidCard(props) {
   
   return (
     <>
-      <Link to={{ pathname: `/item/detail/${data._id}`, state: { id: data._id } }}>
+      <Link to={{ pathname: `/kid/detail/${data._id}`, state: { id: data._id } }}>
         <Card style={{height: '100%'}}>
             <CardHeader
-              avatar={<Avatar aria-label="recipe" className={classes.root}>{formatKidName(data.user.name)}</Avatar>}
-              title={"Ayla ("+format(new Date(data.createAt),'dd/MM/yyyy')+")" /* {data.user.name} */}
+              avatar={<Avatar aria-label="recipe" className={classes.root}>{formatKidName(data.name)}</Avatar>}
+              title={data.name+" ("+format(new Date(data.birth),'dd/MM/yyyy')+")"}
               subheader={"9 meses e 1 semana"}
             />
         </Card>

@@ -50,8 +50,6 @@ const FormKidCreate = (props) => {
     const [ kidNameError, setErrorName ] = useState(false);
     const [ kidBirth, setBirth ] = useState(new Date());
     const [ kidBirthError, setErrorBirth ] = useState(false);
-    const [ imagens, setImagens ] = useState(undefined);
-    const [ imagensPreview, setImagensPreview ] = useState([]);
 
     const handleChangeName = (e) => {
         setName(e.target.value);
@@ -94,16 +92,26 @@ const FormKidCreate = (props) => {
         const isFieldsOk = validateFields();
 
         if(isFieldsOk){
-            let formData = new FormData();
-            formData.append('kidGender', kidGender);
-            formData.append('kidName', kidName);
-            formData.append('kidBirth', kidBirth);
+            /* let formData = new FormData();
+            formData.append('name', kidName);
+            formData.append('birth', kidBirth);
+            formData.append('gender', kidGender); */
+
+            let newKid = {
+                        name: kidName,
+                        birth: kidBirth,
+                        gender: kidGender
+                    }
 
             let request;
             if(dataEdit?._id && idKid){
-                request = await updateKid(idKid, formData);
+                request = await updateKid(idKid, newKid);
+                /* request = await updateKid(idKid, formData); */
             } else {
-                request = await createKid(formData);
+/*                 console.log(kidName);
+                console.log(JSON.stringify(formData));
+                console.log(JSON.stringify(x)); */
+                request = await createKid(newKid);
             }
             if(request.status === 200) {
                 addToast(request.data.message, { appearance: 'success' })
@@ -115,7 +123,6 @@ const FormKidCreate = (props) => {
         } else {
             addToast('Preencha todos os campos obrigatórios!', { appearance: 'error' });
         }
-
     };
 
     useEffect(() =>{

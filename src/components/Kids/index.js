@@ -46,9 +46,9 @@ const Kids = () => {
                             data.length ? 
                                 <>
                                     {
-                                        data.map((item, index )=> (
+                                        data.map((kid, index )=> (
                                             <Grid item xs={12} sm={6} md={4} lg={4} key={`grid-kid-${index}`}>
-                                                <Card key={`card-kid-${index}`} data={item} />
+                                                <Card key={`card-kid-${index}`} data={kid} />
                                             </Grid>
                                         ))
                                     }

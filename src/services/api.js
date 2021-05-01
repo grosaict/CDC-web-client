@@ -13,7 +13,7 @@ export const getKids = async () => {
 
 export const getKidById = async (id) => {
     try {
-        return await axios.get(`http://localhost:5000/api/item/${id}`, {
+        return await axios.get(`http://localhost:5000/api/kid/${id}`, {
             headers: { token: localStorage.getItem('token') }
         });
     } catch (err) {
@@ -23,8 +23,8 @@ export const getKidById = async (id) => {
 
 export const createKid = async (data) => {
     try {
-        return await axios.post('http://localhost:5000/api/item/', data, {
-        headers: {'Content-Type': 'multipart/form-data', token: localStorage.getItem('token') }
+        return await axios.post('http://localhost:5000/api/kid/', data, {
+        headers: {'Content-Type': 'application/json'/* 'multipart/form-data' */, token: localStorage.getItem('token') }
     });
     } catch (err) {
         return (err.response)

@@ -11,8 +11,6 @@ import { getKidById } from '../../services/api'
 const KidDashboard = (props) => {
 
     const idKid = (props.location.state ? props.location.state.id : props.match.params.id);
-    const ARRAY_TIPO = ['Achado', 'Perdido'],
-    ARRAY_CATEGORIA = ['Chave', 'Carteira', 'Eletrônicos', 'Jóias e bijuterias', 'Relógio'];
 
     const [ data, setData ] = useState(undefined);
 
