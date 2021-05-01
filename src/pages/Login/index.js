@@ -86,7 +86,7 @@ const Login = (props) => {
             (request.status === 200) ? localStorage.setItem('token', request.data.token) : addToast(request.data.message, { appearance: 'error', placement: 'bottom-right' });
             history.push("/");
         } else {
-            addToast('Preencha todos os campos obrigatórios!', { appearance: 'error', placement: 'bottom-right' });
+            addToast('Preencha todos os campos obrigatórios!', { appearance: 'error', placement: 'bottom-right', autoDismissTimeout: 3000, autoDismiss: true });
         }
     }
 

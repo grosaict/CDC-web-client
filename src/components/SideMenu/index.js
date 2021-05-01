@@ -68,7 +68,7 @@ export default function SideMenu(props) {
 
     const buscaAvancada = () => {
         if(tipoSearch === '' && categoriaSearch === '' && dataFim === '' && dataInicio === '' && palavraSearch === '') {
-            addToast('Preencha pelo menos um dos campos para filtrar', { appearance: 'error', autoDismiss: true });
+            addToast('Preencha pelo menos um dos campos para filtrar', { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true });
             return false;
         }
         let query = `palavrasChave=${palavraSearch}&tipo=${tipoSearch}&categoria=${categoriaSearch}&dataInicio=${dataInicio ? format(new Date(dataInicio), 'yyyy-MM-dd') : ''}&dataFim=${dataFim ? format(new Date(dataFim), 'yyyy-MM-dd') : ''}`
@@ -77,7 +77,7 @@ export default function SideMenu(props) {
 
     const buscaSimples = () => {
         if(!palavraSearch || palavraSearch === ''){
-            addToast('Preencha pelo menos uma palavra chave ou termo para buscar', { appearance: 'error', autoDismiss: true });
+            addToast('Preencha pelo menos uma palavra chave ou termo para buscar', { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true });
             return false;
         }
         let query = encodeURIComponent(palavraSearch)

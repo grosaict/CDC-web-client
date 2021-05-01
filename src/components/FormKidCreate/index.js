@@ -114,14 +114,14 @@ const FormKidCreate = (props) => {
                 request = await createKid(newKid);
             }
             if(request.status === 200) {
-                addToast(request.data.message, { appearance: 'success' })
+                addToast(request.data.message, { appearance: 'success', autoDismissTimeout: 3000, autoDismiss: true });
                 setTimeout(() => { history.push("/") }, 1000)
             } else {
-                addToast(request.data.message, { appearance: 'error' });
+                addToast(request.data.message, { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true });
             }
             
         } else {
-            addToast('Preencha todos os campos obrigatórios!', { appearance: 'error' });
+            addToast('Preencha todos os campos obrigatórios!', { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true });
         }
     };
 
