@@ -5,7 +5,7 @@ import Card from '../KidCard';
 import Grid from '@material-ui/core/Grid';
 
 import { getKids } from '../../services/api'
-import { search } from '../../services/api'
+//import { search } from '../../services/api'
 
 const useStyles = makeStyles((theme) => ({
     root: {

@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import { useHistory } from 'react-router-dom';
 
 
-const ItemEdit = (props) => {
+const KidEdit = (props) => {
 
     const idItem = (props.location.state ? props.location.state.id : props.match.params.id);
     const history = useHistory();
@@ -51,4 +51,4 @@ const ItemEdit = (props) => {
 
 };
 
-export default ItemEdit;
+export default KidEdit;

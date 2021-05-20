@@ -81,9 +81,11 @@ const Login = (props) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if(true /* verificarCamposPrenchidos() */){         // #### RETIRAR COMENTÁRIOS E VALORES DEFAULT
-            let request = await userLogin({email: 'cdc1@mail.com'/* emailLogin */, password: 'cdc1'/* pwdLogin */});
-            (request.status === 200) ? localStorage.setItem('token', request.data.token) : addToast(request.data.message, { appearance: 'error', placement: 'bottom-right' });
+/*         if(true){         // #### DESATIVAR MOCK APOS TESTES
+            let request = await userLogin({email: 'cdc1@mail.com', password: 'cdc1'}); */
+        if(verificarCamposPrenchidos()){
+            let request = await userLogin({email: emailLogin, password: pwdLogin});
+            (request.status === 200) ? localStorage.setItem('token', request.data.token) : addToast(request.data.message, { appearance: 'error', placement: 'bottom-right', autoDismissTimeout: 3000, autoDismiss: true });
             history.push("/");
         } else {
             addToast('Preencha todos os campos obrigatórios!', { appearance: 'error', placement: 'bottom-right', autoDismissTimeout: 3000, autoDismiss: true });
@@ -106,7 +108,7 @@ const Login = (props) => {
                                 <Grid container spacing={2}>
                                     <Grid item xs={12}>
                                         <FormControl className="form-control">
-                                            <TextField variant="outlined" id="input-email" label="E-mail" onChange={handleEmail} error={emailError} value={emailLogin}/>
+                                            <TextField variant="outlined" id="input-email" type="email" label="E-mail" onChange={handleEmail} error={emailError} value={emailLogin}/>
                                         </FormControl>
                                     </Grid>
                                     <Grid item xs={12}>

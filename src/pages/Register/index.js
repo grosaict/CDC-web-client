@@ -112,14 +112,16 @@ const Register = (props) => {
 
             if(passwordLogin !== confirmPasswordLogin){
                 setConfirmPasswordError(true);
-                addToast("Confirme sua senha novamente.", { appearance: 'error' });
-            } else { setConfirmPasswordError(false); }
+                addToast("Confirme sua senha novamente.", { appearance: 'error', placement: 'bottom-right', autoDismissTimeout: 3000, autoDismiss: true  });
+            } else {
+                setConfirmPasswordError(false);
+                let request = await createUser({ email: emailLogin, password: passwordLogin, confirmPassword: confirmPasswordLogin, name: nameLogin });
+                (request.status === 200) ? localStorage.setItem('token', request.data.token) : addToast(request.data.message, { appearance: 'error', placement: 'bottom-right', autoDismissTimeout: 3000, autoDismiss: true  });
+                history.push("/");
+            }
 
-            let request = await createUser({ email: emailLogin, password: passwordLogin, confirmPassword: confirmPasswordLogin, name: nameLogin, /* phone: phoneLogin, gender: genderLogin */  });
-            (request.status === 200) ? localStorage.setItem('token', request.data.token) : addToast(request.data.message, { appearance: 'error' });
-            history.push("/");
         } else {
-            addToast('Preencha todos os campos obrigatórios!', { appearance: 'error' });
+            addToast('Preencha todos os campos obrigatórios!', { appearance: 'error', placement: 'bottom-right', autoDismissTimeout: 3000, autoDismiss: true });
         }
     }
 
@@ -139,7 +141,7 @@ const Register = (props) => {
                                 <Grid container spacing={2}>
                                     <Grid item xs={12}>
                                         <FormControl className="form-control">
-                                            <TextField variant="outlined" id="input-email" label="E-mail" onChange={handleEmail} error={emailError} value={emailLogin} />
+                                            <TextField variant="outlined" id="input-email" type="email" label="E-mail" onChange={handleEmail} error={emailError} value={emailLogin} />
                                         </FormControl>
                                     </Grid>
                                     <Grid item xs={12}>

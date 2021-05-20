@@ -41,13 +41,13 @@ export const updateKid = async (id, data) => {
     }
 } 
 
-export const desativarItem = async (id) => {
+/* export const desativarItem = async (id) => {
     try {
         return await axios.put(`http://localhost:5000/api/item/deactivate/${id}`);
     } catch (err) {
         return (err.response)
     }
-} 
+}  */
 
 export const userLogin = async (data) => {
     try {
@@ -65,7 +65,7 @@ export const createUser = async (data) => {
     }
 } 
 
-export const search = async (isAdvanced, query) => {
+/* export const search = async (isAdvanced, query) => {
     let urlSearch = 'http://localhost:5000/api/search/?query=' + query;
     if(isAdvanced){
         urlSearch = 'http://localhost:5000/api/search/advanced/' + query;
@@ -78,4 +78,4 @@ export const search = async (isAdvanced, query) => {
     } catch (err) {
         return (err.response)
     }
-} 
+}  */

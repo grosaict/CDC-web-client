@@ -7,12 +7,9 @@ import Typography from '@material-ui/core/Typography';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import { Link } from "react-router-dom";
 import SideMenu from '../SideMenu';
 import Auth from '../../services/auth'
 
@@ -24,10 +21,10 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   title: {
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
+    display: 'block',   /* 'block', */
+    /* [theme.breakpoints.up('sm')]: {
       display: 'block',
-    },
+    }, */
   },
   search: {
     position: 'relative',
@@ -184,15 +181,15 @@ export default function AppBarMenu() {
     <div className={classes.grow}>
       <AppBar position="fixed" id="div-menu-father">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-            onClick={openSideBarMenu}
-          >
+          {/* <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="open drawer"
+              onClick={openSideBarMenu}
+            >
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
           <Typography className={classes.title} variant="h6" noWrap>
             <a href="/">Caderneta da Criança</a>
           </Typography>
@@ -211,13 +208,13 @@ export default function AppBarMenu() {
                   </Badge>
                 </IconButton>
                 <IconButton
-                  edge="end"
-                  aria-label="account of current user"
-                  aria-controls={menuId}
-                  aria-haspopup="true"
-                  onClick={handleProfileMenuOpen}
-                  color="inherit"
-                >
+                    edge="end"
+                    aria-label="account of current user"
+                    aria-controls={menuId}
+                    aria-haspopup="true"
+                    onClick={handleProfileMenuOpen}
+                    color="inherit"
+                  >
                   <AccountCircle />
                 </IconButton>
               </div>
@@ -229,7 +226,7 @@ export default function AppBarMenu() {
                   onClick={handleMobileMenuOpen}
                   color="inherit"
                 >
-                  <MoreIcon />
+                <MoreIcon />
                 </IconButton>
               </div>
             </>

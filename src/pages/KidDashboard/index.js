@@ -3,8 +3,7 @@ import React, { useEffect, useState } from 'react';
 import AppBar from '../../components/AppBar';
 import WhoChart from '../../components/WhoChart';
 import Card from '@material-ui/core/Card';
-import Typography from '@material-ui/core/Typography';
-import { format } from 'date-fns'
+//import { format } from 'date-fns'
 import { getKidById } from '../../services/api'
 
 
@@ -26,10 +25,10 @@ const KidDashboard = (props) => {
         console.log(data)
     }, [data]) */
 
-    const formatDate = (date) => {
+    /* const formatDate = (date) => {
         date = new Date(date)
         return format(new Date(date), 'dd/MM/yyyy')
-    }
+    } */
 
     const chartData = {
         title: 'Gráfico de peso para meninas de 0 a 2 anos',
