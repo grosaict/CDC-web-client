@@ -55,7 +55,9 @@ const Kids = () => {
                                 </> 
                             : 
                                 <div className="p-8">
-                                    <h3>Sem nada ... </h3>
+                                    <h4>Adicione uma criança </h4>
+                                    <img src="../imgs/arrow-310622_960_720.png" alt="Adicionar Crinaça" width="60%"></img>
+                                    {/* <img src="https://cdn.pixabay.com/photo/2014/04/03/10/29/arrow-310622_960_720.png" alt="Adicionar Crinaça" width="60%"></img> */}
                                 </div>
                         }
                         </> 
