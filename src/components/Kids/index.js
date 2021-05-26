@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '../KidCard';
 import Grid from '@material-ui/core/Grid';
@@ -9,7 +8,7 @@ import { getKids } from '../../services/api'
 
 const useStyles = makeStyles((theme) => ({
     root: {
-      flexGrow: 1,
+        flexGrow: 1,
     },
 }));
 
@@ -55,9 +54,9 @@ const Kids = () => {
                                 </> 
                             : 
                                 <div className="p-8">
-                                    <h4>Adicione uma criança </h4>
-                                    <img src="../imgs/arrow-310622_960_720.png" alt="Adicionar Crinaça" width="60%"></img>
-                                    {/* <img src="https://cdn.pixabay.com/photo/2014/04/03/10/29/arrow-310622_960_720.png" alt="Adicionar Crinaça" width="60%"></img> */}
+                                    {/* <h4>Adicione uma criança </h4> */}
+                                    <img src="https://github.com/grosaict/CDC-web-client/blob/master/src/imgs/arrow-310622_960_720_2.png?raw=true" alt="Adicionar Crinaça" width="80%" top="50%"></img>
+                                    {/* <img src="https://cdn.pixabay.com/photo/2014/04/03/10/29/arrow-310622_960_720.png" alt="Adicionar Criança" width="60%"></img> */}
                                 </div>
                         }
                         </> 

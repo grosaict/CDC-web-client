@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(2),
   },
   title: {
-    display: 'block',   /* 'block', */
+    display: 'block',   /* 'none', */
     /* [theme.breakpoints.up('sm')]: {
       display: 'block',
     }, */
@@ -77,7 +78,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function AppBarMenu() {
+export default function AppBarMenu(props) {
+  const kid = props.data;
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -117,6 +119,11 @@ export default function AppBarMenu() {
     setSideBarMenuShow(!sideBarMenuShow);
   }
 
+  const sideMenuProps = {
+    kid     : kid,
+    onClose : openSideBarMenu
+  }
+
   useEffect(() => {
     //desativar scroll
   }, [sideBarMenuShow]);
@@ -147,14 +154,6 @@ export default function AppBarMenu() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      {/* <MenuItem>
-        <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem> */}
       <MenuItem>
         <IconButton aria-label="show 11 new notifications" color="inherit">
           <Badge badgeContent={11} color="primary">
@@ -181,15 +180,17 @@ export default function AppBarMenu() {
     <div className={classes.grow}>
       <AppBar position="fixed" id="div-menu-father">
         <Toolbar>
-          {/* <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="open drawer"
-              onClick={openSideBarMenu}
-            >
-            <MenuIcon />
-          </IconButton> */}
+          { kid && kid._id ? 
+            <IconButton
+                edge="start"
+                className={classes.menuButton}
+                color="inherit"
+                aria-label="open drawer"
+                onClick={openSideBarMenu}
+              >
+              <MenuIcon />
+            </IconButton>
+          : null }
           <Typography className={classes.title} variant="h6" noWrap>
             <a href="/">Caderneta da Criança</a>
           </Typography>
@@ -197,11 +198,6 @@ export default function AppBarMenu() {
           { Auth.isAuthenticated() ?
             <>
               <div className={classes.sectionDesktop}>
-                {/* <IconButton aria-label="show 4 new mails" color="inherit">
-                  <Badge badgeContent={4} color="primary">
-                    <MailIcon />
-                  </Badge>
-                </IconButton> */}
                 <IconButton aria-label="show 17 new notifications" color="inherit">
                   <Badge badgeContent={17} color="primary">
                     <NotificationsIcon />
@@ -235,7 +231,7 @@ export default function AppBarMenu() {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
-      { sideBarMenuShow ? <SideMenu onClose={openSideBarMenu} /> : null }
+      { sideBarMenuShow ? <SideMenu data={sideMenuProps} /> : null }
     </div>
   );
 }
