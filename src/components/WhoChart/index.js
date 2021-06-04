@@ -2,18 +2,18 @@ import React from 'react';
 import { Chart } from "react-google-charts";
 
 export default function WhoChart(props) {
-    const dataChart = props;
+    const dataChart = props.data;
 
     return (
         <Chart
             chartType="LineChart"
             loader={<div>Loading Chart</div>}
-            data={dataChart.data.data}
+            data={dataChart.data}
             options={{
-                title: dataChart.data.title,
+                title: dataChart.title,
                 height: 300,
                 hAxis: {
-                    title: dataChart.data.hAxis,
+                    title: dataChart.hAxis,
                     format: 0,
                     /* baseline: 24, */
                     gridlines: {
@@ -27,7 +27,7 @@ export default function WhoChart(props) {
                     },
                 },
                 vAxis: {
-                    title: dataChart.data.vAxis,
+                    title: dataChart.vAxis,
                 },
                 curveType: 'function',
                 legend: {

@@ -79,7 +79,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AppBarMenu(props) {
-  const kid = props.data;
+  console.log(props);
+  const data = props.data;
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -117,11 +118,6 @@ export default function AppBarMenu(props) {
 
   const openSideBarMenu = () => {
     setSideBarMenuShow(!sideBarMenuShow);
-  }
-
-  const sideMenuProps = {
-    kid     : kid,
-    onClose : openSideBarMenu
   }
 
   useEffect(() => {
@@ -180,7 +176,7 @@ export default function AppBarMenu(props) {
     <div className={classes.grow}>
       <AppBar position="fixed" id="div-menu-father">
         <Toolbar>
-          { kid && kid._id ? 
+          { data && data.kid._id ? 
             <IconButton
                 edge="start"
                 className={classes.menuButton}
@@ -231,7 +227,10 @@ export default function AppBarMenu(props) {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
-      { sideBarMenuShow ? <SideMenu data={sideMenuProps} /> : null }
+      { sideBarMenuShow ? <SideMenu data={{
+                                            switchKidDashboard : data.switchKidDashboard,
+                                            onClose : openSideBarMenu
+                                          }} /> : null }
     </div>
   );
 }

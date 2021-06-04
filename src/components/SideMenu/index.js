@@ -8,12 +8,10 @@ import LocalHospitalRoundedIcon from '@material-ui/icons/LocalHospitalRounded';
 import SquareFootRoundedIcon from '@material-ui/icons/SquareFootRounded';
 import BugReportRoundedIcon from '@material-ui/icons/BugReportRounded';
 
-import Measures from '../../components/Measures';
-
 export default function SideMenu(props) {
 
-    const kid = props.data.kid;
-    const onClose = props.data.onClose;
+    const onClose               = props.data.onClose;
+    const switchKidDashboard    = props.data.switchKidDashboard;
 
     const [heigth, setHeigth] = useState(0);
     const [width, setWidth] = useState(0);
@@ -35,9 +33,24 @@ export default function SideMenu(props) {
             onClose();
         }
     }
-
+    
+    const openPediatrics = (e) => {
+        if(e.target === e.currentTarget){
+            switchKidDashboard('Pediatrics');
+            onClose();
+        }
+    }    
+    
     const openMeasures = (e) => {
         if(e.target === e.currentTarget){
+            switchKidDashboard('Measures');
+            onClose();
+        }
+    }
+    
+    const openVaccines = (e) => {
+        if(e.target === e.currentTarget){
+            switchKidDashboard('Vaccines');
             onClose();
         }
     }
@@ -57,11 +70,11 @@ export default function SideMenu(props) {
             <div className="menu-panel" style={{height: heigth, width: width}}>
                 <MenuList>
 
-                    <MenuItem onClick={closeMenuPanel}>
-                        <ListItemIcon onClick={closeMenuPanel}>
-                            <LocalHospitalRoundedIcon className="side-menu-green" fontSize="small" onClick={closeMenuPanel}/>
+                    <MenuItem onClick={openPediatrics}>
+                        <ListItemIcon onClick={openPediatrics}>
+                            <LocalHospitalRoundedIcon className="side-menu-green" fontSize="small" onClick={openPediatrics}/>
                         </ListItemIcon>
-                        <Typography className="side-menu-green" variant="inherit" onClick={closeMenuPanel}>Consultas</Typography>
+                        <Typography className="side-menu-green" variant="inherit" onClick={openPediatrics}>Consultas</Typography>
                     </MenuItem>
 
                     <MenuItem onClick={openMeasures}>
@@ -71,11 +84,11 @@ export default function SideMenu(props) {
                         <Typography className="side-menu-green" variant="inherit" onClick={openMeasures}>Medidas</Typography>
                     </MenuItem>
                     
-                    <MenuItem onClick={closeMenuPanel}>
-                        <ListItemIcon onClick={closeMenuPanel}>
-                            <BugReportRoundedIcon className="side-menu-green" fontSize="small" onClick={closeMenuPanel}/>
+                    <MenuItem onClick={openVaccines}>
+                        <ListItemIcon onClick={openVaccines}>
+                            <BugReportRoundedIcon className="side-menu-green" fontSize="small" onClick={openVaccines}/>
                         </ListItemIcon>
-                        <Typography className="side-menu-green" variant="inherit" onClick={closeMenuPanel}>Vacinas</Typography>
+                        <Typography className="side-menu-green" variant="inherit" onClick={openVaccines}>Vacinas</Typography>
                     </MenuItem>
                     
                 </MenuList>
