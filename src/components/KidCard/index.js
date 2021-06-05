@@ -22,53 +22,43 @@ const useStylesM = makeStyles((theme) => ({
 }));
 
 const ageCalculator = (birth) => {
-  const today = new Date(new Date().getFullYear(), new Date().getMonth() ,new Date().getDate()) // hoje desconsiderando as horas
-  const diff  = Math.abs(today.getTime() - birth.getTime()) // subtraindo hoje da data de nascimento em milisengundos
-
-  console.log(birth)
-  console.log(today)
-  console.log(diff)
-
+  // GETTING NOW AT 00:00 GMT
+  const today = new Date(new Date().getFullYear(), new Date().getMonth() ,new Date().getDate())
+  // AGE IN MILLISECONDS
+  const diff  = Math.abs(today.getTime() - birth.getTime())
 
   // ### DAYS
-  const days  = Math.ceil(diff / (1000 * 60 * 60 * 24)); // calculando a quantidade de dias entre as datas
-  console.log(days)
+  // CONVERTING MILLISECONDS IN DAYS
+  const days  = Math.ceil(diff / (1000 * 60 * 60 * 24));
   if (days < 7) {
-    return days+" dia(s)"
+    return days+" dia(s) de idade"
   }
 
   // ### WEEKS
- /*  let num = days / 7;
-  const [w = 0, d = 0] = num.toString()
-  .split('.')
-  .map((num) => parseInt(num)); */
-
-  let weeks = Math.trunc(days / 7)
-  let d     = days - (weeks * 7)
-  console.log(weeks, d)
-
+  const weeks = Math.trunc(days / 7)
+  let   d     = days - (weeks * 7)
   if (weeks < 4) {
-    return weeks+" semana(s) e "+d+" dia(s)"
+    return weeks+" semana(s) e "+d+" dia(s) de idade"
   }
 
   // ### MONTHS
-  const   months = Math.trunc(weeks / 4)
-  console.log('months '+months)
+  const months = Math.trunc(weeks / 4)
+  let   w       = weeks - (months * 4)
   if (months < 12) {
     if (months === 1) {
-      return months+" mês"
+      return months+" mês e "+w+" semana(s) de idade"
     } else {
-      return months+" meses"
+      return months+" meses e "+w+" semana(s) de idade"
     }
   }
 
   // ### YEARS
   const years = Math.trunc(months / 12)
   let   m     = months - (years * 12)
-  if (years === 1) {
-    return years+" ano e "+m+" meses"
+  if (m === 1) {
+    return years+" ano(s) e "+m+" mês de idade"
   } else {
-    return years+" anos e "+m+" meses"
+    return years+" ano(s) e "+m+" meses de idade"
   }
 }
 

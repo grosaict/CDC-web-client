@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import AppBar from '../../components/AppBar';
+import KidCard from '../../components/KidCard';
 import Measures from '../../components/Measures';
 
 //import { format } from 'date-fns'
@@ -63,6 +64,8 @@ const KidDashboard = (props) => {
             <main className="fixed-main-wrapper p-8 p-32">
                 { data && data.kid._id ?
                     <>
+                        <KidCard data={data.kid} />
+                        <br/>
                         { pediatricsShow    ? <p>CONSULTAS</p>              : null }
                         { measuresShow      ? <Measures data={data.kid}/>   : null }
                         { vaccinesShow      ? <p>VACINAS</p>                : null }

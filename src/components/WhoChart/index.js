@@ -46,7 +46,7 @@ export default function WhoChart(props) {
                         color: 'blue',
                         lineDashStyle: [8],
                         lineWidth: 4,
-                        visibleInLegend: false,
+                        visibleInLegend: false
                     },
                 },
             }}
