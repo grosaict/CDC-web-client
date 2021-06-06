@@ -13,13 +13,13 @@ const KidDashboard = (props) => {
 
     const [ data, setData ] = useState(undefined);
     const [pediatricsShow,  setPediatricsShow]      = useState(false);
-    const [measuresShow,    setMeasuresShow]        = useState(false);
-    const [vaccinesShow,    setVaccinesShowShow]    = useState(false);
+    const [measuresShow,    setMeasuresShow]        = useState(true);
+    const [vaccinesShow,    setVaccinesShow]    = useState(false);
 
     const switchKidDashboard = (showComponent) => {
         setPediatricsShow(false);
         setMeasuresShow(false);
-        setVaccinesShowShow(false);
+        setVaccinesShow(false);
         switch (showComponent){
             case 'Pediatrics':
                 setPediatricsShow(true);
@@ -28,12 +28,12 @@ const KidDashboard = (props) => {
                 setMeasuresShow(true);
                 break;
             case 'Vaccines':
-                setVaccinesShowShow(true);
+                setVaccinesShow(true);
                 break;
             default:
                 setPediatricsShow(false);
                 setMeasuresShow(false);
-                setVaccinesShowShow(false);
+                setVaccinesShow(false);
         }
     }
 
@@ -65,7 +65,6 @@ const KidDashboard = (props) => {
                 { data && data.kid._id ?
                     <>
                         <KidCard data={data.kid} />
-                        <br/>
                         { pediatricsShow    ? <p>CONSULTAS</p>              : null }
                         { measuresShow      ? <Measures data={data.kid}/>   : null }
                         { vaccinesShow      ? <p>VACINAS</p>                : null }
