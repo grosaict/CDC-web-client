@@ -8,8 +8,7 @@ import Register from '../pages/Register';
 import Home from '../pages/Home';
 import KidDashboard from '../pages/KidDashboard';
 import CreateKid from '../pages/CreateKid';
-//import ItemEdit from '../pages/ItemEdit';
-
+import EditMeasures from '../pages/EditMeasures';
 
 const PrivateRoute = ({component: Component, ...rest}) => (
     <Route {...rest} render={props => (
@@ -26,9 +25,9 @@ export default function Routes() {
       <BrowserRouter>
         <Switch>
             <PrivateRoute exact path='/' component={Home}/>
-            {/* <PrivateRoute exact path='/item/edit/:id' component={ItemEdit}/> */}
             <PrivateRoute exact path='/kid/detail/:id' component={KidDashboard}/>
             <PrivateRoute exact path='/kid/create' component={CreateKid}/>
+            <PrivateRoute exact path='/kid/measure/:id' component={EditMeasures}/>
             <Route exact path='/login' component={Login}/>
             <Route exact path='/register' component={Register}/>
             <PrivateRoute exact path='*' component={Error}/>

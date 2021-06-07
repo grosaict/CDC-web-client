@@ -5,7 +5,7 @@ import Kids from '../../components/Kids';
 import { Link } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
 
-const Home = (props) => {
+const Home = () => {
 
     return (
         <>
@@ -13,17 +13,12 @@ const Home = (props) => {
             <main className="fixed-main-wrapper p-8 pt-32">
                 <Kids/>
                 <div id="div-button-register">
-                    <Link 
-                        to={{
-                            pathname: "/kid/create",
-                          }}
-                    >
+                    <Link to={{ pathname: "/kid/create" }} >
                         <button type="button" id="button-register">
                             <AddIcon className="icon" color="primary"/>
                         </button>
                     </Link>
                 </div>
-                
             </main>
         </>
     );

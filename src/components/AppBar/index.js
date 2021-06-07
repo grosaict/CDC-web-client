@@ -79,8 +79,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AppBarMenu(props) {
-  console.log(props);
   const data = props.data;
+  console.log(data);  // ### APAGAR <<<<<<<<<<<<<<<<<<<<<<<
+
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
@@ -176,7 +177,7 @@ export default function AppBarMenu(props) {
     <div className={classes.grow}>
       <AppBar position="fixed" id="div-menu-father">
         <Toolbar>
-          { data && data.kid._id ? 
+          { data ? 
             <IconButton
                 edge="start"
                 className={classes.menuButton}
@@ -228,9 +229,9 @@ export default function AppBarMenu(props) {
       {renderMobileMenu}
       {renderMenu}
       { sideBarMenuShow ? <SideMenu data={{
-                                            switchKidDashboard : data.switchKidDashboard,
-                                            onClose : openSideBarMenu
-                                          }} /> : null }
+                                      switchKidDashboard : data.switchKidDashboard,
+                                      onClose            : openSideBarMenu
+                                    }} /> : null }
     </div>
   );
 }

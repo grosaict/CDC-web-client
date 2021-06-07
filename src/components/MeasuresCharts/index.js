@@ -6,8 +6,8 @@ import WhoChart from '../WhoChart';
 export default function MeasuresCharts(props) {
     const kid               = props.data;
     const weightChartData   = setWeightChart(kid);
-    const lengthChartData   = setWeightChart(kid);
-    const headChartData     = setWeightChart(kid);
+    const lengthChartData   = setLengthChart(kid);
+    const headChartData     = setHeadChart(kid);
 
     function setWeightChart(k) {
         let indexWHO, paramTitle
@@ -83,24 +83,33 @@ export default function MeasuresCharts(props) {
 
         let paramData   = []
         paramData[0]    = ['x', '3', '2', '1', '0', '-1', '-2', '-3', k.name]
-        let isSetW      = false
-        for (let index = 0; index < k.measures.table.length; index++) {
-            paramData[index+1]          = weightDataWHO[indexWHO][index]
-            if (k.measures.table[index].isSetW) {
-                paramData[index+1][8]   = k.measures.table[index].weight
-                isSetW                  = true
+        let isSet       = false
+        for (let index = 0; index < k.measures.length; index++) {
+            paramData[index+1]      = weightDataWHO[indexWHO][index]
+            if (k.measures[index].isSetW){
+                isSet                   = true
+                paramData[index+1][8]   = k.measures[index].weight
             } else {
-                paramData[index+1][8]      = null
+                paramData[index+1][8]   = null
             }
+            
         }
-        console.log(paramData)  // #### APAGAR
+        // console.log(paramData)  // #### APAGAR
 
-        return isSetW ? {
+        return isSet ? {
                             title:  paramTitle,
                             data:   paramData,
                             hAxis: 'Idade (meses)',
                             vAxis: 'Peso (kg)'
                         } : null
+    }
+
+    function setLengthChart(k) {
+        return setWeightChart(k)
+    }
+
+    function setHeadChart(k) {
+        return setWeightChart(k)
     }
 
     return (

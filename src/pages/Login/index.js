@@ -34,15 +34,15 @@ const useStyles = makeStyles({
 
 const Login = (props) => {
 
-    const classes = useStyles();
-    const { addToast } = useToasts();
-    const history = useHistory();
+    const classes       = useStyles();
+    const { addToast }  = useToasts();
+    const history       = useHistory();
 
-    const [ emailLogin, setEmailLogin ] = useState('');
-    const [ emailError, setEmailError ] = useState(false);
-    const [ pwdLogin, setPwdLogin ] = useState('');
-    const [ pwdError, setPwdError ] = useState(false);
-    const [showPassword, setShowPassword] = useState(false);
+    const [ emailLogin, setEmailLogin ]     = useState('');
+    const [ emailError, setEmailError ]     = useState(false);
+    const [ pwdLogin, setPwdLogin ]         = useState('');
+    const [ pwdError, setPwdError ]         = useState(false);
+    const [ showPassword, setShowPassword ] = useState(false);
 
     const handleClickShowPassword = () => {
         setShowPassword(!showPassword);

@@ -63,18 +63,18 @@ const ageCalculator = (birth) => {
 }
 
 export default function KidCard(props) {
-  const { data } = props;
+  const k = props.data;
   const classesF = useStylesF();
   const classesM = useStylesM();
 
   return (
     <>
-      <Link to={{ pathname: `/kid/detail/${data._id}`, state: { id: data._id } }}>
+      <Link to={{ pathname: `/kid/detail/${k._id}`, state: { id: k._id } }}>
         <Card style={{height: '100%'}}>
             <CardHeader
-              avatar={<Avatar aria-label="recipe" className={(data.gender === 'F') ? classesF.root : classesM.root}>{data.name.substring(0, 1)/* formatKidName(data.name) */}</Avatar>}
-              title={data.name+" ("+format(new Date(data.birth),'dd/MM/yyyy')+")"}
-              subheader={ageCalculator(new Date(data.birth))}
+              avatar={<Avatar aria-label="recipe" className={(k.gender === 'F') ? classesF.root : classesM.root}>{k.name.substring(0, 1) }</Avatar>}
+              title={k.name+" ("+format(new Date(k.birth),'dd/MM/yyyy')+")"}
+              subheader={ageCalculator(new Date(k.birth))}
             />
         </Card>
       </Link>

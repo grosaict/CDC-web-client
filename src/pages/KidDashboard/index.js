@@ -4,7 +4,6 @@ import AppBar from '../../components/AppBar';
 import KidCard from '../../components/KidCard';
 import Measures from '../../components/Measures';
 
-//import { format } from 'date-fns'
 import { getKidById } from '../../services/api'
 
 const KidDashboard = (props) => {
@@ -12,22 +11,25 @@ const KidDashboard = (props) => {
     const idKid = (props.location.state ? props.location.state.id : props.match.params.id);
 
     const [ data, setData ] = useState(undefined);
-    const [pediatricsShow,  setPediatricsShow]      = useState(false);
-    const [measuresShow,    setMeasuresShow]        = useState(true);
+    const [pediatricsShow,  setPediatricsShow]  = useState(false);
+    const [measuresShow,    setMeasuresShow]    = useState(true);
     const [vaccinesShow,    setVaccinesShow]    = useState(false);
 
     const switchKidDashboard = (showComponent) => {
-        setPediatricsShow(false);
-        setMeasuresShow(false);
-        setVaccinesShow(false);
         switch (showComponent){
             case 'Pediatrics':
                 setPediatricsShow(true);
+                setMeasuresShow(false);
+                setVaccinesShow(false);
                 break;
             case 'Measures':
+                setPediatricsShow(false);
                 setMeasuresShow(true);
+                setVaccinesShow(false);
                 break;
             case 'Vaccines':
+                setPediatricsShow(false);
+                setMeasuresShow(false);
                 setVaccinesShow(true);
                 break;
             default:
@@ -41,7 +43,7 @@ const KidDashboard = (props) => {
         const loadKid = async () => {
             let { data } = await getKidById(idKid);
             let props = {
-                kid: data.data,
+                kid:                data.data,
                 switchKidDashboard: switchKidDashboard
             }
             setData(props)
@@ -52,11 +54,6 @@ const KidDashboard = (props) => {
     /* useEffect(() =>{         ### pode ser útil
         console.log(data)
     }, [data]) */
-
-    /* const formatDate = (date) => {
-        date = new Date(date)
-        return format(new Date(date), 'dd/MM/yyyy')
-    } */
 
     return (
         <>

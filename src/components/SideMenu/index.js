@@ -22,9 +22,9 @@ export default function SideMenu(props) {
 
     const getMaxWidth = () => {
         if(window.innerWidth < 768){
-            setWidth('100%');
+            setWidth('60%');
         } else {
-            setWidth('40vw');
+            setWidth('20vw');
         }
     }
 

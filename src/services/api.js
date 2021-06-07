@@ -39,15 +39,7 @@ export const updateKid = async (id, data) => {
     } catch (err) {
         return (err.response)
     }
-} 
-
-/* export const desativarItem = async (id) => {
-    try {
-        return await axios.put(`http://localhost:5000/api/item/deactivate/${id}`);
-    } catch (err) {
-        return (err.response)
-    }
-}  */
+}
 
 export const userLogin = async (data) => {
     try {
@@ -63,19 +55,4 @@ export const createUser = async (data) => {
     } catch (err) {
         return (err.response)
     }
-} 
-
-/* export const search = async (isAdvanced, query) => {
-    let urlSearch = 'http://localhost:5000/api/search/?query=' + query;
-    if(isAdvanced){
-        urlSearch = 'http://localhost:5000/api/search/advanced/' + query;
-    }
-
-    try {
-        return await axios.get(urlSearch, {
-            headers: { token: localStorage.getItem('token') }
-        });
-    } catch (err) {
-        return (err.response)
-    }
-}  */
+}
