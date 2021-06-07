@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from '@material-ui/core/Card';
+import Typography from '@material-ui/core/Typography';
 
 import WhoChart from '../WhoChart';
 
@@ -119,7 +120,10 @@ export default function MeasuresCharts(props) {
                     <Card className="card-detail">
                         <div className="main-wrapper">
                             <div className="title-container"> 
-                                { weightChartData ? <WhoChart data={weightChartData}/> : <p>Medidas de peso não informadas</p> }
+                                { weightChartData   ? <WhoChart data={weightChartData}/>
+                                                    : <Typography className="side-menu-green" variant="caption" >
+                                                        Medidas de peso não informadas<br/>Acesse MEDIÇÕES para adicioná-las
+                                                        </Typography> }
                             </div>
                         </div>
                     </Card>
@@ -127,7 +131,10 @@ export default function MeasuresCharts(props) {
                     <Card className="card-detail">
                         <div className="main-wrapper">
                             <div className="title-container"> 
-                                { lengthChartData ? <WhoChart data={lengthChartData}/> : <p>Medidas de estatura não informadas</p> }
+                                { lengthChartData   ? <WhoChart data={lengthChartData}/>
+                                                    : <Typography className="side-menu-green" variant="caption" >
+                                                        Medidas de estatura não informadas<br/>Acesse MEDIÇÕES para adicioná-las
+                                                        </Typography> }
                             </div>
                         </div>
                     </Card>
@@ -135,7 +142,10 @@ export default function MeasuresCharts(props) {
                     <Card className="card-detail">
                         <div className="main-wrapper">
                             <div className="title-container"> 
-                                { headChartData ? <WhoChart data={headChartData}/> : <p>Medidas do perímetro cefálico não informadas</p> }
+                                { headChartData     ? <WhoChart data={headChartData}/>
+                                                    : <Typography className="side-menu-green" variant="caption" >
+                                                        Medidas do perímetro cefálico não informadas<br/>Acesse MEDIÇÕES para adicioná-las
+                                                        </Typography> }
                             </div>
                         </div>
                     </Card>
