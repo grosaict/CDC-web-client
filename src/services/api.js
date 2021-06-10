@@ -36,8 +36,8 @@ export const createKid = async (data) => {
 
 export const updateKid = async (id, data) => {
     try {
-        return await axios.put(`http://localhost:5000/api/item/edit/${id}`, data, {
-        headers: {'Content-Type': 'multipart/form-data', token: localStorage.getItem('token') }
+        return await axios.put(`http://localhost:5000/api/kid/update/${id}`, data, {
+        headers: {'Content-Type': 'application/json'/* 'multipart/form-data' */, token: localStorage.getItem('token') }
     });
     } catch (err) {
         return (err.response)
@@ -55,6 +55,16 @@ export const getKidByMeasureId = async (id) => {
 } 
 
 // >>>>>>>>>>>>>>>          MEASURE                 <<<<<<<<<<<<<<<
+
+export const updateMeasure = async (id, data) => {
+    try {
+        return await axios.put(`http://localhost:5000/api/measure/update/${id}`, data, {
+        headers: {'Content-Type': 'application/json', token: localStorage.getItem('token') }
+    });
+    } catch (err) {
+        return (err.response)
+    }
+}
 
 // >>>>>>>>>>>>>>>          LOGIN and USER          <<<<<<<<<<<<<<<
 

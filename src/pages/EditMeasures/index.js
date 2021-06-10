@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
 import { getKidByMeasureId } from '../../services/api'
@@ -7,55 +6,47 @@ import { getKidByMeasureId } from '../../services/api'
 import AppBar from '../../components/AppBar';
 import FormMeasures from '../../components/FormMeasures';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-    },
-}));
-
 const EditMeasures = (props) => {
 
     const idMeasure = (props.location.state ? props.location.state.id : props.match.params.id);
 
-    const classes = useStyles();
-
-    const [ kid, setKid ]           = useState([]);
-    const [ measure, setMeasure ]   = useState([]);
+    const [ params, setParams ]   = useState(undefined);
     const [ loading, setLoading ]   = useState(false);
 
-    const loadKid = async () => {
+    const loadKid = async (idM) => {
         setLoading(true)
-        let { data } = await getKidByMeasureId(idMeasure);
-        console.log("EditMeasures >>> "+JSON.stringify(data))
-        setKid(data.data.kid)
-        setMeasure(data.data.measure)
+        let { data } = await getKidByMeasureId(idM);
+        // console.log("EditMeasures >>> "+JSON.stringify(data))
+        setParams(data.data)
         setLoading(false)
     }
 
     useEffect(() =>{
-        loadKid();
+        loadKid(idMeasure);
     }, [idMeasure]);
 
 
     return (
         <>
             <AppBar />
-            <main className="fixed-main-wrapper p-8 pt-32">
-                <div className="welcome">
-                    <Typography style={{ 'fontWeight': "bold" }} variant="h4" component="h4" >
-                        Atualize as medidas para a data recomendada
-                    </Typography>
-                </div>
+            <main className="fixed-main-wrapper p-8 p-32">
+                {
+                    loading ?
+                        <h3>carregando ... </h3>
+                    :
+                    <>
+                        <div className="welcome">
+                            <Typography style={{ 'fontWeight': "bold" }} className="side-menu-green" variant="h5" component="h5" >
+                                Atualize as medidas 
+                            </Typography>
+                        </div>
 
-                <div className="content-wrapper">
-                    <FormMeasures/>
-                    FORMULÁRIO AQUI
-                    <br/>
-                    {/* {idMeasure}
-                    {console.log(kid)}
-                    {console.log(measure)} */}
-                </div>
-
+                        <div className="content-wrapper">
+                            {/* {console.log("EditMeasures 2 >>> "+JSON.stringify(params))} */}
+                            <FormMeasures data={params}/>
+                        </div>
+                    </>
+                }
             </main>
         </>
 

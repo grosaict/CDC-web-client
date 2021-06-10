@@ -11,6 +11,7 @@ const KidDashboard = (props) => {
     const idKid = (props.location.state ? props.location.state.id : props.match.params.id);
 
     const [ data, setData ] = useState(undefined);
+    const [ loading, setLoading ] = useState(true);
     const [pediatricsShow,  setPediatricsShow]  = useState(false);
     const [measuresShow,    setMeasuresShow]    = useState(true);
     const [vaccinesShow,    setVaccinesShow]    = useState(false);
@@ -40,6 +41,7 @@ const KidDashboard = (props) => {
     }
 
     useEffect(() =>{
+        setLoading(true)
         const loadKid = async () => {
             let { data } = await getKidById(idKid);
             let props = {
@@ -47,6 +49,7 @@ const KidDashboard = (props) => {
                 switchKidDashboard: switchKidDashboard
             }
             setData(props)
+            setLoading(false)
         }
         loadKid();
     }, [idKid])
@@ -59,14 +62,21 @@ const KidDashboard = (props) => {
         <>
             <AppBar data={data}/>
             <main className="fixed-main-wrapper p-8 p-32">
-                { data && data.kid._id ?
-                    <>
-                        <KidCard data={data.kid} />
-                        { pediatricsShow    ? <p>CONSULTAS</p>              : null }
-                        { measuresShow      ? <Measures data={data.kid}/>   : null }
-                        { vaccinesShow      ? <p>VACINAS</p>                : null }
-                    </>
-                : null}
+                {
+                    loading ?
+                        <h3>carregando ... </h3>
+                    : 
+                        <>
+                            { data && data.kid._id ?
+                                <>
+                                    <KidCard data={data.kid} />
+                                    { pediatricsShow    ? <p>CONSULTAS</p>              : null }
+                                    { measuresShow      ? <Measures data={data.kid}/>   : null }
+                                    { vaccinesShow      ? <p>VACINAS</p>                : null }
+                                </>
+                            : null}
+                        </>
+                }
             </main>
         </>
     );

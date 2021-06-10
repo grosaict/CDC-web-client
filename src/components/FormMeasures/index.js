@@ -3,20 +3,16 @@ import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 
-import DatePickerInput from '../../components/DatePickerInput';
-
-import { createKid, updateKid } from '../../services/api';
+import { format } from 'date-fns';
 
 import { makeStyles } from '@material-ui/core/styles';
 
 import { useToasts } from 'react-toast-notifications';
 import { useHistory } from 'react-router-dom';
 
+import { createKid, updateKid, updateMeasure } from '../../services/api';
 
 const useStyles = makeStyles({
     buttonAdd: {
@@ -39,6 +35,7 @@ const useStyles = makeStyles({
 const FormMeasures = (props) => {
 
     const { dataEdit, idKid } = props;
+    const { data } = props;
 
     const { addToast } = useToasts();
     const history = useHistory();
@@ -46,21 +43,31 @@ const FormMeasures = (props) => {
 
     const [ kidGender, setGender ] = useState('');
     const [ kidGenderError, setErrorGender ] = useState(false);
-    const [ kidName, setName ] = useState('');
+    const [ kidName, setName ] = useState(undefined);
     const [ kidNameError, setErrorName ] = useState(false);
     const [ kidBirth, setBirth ] = useState(new Date());
     const [ kidBirthError, setErrorBirth ] = useState(false);
 
-    const handleChangeName = (e) => {
-        setName(e.target.value);
+    const [ kid, setKid ] = useState(undefined);
+    const [ dueMonth, setDueMonth ] = useState(undefined);
+    const [ scheduleDate, setScheduleDate ] = useState(undefined);
+    const [ weight, setWeight ] = useState(undefined);
+    const [ weightError, setErrorWeight ] = useState(false);
+    const [ length, setLength ] = useState(undefined);
+    const [ lengthError, setErrorLength ] = useState(false);
+    const [ head, setHead ] = useState(undefined);
+    const [ headError, setErrorHead ] = useState(false);
+
+    const handleChangeWeight = (value) => {
+        setWeight(value);
     };
 
-    const handleChangeGender = (e) => {
-        setGender(e.target.value);
+    const handleChangeLength = (value) => {
+        setLength(value);
     };
 
-    const handleChangeBirth = (value) => {
-        setBirth(value);
+    const handleChangeHead = (value) => {
+        setHead(value);
     };
 
     const validateFields = () => {
@@ -82,6 +89,22 @@ const FormMeasures = (props) => {
             setErrorBirth(true);
         } else { setErrorBirth(false); }
 
+
+        if(!weight || weight === '' || weight === undefined){
+            isValid = false;
+            setErrorWeight(true);
+        } else { setErrorWeight(false); }
+
+        if(!length || length === '' || length === undefined){
+            isValid = false;
+            setErrorLength(true);
+        } else { setErrorLength(false); }
+
+        if(!head || head === '' || head === undefined){
+            isValid = false;
+            setErrorHead(true);
+        } else { setErrorHead(false); }
+
         return isValid;
     }
 
@@ -92,30 +115,27 @@ const FormMeasures = (props) => {
         const isFieldsOk = validateFields();
 
         if(isFieldsOk){
-            /* let formData = new FormData();
-            formData.append('name', kidName);
-            formData.append('birth', kidBirth);
-            formData.append('gender', kidGender); */
-
             let newKid = {
                         name: kidName,
                         birth: kidBirth,
                         gender: kidGender
                     }
 
+            let newMeasures = {
+                weight: weight,
+                length: length,
+                head:   head
+            }
+
             let request;
             if(dataEdit?._id && idKid){
                 request = await updateKid(idKid, newKid);
-                /* request = await updateKid(idKid, formData); */
             } else {
-/*                 console.log(kidName);
-                console.log(JSON.stringify(formData));
-                console.log(JSON.stringify(x)); */
                 request = await createKid(newKid);
             }
             if(request.status === 200) {
                 addToast(request.data.message, { appearance: 'success', autoDismissTimeout: 3000, autoDismiss: true });
-                setTimeout(() => { history.push("/") }, 1000)
+                setTimeout(() => { history.push("/kid/detail/"+kid._id) }, 1000)
             } else {
                 addToast(request.data.message, { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true });
             }
@@ -126,57 +146,57 @@ const FormMeasures = (props) => {
     };
 
     useEffect(() =>{
-        if(dataEdit){
-            setGender(dataEdit.kidGender);
-            setName(dataEdit.kidName);
-            setBirth(dataEdit.kidBirth);
+        if (data){
+            setDueMonth(data.measure.dueMonth);
+            setScheduleDate(data.measure.scheduleDate);
+            setWeight(data.measure.weight);
+            setLength(data.measure.length);
+            setHead(data.measure.head);
+            setKid(data.kid);
+            console.log(data)
         }
-    }, [dataEdit]);
+    }, [data]);
 
     return (
-        <form className="form form-create-kid" autoComplete="off" method="post" onSubmit={handleSubmit}>
-            <Grid container spacing={2}>
-                <Grid item xs={12}>
-                    <FormControl className="form-control">
-                        <TextField variant="outlined" id="input-kidName" label="Nome" onChange={handleChangeName} error={kidNameError} value={kidName}/>
-                    </FormControl>
+        <>
+            {kid ?
+            <>
+                <Grid container spacing={2} >
+                    <p>{kid.name} {dueMonth} {format(new Date(scheduleDate),'dd/MM/yyyy')}</p>
                 </Grid>
-                <Grid item xs={12}>
-                    <FormControl className="form-control">
-                        <DatePickerInput disableFuture={true} handleChange={handleChangeBirth} initialPickDate={new Date()} id={"kidBirth"} value={kidBirth} label={"Data de Nascimento"} formatDate={'dd/MM/yyyy'} error={kidBirthError}/>
-                    </FormControl>
-                </Grid>
-                <Grid item xs={12}>
-                    <FormControl variant="outlined" className="form-control">
-                        <InputLabel id="input-kidGender-label">Sexo</InputLabel>
-                        <Select
-                            labelId="input-kidGender-label"
-                            id="input-kidGender"
-                            value={kidGender}
-                            onChange={handleChangeGender}
-                            style={{width: 300}}
-                            label="Gender"
-                            error={kidGenderError}
-                        >
-                            <MenuItem value={'F'}>Feminino</MenuItem>
-                            <MenuItem value={'M'}>Masculino</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Grid>
-            </Grid>
-            <Grid container spacing={2} direction="row" justify="flex-end" alignItems="flex-end">
-                <Grid item>
-                    <Button href="/" variant="contained" color="primary" className={classes.buttonCancel}>
-                        {'Cancelar'}
-                    </Button>
-                </Grid>
-                <Grid item>
-                    <Button type="submit" variant="contained" color="primary" className={classes.buttonAdd}>
-                        { dataEdit?._id && idKid ? 'Atualizar' : 'Adicionar'}
-                    </Button>
-                </Grid>
-            </Grid>            
-        </form>
+                <form className="form form-create-kid" autoComplete="off" method="post" onSubmit={handleSubmit}>
+                    <Grid container spacing={2} >
+                        <Grid item xs={12}>
+                            <FormControl className="form-control">
+                                <TextField variant="outlined" type="number" id="input-weight" label="Peso (kg)" onChange={handleChangeWeight} error={weightError} value={weight}/>
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <FormControl className="form-control">
+                                <TextField variant="outlined" type="number" id="input-length" label="Altura (cm)" onChange={handleChangeLength} error={lengthError} value={length}/>
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <FormControl className="form-control">
+                                <TextField variant="outlined" type="number" id="input-head" label="Perímetro Cefálico (cm)" onChange={handleChangeHead} error={headError} value={head}/>
+                            </FormControl>
+                        </Grid>
+                    </Grid>
+                    <Grid container spacing={2} direction="row" justify="flex-end" alignItems="flex-end">
+                        <Grid item>
+                            <Button href={"/kid/detail/"+kid._id} variant="contained" color="primary" className={classes.buttonCancel}>
+                                {'Cancelar'}
+                            </Button>
+                        </Grid>
+                        <Grid item>
+                            <Button type="submit" variant="contained" color="primary" className={classes.buttonAdd}>
+                                {'Salvar'}
+                            </Button>
+                        </Grid>
+                    </Grid>         
+                </form>
+            </> : null}
+        </>
     );
 };
 
