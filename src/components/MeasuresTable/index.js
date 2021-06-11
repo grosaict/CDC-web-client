@@ -28,7 +28,7 @@ const MeasuresTable = (props) => {
                             </TableCell>
                             <TableCell align="center" size='small'>
                                 <Typography className="side-menu-green" variant="inherit" >
-                                    Peso<br/>(kg)</Typography>
+                                    Peso<br/>(g)</Typography>
                             </TableCell>
                             <TableCell align="center" size='small'>
                                 <Typography className="side-menu-green" variant="inherit" >

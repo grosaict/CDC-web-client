@@ -89,7 +89,7 @@ export default function MeasuresCharts(props) {
             paramData[index+1]      = weightDataWHO[indexWHO][index]
             if (k.measures[index].isSetW){
                 isSet                   = true
-                paramData[index+1][8]   = k.measures[index].weight
+                paramData[index+1][8]   = (k.measures[index].weight / 1000)
             } else {
                 paramData[index+1][8]   = null
             }

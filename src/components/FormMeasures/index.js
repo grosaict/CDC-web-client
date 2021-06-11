@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
+
 import Button from '@material-ui/core/Button';
 
 import { format } from 'date-fns';
@@ -12,7 +13,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useToasts } from 'react-toast-notifications';
 import { useHistory } from 'react-router-dom';
 
-import { createKid, updateKid, updateMeasure } from '../../services/api';
+import { updateMeasure } from '../../services/api';
 
 const useStyles = makeStyles({
     buttonAdd: {
@@ -34,61 +35,51 @@ const useStyles = makeStyles({
 
 const FormMeasures = (props) => {
 
-    const { dataEdit, idKid } = props;
     const { data } = props;
 
     const { addToast } = useToasts();
     const history = useHistory();
     const classes = useStyles();
 
-    const [ kidGender, setGender ] = useState('');
-    const [ kidGenderError, setErrorGender ] = useState(false);
-    const [ kidName, setName ] = useState(undefined);
-    const [ kidNameError, setErrorName ] = useState(false);
-    const [ kidBirth, setBirth ] = useState(new Date());
-    const [ kidBirthError, setErrorBirth ] = useState(false);
-
     const [ kid, setKid ] = useState(undefined);
+    const [ measureId, setMeasureId ] = useState(undefined);
     const [ dueMonth, setDueMonth ] = useState(undefined);
     const [ scheduleDate, setScheduleDate ] = useState(undefined);
-    const [ weight, setWeight ] = useState(undefined);
+    const [ weight, setWeight ] = useState(0);
     const [ weightError, setErrorWeight ] = useState(false);
-    const [ length, setLength ] = useState(undefined);
+    const [ length, setLength ] = useState(0);
     const [ lengthError, setErrorLength ] = useState(false);
-    const [ head, setHead ] = useState(undefined);
+    const [ head, setHead ] = useState(0);
     const [ headError, setErrorHead ] = useState(false);
 
-    const handleChangeWeight = (value) => {
-        setWeight(value);
+
+    const handleChangeWeight = (e) => {
+        setWeight(e.target.value)
     };
 
-    const handleChangeLength = (value) => {
-        setLength(value);
+    const handleFormatWeight = (e) => {
+        setWeight(parseInt(e.target.value, 10))
+    }
+
+    const handleChangeLength = (e) => {
+        setLength(e.target.value);
     };
 
-    const handleChangeHead = (value) => {
-        setHead(value);
+    const handleFormatLength = (e) => {
+        setLength(parseFloat(e.target.value).toFixed(1))
+    }
+
+    const handleChangeHead = (e) => {
+        setHead(e.target.value);
     };
+
+    const handleFormatHead = (e) => {
+        setHead(parseFloat(e.target.value).toFixed(1))
+    }
 
     const validateFields = () => {
 
         let isValid = true;
-
-        if(!kidName || kidName === '' || kidName === undefined){
-            isValid = false;
-            setErrorName(true);
-        } else { setErrorName(false); }
-
-        if(kidGender === '' || kidGender === undefined){
-            isValid = false;
-            setErrorGender(true);
-        } else { setErrorGender(false); }
-
-        if(!kidBirth || kidBirth === '' || kidBirth === undefined){
-            isValid = false;
-            setErrorBirth(true);
-        } else { setErrorBirth(false); }
-
 
         if(!weight || weight === '' || weight === undefined){
             isValid = false;
@@ -115,51 +106,45 @@ const FormMeasures = (props) => {
         const isFieldsOk = validateFields();
 
         if(isFieldsOk){
-            let newKid = {
-                        name: kidName,
-                        birth: kidBirth,
-                        gender: kidGender
-                    }
-
-            let newMeasures = {
+            const params = {
+                kid:    kid,
                 weight: weight,
                 length: length,
                 head:   head
             }
 
+            console.log("handleSubmit >>> "+JSON.stringify(params))
+
             let request;
-            if(dataEdit?._id && idKid){
-                request = await updateKid(idKid, newKid);
-            } else {
-                request = await createKid(newKid);
-            }
+            request = await updateMeasure(measureId, params);
+
             if(request.status === 200) {
                 addToast(request.data.message, { appearance: 'success', autoDismissTimeout: 3000, autoDismiss: true });
                 setTimeout(() => { history.push("/kid/detail/"+kid._id) }, 1000)
             } else {
                 addToast(request.data.message, { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true });
             }
-            
         } else {
             addToast('Preencha todos os campos obrigatórios!', { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true });
         }
+
     };
 
     useEffect(() =>{
         if (data){
+            setKid(data.kid);
+            setMeasureId(data.measure._id)
             setDueMonth(data.measure.dueMonth);
             setScheduleDate(data.measure.scheduleDate);
             setWeight(data.measure.weight);
             setLength(data.measure.length);
             setHead(data.measure.head);
-            setKid(data.kid);
-            console.log(data)
         }
     }, [data]);
 
     return (
         <>
-            {kid ?
+            {measureId ?
             <>
                 <Grid container spacing={2} >
                     <p>{kid.name} {dueMonth} {format(new Date(scheduleDate),'dd/MM/yyyy')}</p>
@@ -168,17 +153,41 @@ const FormMeasures = (props) => {
                     <Grid container spacing={2} >
                         <Grid item xs={12}>
                             <FormControl className="form-control">
-                                <TextField variant="outlined" type="number" id="input-weight" label="Peso (kg)" onChange={handleChangeWeight} error={weightError} value={weight}/>
+                                <TextField
+                                    variant="filled"
+                                    size="small"
+                                    type="number"
+                                    id="input-weight"
+                                    label="Peso (gramas)"
+                                    onChange={handleChangeWeight}
+                                    onBlur={handleFormatWeight}
+                                    error={weightError} value={weight}/>
                             </FormControl>
                         </Grid>
                         <Grid item xs={12}>
                             <FormControl className="form-control">
-                                <TextField variant="outlined" type="number" id="input-length" label="Altura (cm)" onChange={handleChangeLength} error={lengthError} value={length}/>
+                                <TextField
+                                    variant="filled"
+                                    size="small"
+                                    type="number"
+                                    id="input-length"
+                                    label="Altura (centímetros)"
+                                    onChange={handleChangeLength}
+                                    onBlur={handleFormatLength}
+                                    error={lengthError} value={length}/>
                             </FormControl>
                         </Grid>
                         <Grid item xs={12}>
                             <FormControl className="form-control">
-                                <TextField variant="outlined" type="number" id="input-head" label="Perímetro Cefálico (cm)" onChange={handleChangeHead} error={headError} value={head}/>
+                                <TextField
+                                    variant="filled"
+                                    size="small"
+                                    type="number"
+                                    id="input-head"
+                                    label="Perímetro Cefálico (centímetros)"
+                                    onChange={handleChangeHead}
+                                    onBlur={handleFormatHead}
+                                    error={headError} value={head}/>
                             </FormControl>
                         </Grid>
                     </Grid>
