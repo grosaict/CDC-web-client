@@ -28,6 +28,11 @@ export default function WhoChart(props) {
                 },
                 vAxis: {
                     title: dataChart.vAxis,
+                    viewWindow:{
+                        max: dataChart.max,
+                        min: dataChart.min
+                    }
+                    
                 },
                 curveType: 'function',
                 legend: {
@@ -44,7 +49,7 @@ export default function WhoChart(props) {
                     3: { color: 'lightgreen' },
                     7: {
                         color: 'blue',
-                        lineDashStyle: [8],
+                        lineDashStyle: [1,1], // [8] [4, 1] [1, 1] [2, 2]
                         lineWidth: 4,
                         visibleInLegend: false
                     },

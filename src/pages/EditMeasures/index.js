@@ -40,9 +40,7 @@ const EditMeasures = (props) => {
                                 Atualize as medidas 
                             </Typography>
                         </div>
-
                         <div className="content-wrapper">
-                            {/* {console.log("EditMeasures 2 >>> "+JSON.stringify(params))} */}
                             <FormMeasures data={params}/>
                         </div>
                     </>

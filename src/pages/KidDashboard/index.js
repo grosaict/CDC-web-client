@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import AppBar from '../../components/AppBar';
 import KidCard from '../../components/KidCard';
 import Measures from '../../components/Measures';
+import Vaccines from '../../components/Vaccines';
 
 import { getKidById } from '../../services/api'
 
@@ -72,7 +73,7 @@ const KidDashboard = (props) => {
                                     <KidCard data={data.kid} />
                                     { pediatricsShow    ? <p>CONSULTAS</p>              : null }
                                     { measuresShow      ? <Measures data={data.kid}/>   : null }
-                                    { vaccinesShow      ? <p>VACINAS</p>                : null }
+                                    { vaccinesShow      ? <Vaccines data={data.kid}/>   : null }
                                 </>
                             : null}
                         </>

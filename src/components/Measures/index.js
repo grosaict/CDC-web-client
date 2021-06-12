@@ -10,7 +10,6 @@ import Paper from '@material-ui/core/Paper';
 
 import MeasuresTable    from '../MeasuresTable';
 import MeasuresCharts   from '../MeasuresCharts';
-/* import FormMeasures     from '../FormMeasures'; */
 
 export default function Measures(props) {
     const kid               = props.data;
@@ -41,32 +40,22 @@ export default function Measures(props) {
     });
     const classes = useStyles();
 
-    const [chartsShow, setChartsShow]               = useState(true);
-    const [tableShow, setTableShow]                 = useState(false);
-/*     const [formMeasuresShow, setFormMeasuresShow]   = useState(false);
-    let   measuresIndex = null */
+    const [chartsShow, setChartsShow]               = useState(false);
+    const [tableShow, setTableShow]                 = useState(true);
     
     const switchMeasuresDashboard = (showComponent) => {
         switch (showComponent){
             case 'Charts':
                 setChartsShow(true);
                 setTableShow(false);
-                /* setFormMeasuresShow(false); */
                 break;
             case 'Table':
                 setChartsShow(false);
                 setTableShow(true);
-                /* setFormMeasuresShow(false); */
                 break;
-/*             case 'FormMeasures':
-                setChartsShow(false);
-                setTableShow(false);
-                setFormMeasuresShow(true);
-                break; */
             default:
                 setChartsShow(false);
                 setTableShow(false);
-                /* setFormMeasuresShow(false); */
             }
     }
 
@@ -81,12 +70,6 @@ export default function Measures(props) {
             switchMeasuresDashboard('Table');
         }
     }
-    
-/*     const openFormMeasures = (e) => {
-        if(e.target === e.currentTarget){
-            switchMeasuresDashboard('FormMeasures');
-        }
-    } */
     
     const setButtonWidth = (w) => { setWidth(w) }
 
@@ -118,7 +101,6 @@ export default function Measures(props) {
                     <br/>
                     { chartsShow        ? <MeasuresCharts   data={kid} /> : null }
                     { tableShow         ? <MeasuresTable    data={kid} /> : null }
-                    {/* { formMeasuresShow  ? <FormMeasures     data={kid} /> : null } */}
                 </>
             </> 
             : null}

@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
-
 import Button from '@material-ui/core/Button';
-
-import { format } from 'date-fns';
-
 import { makeStyles } from '@material-ui/core/styles';
-
 import { useToasts } from 'react-toast-notifications';
-import { useHistory } from 'react-router-dom';
+
+import MeasureCard from '../MeasureCard';
 
 import { updateMeasure } from '../../services/api';
 
@@ -43,8 +40,6 @@ const FormMeasures = (props) => {
 
     const [ kid, setKid ] = useState(undefined);
     const [ measureId, setMeasureId ] = useState(undefined);
-    const [ dueMonth, setDueMonth ] = useState(undefined);
-    const [ scheduleDate, setScheduleDate ] = useState(undefined);
     const [ weight, setWeight ] = useState(0);
     const [ weightError, setErrorWeight ] = useState(false);
     const [ length, setLength ] = useState(0);
@@ -78,10 +73,9 @@ const FormMeasures = (props) => {
     }
 
     const validateFields = () => {
-
         let isValid = true;
 
-        if(!weight || weight === '' || weight === undefined){
+        if(weight === '' || weight === undefined){
             isValid = false;
             setErrorWeight(true);
         } else { setErrorWeight(false); }
@@ -100,9 +94,7 @@ const FormMeasures = (props) => {
     }
 
     const handleSubmit = async (e) => {
-        
         e.preventDefault();
-
         const isFieldsOk = validateFields();
 
         if(isFieldsOk){
@@ -113,11 +105,10 @@ const FormMeasures = (props) => {
                 head:   head
             }
 
-            console.log("handleSubmit >>> "+JSON.stringify(params))
+            // console.log("handleSubmit >>> "+params.kid._id+" - "+params.weight+" - "+params.length+" - "+params.head)
 
             let request;
             request = await updateMeasure(measureId, params);
-
             if(request.status === 200) {
                 addToast(request.data.message, { appearance: 'success', autoDismissTimeout: 3000, autoDismiss: true });
                 setTimeout(() => { history.push("/kid/detail/"+kid._id) }, 1000)
@@ -127,18 +118,18 @@ const FormMeasures = (props) => {
         } else {
             addToast('Preencha todos os campos obrigatórios!', { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true });
         }
-
     };
 
     useEffect(() =>{
         if (data){
             setKid(data.kid);
             setMeasureId(data.measure._id)
-            setDueMonth(data.measure.dueMonth);
-            setScheduleDate(data.measure.scheduleDate);
-            setWeight(data.measure.weight);
-            setLength(data.measure.length);
-            setHead(data.measure.head);
+            //setWeight(data.measure.weight);
+            setWeight(parseInt(data.measure.weight, 10))
+            //setLength(data.measure.length);
+            setLength(parseFloat(data.measure.length).toFixed(1))
+            //setHead(data.measure.head);
+            setHead(parseFloat(data.measure.head).toFixed(1))
         }
     }, [data]);
 
@@ -146,9 +137,8 @@ const FormMeasures = (props) => {
         <>
             {measureId ?
             <>
-                <Grid container spacing={2} >
-                    <p>{kid.name} {dueMonth} {format(new Date(scheduleDate),'dd/MM/yyyy')}</p>
-                </Grid>
+                <MeasureCard data={data}/>
+                <br/>
                 <form className="form form-create-kid" autoComplete="off" method="post" onSubmit={handleSubmit}>
                     <Grid container spacing={2} >
                         <Grid item xs={12}>
