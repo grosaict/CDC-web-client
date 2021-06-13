@@ -43,7 +43,7 @@ const MeasuresTable = (props) => {
                     <TableBody>
                         {k.measures.map((row, index) => (
                             <TableRow key={index} id={'row'+index}>
-                                <TableCell className="side-menu-green" align="center" size='small' component="th" scope="row">
+                                <TableCell className="side-menu-green" align="center" size='small' component="th" scope="row" >
                                     <Typography className="side-menu-green" variant="inherit" >
                                         <Link to={{ pathname: "/kid/measure/"+row._id }} >
                                             {format(new Date(row.scheduleDate),'dd/MM/yy')}</Link>

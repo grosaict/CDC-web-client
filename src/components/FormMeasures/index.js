@@ -38,7 +38,7 @@ const FormMeasures = (props) => {
     const history = useHistory();
     const classes = useStyles();
 
-    const [ kid, setKid ] = useState(undefined);
+    const [ kidId, setKidId ] = useState(undefined);
     const [ measureId, setMeasureId ] = useState(undefined);
     const [ weight, setWeight ] = useState(0);
     const [ weightError, setErrorWeight ] = useState(false);
@@ -99,19 +99,16 @@ const FormMeasures = (props) => {
 
         if(isFieldsOk){
             const params = {
-                kid:    kid,
                 weight: weight,
                 length: length,
                 head:   head
             }
 
-            // console.log("handleSubmit >>> "+params.kid._id+" - "+params.weight+" - "+params.length+" - "+params.head)
-
             let request;
             request = await updateMeasure(measureId, params);
             if(request.status === 200) {
                 addToast(request.data.message, { appearance: 'success', autoDismissTimeout: 3000, autoDismiss: true });
-                setTimeout(() => { history.push("/kid/detail/"+kid._id) }, 1000)
+                setTimeout(() => { history.push("/kid/detail/"+kidId) }, 1000)
             } else {
                 addToast(request.data.message, { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true });
             }
@@ -122,13 +119,10 @@ const FormMeasures = (props) => {
 
     useEffect(() =>{
         if (data){
-            setKid(data.kid);
+            setKidId(data.measure.kid)
             setMeasureId(data.measure._id)
-            //setWeight(data.measure.weight);
             setWeight(parseInt(data.measure.weight, 10))
-            //setLength(data.measure.length);
             setLength(parseFloat(data.measure.length).toFixed(1))
-            //setHead(data.measure.head);
             setHead(parseFloat(data.measure.head).toFixed(1))
         }
     }, [data]);
@@ -183,7 +177,7 @@ const FormMeasures = (props) => {
                     </Grid>
                     <Grid container spacing={2} direction="row" justify="flex-end" alignItems="flex-end">
                         <Grid item>
-                            <Button href={"/kid/detail/"+kid._id} variant="contained" color="primary" className={classes.buttonCancel}>
+                            <Button href={"/kid/detail/"+kidId} variant="contained" color="primary" className={classes.buttonCancel}>
                                 {'Cancelar'}
                             </Button>
                         </Grid>

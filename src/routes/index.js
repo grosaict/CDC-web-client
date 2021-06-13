@@ -2,13 +2,14 @@ import React from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Auth from '../services/auth'
 
-import Error from '../pages/Error';
-import Login from '../pages/Login';
-import Register from '../pages/Register';
-import Home from '../pages/Home';
+import Error        from '../pages/Error';
+import Login        from '../pages/Login';
+import Register     from '../pages/Register';
+import Home         from '../pages/Home';
 import KidDashboard from '../pages/KidDashboard';
-import CreateKid from '../pages/CreateKid';
+import CreateKid    from '../pages/CreateKid';
 import EditMeasures from '../pages/EditMeasures';
+import EditVaccine  from '../pages/EditVaccine';
 
 const PrivateRoute = ({component: Component, ...rest}) => (
     <Route {...rest} render={props => (
@@ -26,8 +27,11 @@ export default function Routes() {
         <Switch>
             <PrivateRoute exact path='/' component={Home}/>
             <PrivateRoute exact path='/kid/detail/:id' component={KidDashboard}/>
+            <PrivateRoute exact path='/kid/detail/:id/pediatrics' component={KidDashboard}/>
+            <PrivateRoute exact path='/kid/detail/:id/vaccines' component={KidDashboard}/>
             <PrivateRoute exact path='/kid/create' component={CreateKid}/>
             <PrivateRoute exact path='/kid/measure/:id' component={EditMeasures}/>
+            <PrivateRoute exact path='/kid/vaccine/:id' component={EditVaccine}/>
             <Route exact path='/login' component={Login}/>
             <Route exact path='/register' component={Register}/>
             <PrivateRoute exact path='*' component={Error}/>

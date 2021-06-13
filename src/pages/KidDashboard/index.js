@@ -8,14 +8,29 @@ import Vaccines from '../../components/Vaccines';
 import { getKidById } from '../../services/api'
 
 const KidDashboard = (props) => {
-
     const idKid = (props.location.state ? props.location.state.id : props.match.params.id);
+    const path = props.match.path
 
-    const [ data, setData ] = useState(undefined);
-    const [ loading, setLoading ] = useState(true);
-    const [pediatricsShow,  setPediatricsShow]  = useState(false);
-    const [measuresShow,    setMeasuresShow]    = useState(true);
-    const [vaccinesShow,    setVaccinesShow]    = useState(false);
+    const [ data,           setData ]           = useState(undefined);
+    const [ loading,        setLoading ]        = useState(true);
+    const [ pediatricsShow, setPediatricsShow]  = useState(false);
+    const [ measuresShow,   setMeasuresShow]    = useState(false);
+    const [ vaccinesShow,   setVaccinesShow]    = useState(false);
+
+    const setDashboard = (p) => {
+        switch (p) {
+            case "/kid/detail/:id/pediatrics":
+                setPediatricsShow(true)
+                break;
+            case "/kid/detail/:id/vaccines":
+                setVaccinesShow(true)
+                break;    
+            default:
+                setVaccinesShow(true)
+                //setMeasuresShow(true)
+                break;
+        }
+    }
 
     const switchKidDashboard = (showComponent) => {
         switch (showComponent){
@@ -51,13 +66,10 @@ const KidDashboard = (props) => {
             }
             setData(props)
             setLoading(false)
+            setDashboard(path)
         }
         loadKid();
-    }, [idKid])
-
-    /* useEffect(() =>{         ### pode ser útil
-        console.log(data)
-    }, [data]) */
+    }, [idKid, path])
 
     return (
         <>
@@ -85,3 +97,35 @@ const KidDashboard = (props) => {
 }
 
 export default KidDashboard;
+
+    /*
+    "history": {
+        "length":21,
+        "action":"PUSH",
+        "location": {
+            "pathname":"/kid/detail/60c617a0b2fda541987e1692",
+            "state": {
+                "id":"60c617a0b2fda541987e1692"
+            },
+            "search":"",
+            "hash":"",
+            "key":"fwil0k"
+        }
+    },  
+    "location": {
+        "pathname":"/kid/detail/60c617a0b2fda541987e1692",
+        "state": {
+            "id":"60c617a0b2fda541987e1692"
+        },
+        "search":"","hash":"",
+        "key":"fwil0k"
+    },
+    "match": {
+        "path":"/kid/detail/:id",
+        "url":"/kid/detail/60c617a0b2fda541987e1692",
+        "isExact":true,
+        "params":{
+            "id":"60c617a0b2fda541987e1692"
+        }
+    }
+    */

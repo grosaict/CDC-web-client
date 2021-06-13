@@ -31,7 +31,6 @@ export default function MeasureCard(props) {
           "Medições no nascimento da criança" :
           "Medidas do "+m.dueMonth+"º mês (medir o mais próximo de "+format(new Date(m.scheduleDate),'dd/MM/yyyy')+")"
   }
-  // <p>{kid.name} {dueMonth} {format(new Date(scheduleDate),'dd/MM/yyyy')}</p>
 
   return (
     <>
