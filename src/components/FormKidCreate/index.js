@@ -51,6 +51,8 @@ const FormKidCreate = (props) => {
     const [ kidBirth, setBirth ] = useState(new Date());
     const [ kidBirthError, setErrorBirth ] = useState(false);
 
+    const [ disableButton, setDisableButton ] = useState(false);
+
     const handleChangeName = (e) => {
         setName(e.target.value);
     };
@@ -86,31 +88,22 @@ const FormKidCreate = (props) => {
     }
 
     const handleSubmit = async (e) => {
-        
+        setDisableButton(true)
         e.preventDefault();
-
         const isFieldsOk = validateFields();
 
         if(isFieldsOk){
-            /* let formData = new FormData();
-            formData.append('name', kidName);
-            formData.append('birth', kidBirth);
-            formData.append('gender', kidGender); */
-
+            addToast('Aguarde, processando ...', { appearance: 'info', autoDismissTimeout: 6000, autoDismiss: true });
             let newKid = {
-                        name: kidName,
-                        birth: kidBirth,
-                        gender: kidGender
-                    }
+                name:   kidName,
+                birth:  kidBirth,
+                gender: kidGender
+            }
 
             let request;
             if(dataEdit?._id && idKid){
                 request = await updateKid(idKid, newKid);
-                /* request = await updateKid(idKid, formData); */
             } else {
-/*                 console.log(kidName);
-                console.log(JSON.stringify(formData));
-                console.log(JSON.stringify(x)); */
                 request = await createKid(newKid);
             }
             if(request.status === 200) {
@@ -123,6 +116,7 @@ const FormKidCreate = (props) => {
         } else {
             addToast('Preencha todos os campos obrigatórios!', { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true });
         }
+        setDisableButton(false)
     };
 
     useEffect(() =>{
@@ -166,14 +160,22 @@ const FormKidCreate = (props) => {
             </Grid>
             <Grid container spacing={2} direction="row" justify="flex-end" alignItems="flex-end">
                 <Grid item>
-                    <Button href="/" variant="contained" color="primary" className={classes.buttonCancel}>
-                        {'Cancelar'}
-                    </Button>
+                    { !disableButton ?
+                        <Button href="/" variant="contained" color="primary" className={classes.buttonCancel}>
+                            {'Cancelar'}
+                        </Button>
+                    : null }
                 </Grid>
                 <Grid item>
-                    <Button type="submit" variant="contained" color="primary" className={classes.buttonAdd}>
-                        { dataEdit?._id && idKid ? 'Atualizar' : 'Adicionar'}
-                    </Button>
+                    { disableButton ?
+                        <Button type="submit" variant="contained" color="primary" className={classes.buttonAdd} disabled>
+                            Aguarde
+                        </Button>
+                    :
+                        <Button type="submit" variant="contained" color="primary" className={classes.buttonAdd}>
+                            { dataEdit?._id && idKid ? 'Atualizar' : 'Adicionar'}
+                        </Button>
+                    }
                 </Grid>
             </Grid>            
         </form>
