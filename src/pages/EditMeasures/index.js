@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import Typography from '@material-ui/core/Typography';
 
 import { getKidByMeasureId } from '../../services/api'
@@ -10,13 +11,12 @@ const EditMeasures = (props) => {
 
     const idMeasure = (props.location.state ? props.location.state.id : props.match.params.id);
 
-    const [ params, setParams ]   = useState(undefined);
+    const [ params, setParams ]     = useState(undefined);
     const [ loading, setLoading ]   = useState(false);
 
     const loadKid = async (idM) => {
         setLoading(true)
         let { data } = await getKidByMeasureId(idM);
-        // console.log("EditMeasures >>> "+JSON.stringify(data))
         setParams(data.data)
         setLoading(false)
     }

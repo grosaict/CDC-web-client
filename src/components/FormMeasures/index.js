@@ -108,7 +108,17 @@ const FormMeasures = (props) => {
             request = await updateMeasure(measureId, params);
             if(request.status === 200) {
                 addToast(request.data.message, { appearance: 'success', autoDismissTimeout: 3000, autoDismiss: true });
-                setTimeout(() => { history.push("/kid/detail/"+kidId) }, 1000)
+                setTimeout(() => { history.push("/kid/detail/"+kidId+"/measures") }, 1000)
+                /* setTimeout(() => {
+                    history.push({
+                        pathname: "/kid/detail/"+kidId,
+                        state: {
+                            id: kidId,
+                            component: "Measures"
+                        }
+                    })
+                }, 1000) */
+                //to={{ pathname: `/kid/detail/${k._id}`, state: { id: k._id, component: "Measures" } }}
             } else {
                 addToast(request.data.message, { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true });
             }
@@ -177,7 +187,7 @@ const FormMeasures = (props) => {
                     </Grid>
                     <Grid container spacing={2} direction="row" justify="flex-end" alignItems="flex-end">
                         <Grid item>
-                            <Button href={"/kid/detail/"+kidId} variant="contained" color="primary" className={classes.buttonCancel}>
+                            <Button href={"/kid/detail/"+kidId+"/measures"} variant="contained" color="primary" className={classes.buttonCancel}>
                                 {'Cancelar'}
                             </Button>
                         </Grid>

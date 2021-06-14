@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
@@ -7,16 +8,12 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
-
 import DatePickerInput from '../../components/DatePickerInput';
 
-import { createKid, updateKid } from '../../services/api';
-
 import { makeStyles } from '@material-ui/core/styles';
-
 import { useToasts } from 'react-toast-notifications';
-import { useHistory } from 'react-router-dom';
 
+import { createKid, updateKid } from '../../services/api';
 
 const useStyles = makeStyles({
     buttonAdd: {
@@ -128,57 +125,77 @@ const FormKidCreate = (props) => {
     }, [dataEdit]);
 
     return (
-        <form className="form form-create-kid" autoComplete="off" method="post" onSubmit={handleSubmit}>
-            <Grid container spacing={2}>
-                <Grid item xs={12}>
-                    <FormControl className="form-control">
-                        <TextField variant="outlined" id="input-kidName" label="Nome" onChange={handleChangeName} error={kidNameError} value={kidName}/>
-                    </FormControl>
+        <>
+            <form className="form form-create-kid" autoComplete="off" method="post" onSubmit={handleSubmit}>
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <FormControl className="form-control">
+                            <TextField
+                                variant="filled"
+                                size="small"
+                                /* variant="outlined" */
+                                id="input-kidName"
+                                label="Nome"
+                                onChange={handleChangeName}
+                                value={kidName}
+                                error={kidNameError}/>
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <FormControl className="form-control">
+                            <DatePickerInput
+                                disableFuture={true}
+                                handleChange={handleChangeBirth}
+                                initialPickDate={new Date()}
+                                id={"kidBirth"}
+                                value={kidBirth}
+                                label={"Data de Nascimento"}
+                                formatDate={'dd/MM/yyyy'}
+                                error={kidBirthError}/>
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <FormControl variant="outlined" className="form-control">
+                            <InputLabel id="input-kidGender-label">Sexo</InputLabel>
+                            <Select
+                                variant="filled"
+                                size="small"
+                                labelId="input-kidGender-label"
+                                id="input-kidGender"
+                                value={kidGender}
+                                onChange={handleChangeGender}
+                                /* style={{width: 300}} */
+                                label="Gender"
+                                error={kidGenderError}
+                            >
+                                <MenuItem value={'F'}>Feminino</MenuItem>
+                                <MenuItem value={'M'}>Masculino</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                    <FormControl className="form-control">
-                        <DatePickerInput disableFuture={true} handleChange={handleChangeBirth} initialPickDate={new Date()} id={"kidBirth"} value={kidBirth} label={"Data de Nascimento"} formatDate={'dd/MM/yyyy'} error={kidBirthError}/>
-                    </FormControl>
-                </Grid>
-                <Grid item xs={12}>
-                    <FormControl variant="outlined" className="form-control">
-                        <InputLabel id="input-kidGender-label">Sexo</InputLabel>
-                        <Select
-                            labelId="input-kidGender-label"
-                            id="input-kidGender"
-                            value={kidGender}
-                            onChange={handleChangeGender}
-                            style={{width: 300}}
-                            label="Gender"
-                            error={kidGenderError}
-                        >
-                            <MenuItem value={'F'}>Feminino</MenuItem>
-                            <MenuItem value={'M'}>Masculino</MenuItem>
-                        </Select>
-                    </FormControl>
-                </Grid>
-            </Grid>
-            <Grid container spacing={2} direction="row" justify="flex-end" alignItems="flex-end">
-                <Grid item>
-                    { !disableButton ?
-                        <Button href="/" variant="contained" color="primary" className={classes.buttonCancel}>
-                            {'Cancelar'}
-                        </Button>
-                    : null }
-                </Grid>
-                <Grid item>
-                    { disableButton ?
-                        <Button type="submit" variant="contained" color="primary" className={classes.buttonAdd} disabled>
-                            Aguarde
-                        </Button>
-                    :
-                        <Button type="submit" variant="contained" color="primary" className={classes.buttonAdd}>
-                            { dataEdit?._id && idKid ? 'Atualizar' : 'Adicionar'}
-                        </Button>
-                    }
-                </Grid>
-            </Grid>            
-        </form>
+                <Grid container spacing={2} direction="row" justify="flex-end" alignItems="flex-end">
+                    <Grid item>
+                        { !disableButton ?
+                            <Button href="/" variant="contained" color="primary" className={classes.buttonCancel}>
+                                {'Cancelar'}
+                            </Button>
+                        : null }
+                    </Grid>
+                    <Grid item>
+                        { disableButton ?
+                            <Button type="submit" variant="contained" color="primary" className={classes.buttonAdd} disabled>
+                                Aguarde
+                            </Button>
+                        :
+                            <Button type="submit" variant="contained" color="primary" className={classes.buttonAdd}>
+                                { dataEdit?._id && idKid ? 'Atualizar' : 'Adicionar'}
+                            </Button>
+                        }
+                    </Grid>
+                </Grid>            
+            </form>
+        </>
     );
 };
 

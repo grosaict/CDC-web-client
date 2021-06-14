@@ -28,10 +28,12 @@ const DatePickerInput = (props) => {
                 disableFuture={disableFuture || false}
                 disablePast={disablePast || false}
                 error={error}
-                style={{width: 300}}
+                //style={{width: 300}}
                 disableToolbar
-                variant="inline"
-                inputVariant="outlined"
+                variant="filled"
+                size="medium"
+                /* variant="inline" */
+                /* inputVariant="outlined" */
                 format={formatDate}
                 margin="normal"
                 id={id}

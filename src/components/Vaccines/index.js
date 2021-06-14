@@ -13,7 +13,6 @@ import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import WarningRoundedIcon from '@material-ui/icons/WarningRounded';
-import SettingsRoundedIcon from '@material-ui/icons/SettingsRounded';
 
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
@@ -34,16 +33,16 @@ export default function Vaccines(props) {
 
     return (
         <>
-            <Typography className="side-menu-green" variant="overline">
-                    Histórico de Aplicação de Vacinas</Typography>
             <br/>
-            <WarningRoundedIcon color='error' fontSize='small' />
+            <Typography className="side-menu-green" variant="button">
+                    Histórico de Aplicação de Vacinas</Typography>
+            <br/><br/>
             <Typography className="side-menu-green" variant="caption" color='error'>
-                Indicador de atraso na aplicação</Typography>
+                <WarningRoundedIcon color='error' fontSize='small' /> Aplicação atrasada</Typography>
             <TableContainer component={Paper}>
                 <Table aria-label="collapsible table">
                 <TableHead>
-                    <TableRow key="-1">
+                    <TableRow key="headMaster">
                         <TableCell style={{color:'#269500'}} align="center">
                             Data Recomendada</TableCell>
                         <TableCell style={{color:'#269500'}} align="left">
@@ -52,10 +51,7 @@ export default function Vaccines(props) {
                 </TableHead>
                 <TableBody>
                     {vaccines.map((row, index) => (
-                        <>
-                            { /* console.log("vaccines.map((row) >>>"+JSON.stringify(index)) */ }
-                            <Row key={index} row={row} />
-                        </>
+                        <Row key={index} row={row} />
                     ))}
                 </TableBody>
                 </Table>
@@ -79,13 +75,13 @@ function Row (props) {
 
     return (
         <React.Fragment >
-            <TableRow className={classes.root} onClick={() => setOpen(!open)}>
+            <TableRow key={vac.name+"headVaccine"} className={classes.root} onClick={() => setOpen(!open)}>
                 <TableCell className="side-menu-green" component="th" scope="row" align="center" >
                     {format(new Date(vac.scheduleDate),'dd/MM/yyyy')}</TableCell>
                 <TableCell className="side-menu-green" align="left">
                     {checkVacDelay(vac)}</TableCell>
             </TableRow>
-            <TableRow key={vac._id}>
+            <TableRow key={vac.name+"vaccine"}>
                 <TableCell className="side-menu-green" style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={2}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <Box margin={1}>
@@ -99,13 +95,13 @@ function Row (props) {
                                 Clique na data para atualizar o registro</Typography>
                             <Table size="small" aria-label="purchases">
                                 <TableHead>
-                                    <TableRow>
+                                    <TableRow key={vac.name+"headApplication"}>
                                         <TableCell /* style={{color:'blue'}} */ align="center">Data</TableCell>
                                         <TableCell /* style={{color:'blue'}} */ align="center">Calendário SUS</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    <TableRow key={vac.name}>
+                                    <TableRow key={vac.name+"application"}>
                                         <TableCell /* style={{color:'blue'}} */ component="th" scope="row" align="center">
                                             <Link to={{ pathname: "/kid/vaccine/"+vac._id }} >
                                                 { vac.isSet ? format(new Date(vac.scheduleDate),'dd/MM/yyyy') : "Pendente" }</Link>

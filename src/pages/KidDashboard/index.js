@@ -8,8 +8,8 @@ import Vaccines from '../../components/Vaccines';
 import { getKidById } from '../../services/api'
 
 const KidDashboard = (props) => {
-    const idKid = (props.location.state ? props.location.state.id : props.match.params.id);
-    const path = props.match.path
+    const idKid     = (props.location.state ? props.location.state.id : props.match.params.id);
+    const path      = props.match.path
 
     const [ data,           setData ]           = useState(undefined);
     const [ loading,        setLoading ]        = useState(true);
@@ -22,9 +22,12 @@ const KidDashboard = (props) => {
             case "/kid/detail/:id/pediatrics":
                 setPediatricsShow(true)
                 break;
+            case "/kid/detail/:id/measures":
+                setMeasuresShow(true)
+                break;
             case "/kid/detail/:id/vaccines":
                 setVaccinesShow(true)
-                break;    
+                break;
             default:
                 setVaccinesShow(true)
                 //setMeasuresShow(true)
@@ -129,3 +132,28 @@ export default KidDashboard;
         }
     }
     */
+
+/*
+    "history": {
+        "length":34,
+        "action":"POP",
+        "location":{
+            "pathname":"/kid/detail/60c67e052df72b1a64fc693a",
+            "search":"",
+            "hash":""
+        }
+    },
+    "location":{
+        "pathname":"/kid/detail/60c67e052df72b1a64fc693a",
+        "search":"",
+        "hash":""
+    },
+    "match":{
+        "path":"/kid/detail/:id",
+        "url":"/kid/detail/60c67e052df72b1a64fc693a",
+        "isExact":true,
+        "params":{
+            "id":"60c67e052df72b1a64fc693a"
+        }
+    }
+*/

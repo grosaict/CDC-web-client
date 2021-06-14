@@ -25,16 +25,17 @@ export default function Routes() {
     return (
       <BrowserRouter>
         <Switch>
-            <PrivateRoute exact path='/' component={Home}/>
-            <PrivateRoute exact path='/kid/detail/:id' component={KidDashboard}/>
-            <PrivateRoute exact path='/kid/detail/:id/pediatrics' component={KidDashboard}/>
-            <PrivateRoute exact path='/kid/detail/:id/vaccines' component={KidDashboard}/>
-            <PrivateRoute exact path='/kid/create' component={CreateKid}/>
-            <PrivateRoute exact path='/kid/measure/:id' component={EditMeasures}/>
-            <PrivateRoute exact path='/kid/vaccine/:id' component={EditVaccine}/>
-            <Route exact path='/login' component={Login}/>
-            <Route exact path='/register' component={Register}/>
-            <PrivateRoute exact path='*' component={Error}/>
+            <PrivateRoute   exact path='/' component={Home}/>
+            <PrivateRoute   exact path='/kid/detail/:id' component={KidDashboard}/>
+            <PrivateRoute   exact path='/kid/detail/:id/pediatrics' component={KidDashboard}/>
+            <PrivateRoute   exact path='/kid/detail/:id/measures' component={KidDashboard}/>
+            <PrivateRoute   exact path='/kid/detail/:id/vaccines' component={KidDashboard}/>
+            <PrivateRoute   exact path='/kid/create' component={CreateKid}/>
+            <PrivateRoute   exact path='/kid/measure/:id' component={EditMeasures}/>
+            <PrivateRoute   exact path='/kid/vaccine/:id' component={EditVaccine}/>
+            <Route          exact path='/login' component={Login}/>
+            <Route          exact path='/register' component={Register}/>
+            <PrivateRoute   exact path='*' component={Error}/>
         </Switch>
       </BrowserRouter>
     );

@@ -80,6 +80,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AppBarMenu(props) {
   const data = props.data;
+  console.log("AppBarMenu > data >>> ");  // ### APAGAR <<<<<<<<<<<<<<<<<<<<<<<
   console.log(data);  // ### APAGAR <<<<<<<<<<<<<<<<<<<<<<<
 
   const classes = useStyles();
@@ -226,8 +227,8 @@ export default function AppBarMenu(props) {
           : null}
         </Toolbar>
       </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
+      { renderMobileMenu }
+      { renderMenu }
       { sideBarMenuShow ? <SideMenu data={{
                                       switchKidDashboard : data.switchKidDashboard,
                                       onClose            : openSideBarMenu

@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
+
 import Typography from '@material-ui/core/Typography';
 
-import { getKidByMeasureId } from '../../services/api'
+import { getKidByVaccineId } from '../../services/api'
 
 import AppBar from '../../components/AppBar';
-import FormMeasures from '../../components/FormMeasures';
+import FormVaccine from '../../components/FormVaccine';
 
 const EditVaccine = (props) => {
 
     const idVaccine = (props.location.state ? props.location.state.id : props.match.params.id);
 
-    const [ params, setParams ]   = useState(undefined);
+    const [ params, setParams ]     = useState(undefined);
     const [ loading, setLoading ]   = useState(false);
 
     const loadKid = async (idV) => {
         setLoading(true)
-        let { data } = await getKidByMeasureId(idV);
-        // console.log("EditVaccine >>> "+JSON.stringify(data))
+        let { data } = await getKidByVaccineId(idV);
         setParams(data.data)
         setLoading(false)
     }
@@ -37,11 +37,11 @@ const EditVaccine = (props) => {
                     <>
                         <div className="welcome">
                             <Typography style={{ 'fontWeight': "bold" }} className="side-menu-green" variant="h5" component="h5" >
-                                Atualize as medidas 
+                                Inclua ou edite o registro da vacina 
                             </Typography>
                         </div>
                         <div className="content-wrapper">
-                            <FormMeasures data={params}/>
+                            <FormVaccine data={params}/>
                         </div>
                     </>
                 }

@@ -5,8 +5,6 @@ import FormKidCreate from '../../components/FormKidCreate';
 
 import { getKidById } from '../../services/api'
 
-import Typography from '@material-ui/core/Typography';
-
 import { useHistory } from 'react-router-dom';
 
 
@@ -17,7 +15,7 @@ const KidEdit = (props) => {
     const [ data, setData ] = useState(undefined);
 
     useEffect(() =>{
-        const carregarItem = async () => {
+        const carregarKid = async () => {
             let request = await getKidById(idItem);
             if(request.status === 403){
                 history.push('/')
@@ -25,7 +23,7 @@ const KidEdit = (props) => {
                 setData(request.data.data)
             }
         }
-        carregarItem();
+        carregarKid();
     }, [idItem])
 
     useEffect(() =>{
@@ -35,12 +33,6 @@ const KidEdit = (props) => {
         <>
             <AppBar/>
             <main className="fixed-main-wrapper p-8 pt-32">
-                <div className="welcome">
-                    <Typography style={{ 'fontWeight': "bold" }} variant="h4" component="h2" >
-                        O que você está publicando?
-                    </Typography>
-                </div>
-
                 <div className="content-wrapper">
                     <FormKidCreate dataEdit={data} idItem={idItem}/>
                 </div>

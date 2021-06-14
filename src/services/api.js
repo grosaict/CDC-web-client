@@ -44,6 +44,8 @@ export const updateKid = async (id, data) => {
     }
 }
 
+// >>>>>>>>>>>>>>>          MEASURE                 <<<<<<<<<<<<<<<
+
 export const getKidByMeasureId = async (id) => {
     try {
         return await axios.get(`http://localhost:5000/api/kid/measure/${id}`, {
@@ -52,15 +54,25 @@ export const getKidByMeasureId = async (id) => {
     } catch (err) {
         return (err.response)
     }
-} 
-
-// >>>>>>>>>>>>>>>          MEASURE                 <<<<<<<<<<<<<<<
+}
 
 export const updateMeasure = async (id, data) => {
     try {
         return await axios.put(`http://localhost:5000/api/measure/update/${id}`, data, {
         headers: {'Content-Type': 'application/json', token: localStorage.getItem('token') }
     });
+    } catch (err) {
+        return (err.response)
+    }
+}
+
+// >>>>>>>>>>>>>>>          VACCINE                 <<<<<<<<<<<<<<<
+
+export const getKidByVaccineId = async (id) => {
+    try {
+        return await axios.get(`http://localhost:5000/api/kid/vaccine/${id}`, {
+            headers: { token: localStorage.getItem('token') }
+        });
     } catch (err) {
         return (err.response)
     }
