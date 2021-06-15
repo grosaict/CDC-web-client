@@ -1,7 +1,7 @@
 import React from 'react';
 
 import AppBar from '../../components/AppBar';
-import FormKidCreate from '../../components/FormKidCreate';
+import FormKid from '../../components/FormKid';
 
 import Typography from '@material-ui/core/Typography';
 
@@ -19,7 +19,7 @@ const CreateKid = () => {
                 </div>
 
                 <div className="content-wrapper">
-                    <FormKidCreate/>
+                    <FormKid/>
                 </div>
 
             </main>

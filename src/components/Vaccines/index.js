@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
+
+import Card from '@material-ui/core/Card';
 import Box from '@material-ui/core/Box';
 import Collapse from '@material-ui/core/Collapse';
 import Table from '@material-ui/core/Table';
@@ -84,29 +86,29 @@ function Row (props) {
             <TableRow key={vac.name+"vaccine"}>
                 <TableCell className="side-menu-green" style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={2}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
-                        <Box margin={1}>
+                        <Card style={{backgroundColor:'#e0f2f1'}}><Box margin={1}>
 
                             <Typography style={{color:'red'}} variant="caption" gutterBottom component="div">
                                 {recommendedMsg(vac.dueMonth)}</Typography>
 
                             <Typography style={{color:'#269500'}} variant="button" gutterBottom component="div">
                                 Registro da Aplicação</Typography>
-                            <Typography className="side-menu-green" variant="caption">
+                            <Typography style={{color:'blue'}} className="side-menu-green" variant="caption">
                                 Clique na data para atualizar o registro</Typography>
                             <Table size="small" aria-label="purchases">
                                 <TableHead>
                                     <TableRow key={vac.name+"headApplication"}>
-                                        <TableCell /* style={{color:'blue'}} */ align="center">Data</TableCell>
-                                        <TableCell /* style={{color:'blue'}} */ align="center">Calendário SUS</TableCell>
+                                        <TableCell align="center">Data</TableCell>
+                                        <TableCell align="center">Calendário SUS</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
                                     <TableRow key={vac.name+"application"}>
-                                        <TableCell /* style={{color:'blue'}} */ component="th" scope="row" align="center">
+                                        <TableCell style={{color:'blue'}} component="th" scope="row" align="center">
                                             <Link to={{ pathname: "/kid/vaccine/"+vac._id }} >
                                                 { vac.isSet ? format(new Date(vac.scheduleDate),'dd/MM/yyyy') : "Pendente" }</Link>
                                         </TableCell>
-                                        <TableCell /* style={{color:'blue'}} */ align="center">
+                                        <TableCell align="center">
                                             { vac.isSUS ? "Sim  " : "Não  "}</TableCell>
                                     </TableRow>
                                 </TableBody>
@@ -118,12 +120,13 @@ function Row (props) {
                                     <Typography style={{color:'#269500'}} variant="button" gutterBottom component="div">
                                         Informações Adicionais</Typography>
                                     
-                                    <Typography /* style={{color:'blue'}} */ variant="body2" gutterBottom component="div" align="justify">
+                                    <Typography variant="body2" gutterBottom component="div" align="justify">
                                         {vac.description}</Typography>
                                 </>
                             : null
                             }
-                        </Box>
+                        </Box></Card>
+                        <br/>
                     </Collapse>
                 </TableCell>
             </TableRow>

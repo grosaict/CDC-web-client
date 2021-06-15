@@ -8,10 +8,11 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
-import DatePickerInput from '../../components/DatePickerInput';
+import DatePickerInput from '../DatePickerInput';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { useToasts } from 'react-toast-notifications';
+import { format } from 'date-fns';
 
 import { createKid, updateKid } from '../../services/api';
 
@@ -33,13 +34,14 @@ const useStyles = makeStyles({
     }
 });
 
-const FormKidCreate = (props) => {
+const FormKid = (props) => {
 
     const { dataEdit, idKid } = props;
 
     const { addToast } = useToasts();
     const history = useHistory();
     const classes = useStyles();
+    const minDateBirth = new Date(new Date().getFullYear() - 10, new Date().getMonth(), new Date().getDate());
 
     const [ kidGender, setGender ] = useState('');
     const [ kidGenderError, setErrorGender ] = useState(false);
@@ -48,7 +50,7 @@ const FormKidCreate = (props) => {
     const [ kidBirth, setBirth ] = useState(new Date());
     const [ kidBirthError, setErrorBirth ] = useState(false);
 
-    const [ disableButton, setDisableButton ] = useState(false);
+    const [ disabledButton, setDisabledButton ] = useState(false);
 
     const handleChangeName = (e) => {
         setName(e.target.value);
@@ -85,7 +87,7 @@ const FormKidCreate = (props) => {
     }
 
     const handleSubmit = async (e) => {
-        setDisableButton(true)
+        setDisabledButton(true)
         e.preventDefault();
         const isFieldsOk = validateFields();
 
@@ -113,7 +115,7 @@ const FormKidCreate = (props) => {
         } else {
             addToast('Preencha todos os campos obrigatórios!', { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true });
         }
-        setDisableButton(false)
+        setDisabledButton(false)
     };
 
     useEffect(() =>{
@@ -151,6 +153,8 @@ const FormKidCreate = (props) => {
                                 value={kidBirth}
                                 label={"Data de Nascimento"}
                                 formatDate={'dd/MM/yyyy'}
+                                minDate={minDateBirth}
+                                minDateMessage={"Data menor que "+format(new Date(minDateBirth),'dd/MM/yyyy')+"."}
                                 error={kidBirthError}/>
                         </FormControl>
                     </Grid>
@@ -176,14 +180,14 @@ const FormKidCreate = (props) => {
                 </Grid>
                 <Grid container spacing={2} direction="row" justify="flex-end" alignItems="flex-end">
                     <Grid item>
-                        { !disableButton ?
+                        { !disabledButton ?
                             <Button href="/" variant="contained" color="primary" className={classes.buttonCancel}>
                                 {'Cancelar'}
                             </Button>
                         : null }
                     </Grid>
                     <Grid item>
-                        { disableButton ?
+                        { disabledButton ?
                             <Button type="submit" variant="contained" color="primary" className={classes.buttonAdd} disabled>
                                 Aguarde
                             </Button>
@@ -199,4 +203,4 @@ const FormKidCreate = (props) => {
     );
 };
 
-export default FormKidCreate;
+export default FormKid;

@@ -7,7 +7,7 @@ import {
 
 const DatePickerInput = (props) => {
 
-    const { id, label, formatDate, initialPickDate, handleChange, error, disableFuture, disablePast, value } = props;
+    const { id, label, formatDate, initialPickDate, handleChange, error, disableFuture, disablePast, value, minDate, minDateMessage } = props;
 
     const [selectedDate, setSelectedDate] = useState(initialPickDate);
     
@@ -30,8 +30,9 @@ const DatePickerInput = (props) => {
                 error={error}
                 //style={{width: 300}}
                 disableToolbar
-                variant="filled"
-                size="medium"
+                variant="inline"
+                inputVariant="filled"
+                size="small"
                 /* variant="inline" */
                 /* inputVariant="outlined" */
                 format={formatDate}
@@ -39,7 +40,11 @@ const DatePickerInput = (props) => {
                 id={id}
                 label={label}
                 value={selectedDate}
+                autoOk={true}
                 onChange={handleChangeDate}
+                minDate={minDate}
+                maxDateMessage="Data maior que a atual."
+                minDateMessage={minDateMessage}
                 KeyboardButtonProps={{
                     'aria-label': 'change date',
                 }}

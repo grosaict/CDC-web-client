@@ -37,7 +37,7 @@ const EditVaccine = (props) => {
                     <>
                         <div className="welcome">
                             <Typography style={{ 'fontWeight': "bold" }} className="side-menu-green" variant="h5" component="h5" >
-                                Inclua ou edite o registro da vacina 
+                                Adicione ou edite o registro da vacina 
                             </Typography>
                         </div>
                         <div className="content-wrapper">
