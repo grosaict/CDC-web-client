@@ -80,8 +80,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AppBarMenu(props) {
   const data = props.data;
-  console.log("AppBarMenu > data >>> ");  // ### APAGAR <<<<<<<<<<<<<<<<<<<<<<<
-  console.log(data);  // ### APAGAR <<<<<<<<<<<<<<<<<<<<<<<
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -229,10 +227,7 @@ export default function AppBarMenu(props) {
       </AppBar>
       { renderMobileMenu }
       { renderMenu }
-      { sideBarMenuShow ? <SideMenu data={{
-                                      switchKidDashboard : data.switchKidDashboard,
-                                      onClose            : openSideBarMenu
-                                    }} /> : null }
+      { sideBarMenuShow ? <SideMenu switchKidDashboard={data.switchKidDashboard} onClose={openSideBarMenu}/> : null }
     </div>
   );
 }

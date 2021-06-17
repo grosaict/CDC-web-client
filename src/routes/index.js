@@ -7,8 +7,9 @@ import Login        from '../pages/Login';
 import Register     from '../pages/Register';
 import Home         from '../pages/Home';
 import KidDashboard from '../pages/KidDashboard';
-import CreateKid    from '../pages/CreateKid';
+import NewKid       from '../pages/NewKid';
 import EditMeasures from '../pages/EditMeasures';
+import NewVaccine  from '../pages/NewVaccine';
 import EditVaccine  from '../pages/EditVaccine';
 
 const PrivateRoute = ({component: Component, ...rest}) => (
@@ -30,9 +31,10 @@ export default function Routes() {
             <PrivateRoute   exact path='/kid/detail/:id/pediatrics' component={KidDashboard}/>
             <PrivateRoute   exact path='/kid/detail/:id/measures' component={KidDashboard}/>
             <PrivateRoute   exact path='/kid/detail/:id/vaccines' component={KidDashboard}/>
-            <PrivateRoute   exact path='/kid/create' component={CreateKid}/>
-            <PrivateRoute   exact path='/kid/measure/:id' component={EditMeasures}/>
-            <PrivateRoute   exact path='/kid/vaccine/:id' component={EditVaccine}/>
+            <PrivateRoute   exact path='/kid/new' component={NewKid}/>
+            <PrivateRoute   exact path='/measure/:id' component={EditMeasures}/>
+            <PrivateRoute   exact path='/vaccine/:id' component={EditVaccine}/>
+            <PrivateRoute   exact path='/vaccine/new/:id' component={NewVaccine}/>
             <Route          exact path='/login' component={Login}/>
             <Route          exact path='/register' component={Register}/>
             <PrivateRoute   exact path='*' component={Error}/>

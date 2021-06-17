@@ -78,6 +78,26 @@ export const getKidByVaccineId = async (id) => {
     }
 }
 
+export const updateVaccine = async (id, data) => {
+    try {
+        return await axios.put(`http://localhost:5000/api/vaccine/update/${id}`, data, {
+        headers: {'Content-Type': 'application/json', token: localStorage.getItem('token') }
+    });
+    } catch (err) {
+        return (err.response)
+    }
+}
+
+export const newVaccine = async (data) => {
+    try {
+        return await axios.post(`http://localhost:5000/api/vaccine/`, data, {
+        headers: {'Content-Type': 'application/json', token: localStorage.getItem('token') }
+    });
+    } catch (err) {
+        return (err.response)
+    }
+}
+
 // >>>>>>>>>>>>>>>          LOGIN and USER          <<<<<<<<<<<<<<<
 
 export const userLogin = async (data) => {

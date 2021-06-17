@@ -13,7 +13,7 @@ const Home = () => {
             <main className="fixed-main-wrapper p-8 pt-32">
                 <Kids/>
                 <div id="div-button-register">
-                    <Link to={{ pathname: "/kid/create" }} >
+                    <Link to={{ pathname: "/kid/new" }} >
                         <button type="button" id="button-register">
                             <AddIcon className="icon" color="primary"/>
                         </button>

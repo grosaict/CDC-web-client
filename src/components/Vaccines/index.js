@@ -15,6 +15,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import WarningRoundedIcon from '@material-ui/icons/WarningRounded';
+import AddIcon from '@material-ui/icons/Add';
 
 import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
@@ -29,9 +30,8 @@ const useRowStyles = makeStyles({
 });
 
 export default function Vaccines(props) {
-    let vaccines = props.data.vaccines
-    //console.log("vaccines 2 >>>"+JSON.stringify(vaccines))
-
+    const vaccines = props.data.vaccines
+    const kidId = props.data._id
 
     return (
         <>
@@ -58,6 +58,13 @@ export default function Vaccines(props) {
                 </TableBody>
                 </Table>
             </TableContainer>
+            <div id="div-button-register">
+                <Link to={{ pathname: "/vaccine/new/"+kidId }} >
+                    <button type="button" id="button-register">
+                        <AddIcon className="icon" color="primary"/>
+                    </button>
+                </Link>
+            </div>
         </>
     );
 }
@@ -105,8 +112,8 @@ function Row (props) {
                                 <TableBody>
                                     <TableRow key={vac.name+"application"}>
                                         <TableCell style={{color:'blue'}} component="th" scope="row" align="center">
-                                            <Link to={{ pathname: "/kid/vaccine/"+vac._id }} >
-                                                { vac.isSet ? format(new Date(vac.scheduleDate),'dd/MM/yyyy') : "Pendente" }</Link>
+                                            <Link to={{ pathname: "/vaccine/"+vac._id }} >
+                                                { vac.isSet ? format(new Date(vac.applicationDate),'dd/MM/yyyy') : "Pendente" }</Link>
                                         </TableCell>
                                         <TableCell align="center">
                                             { vac.isSUS ? "Sim  " : "Não  "}</TableCell>

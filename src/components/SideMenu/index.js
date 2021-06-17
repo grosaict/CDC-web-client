@@ -10,8 +10,8 @@ import BugReportRoundedIcon from '@material-ui/icons/BugReportRounded';
 
 export default function SideMenu(props) {
 
-    const onClose               = props.data.onClose;
-    const switchKidDashboard    = props.data.switchKidDashboard;
+    const onClose               = props.onClose;
+    const switchKidDashboard    = props.switchKidDashboard;
 
     const [heigth, setHeigth] = useState(0);
     const [width, setWidth] = useState(0);

@@ -2,29 +2,31 @@ import React, { useState, useEffect } from 'react';
 
 import Typography from '@material-ui/core/Typography';
 
-import { getKidByVaccineId } from '../../services/api'
+import { getKidById } from '../../services/api'
 
 import AppBar from '../../components/AppBar';
 import FormVaccine from '../../components/FormVaccine';
 
-const EditVaccine = (props) => {
+const NewVaccine = (props) => {
 
-    const idVaccine = (props.location.state ? props.location.state.id : props.match.params.id);
+    const idKid = (props.location.state ? props.location.state.id : props.match.params.id);
 
     const [ params, setParams ]     = useState(undefined);
     const [ loading, setLoading ]   = useState(false);
 
-    const loadKid = async (idV) => {
+    const loadKid = async (idK) => {
         setLoading(true)
-        let { data } = await getKidByVaccineId(idV);
-        data.data.form = "edit"
-        setParams(data.data)
+        let { data } = await getKidById(idK);
+        let obj = {}
+            obj.kid = data.data
+            obj.form = "new"
+        setParams(obj)
         setLoading(false)
     }
 
     useEffect(() =>{
-        loadKid(idVaccine)
-    }, [idVaccine]);
+        loadKid(idKid)
+    }, [idKid]);
 
 
     return (
@@ -38,7 +40,7 @@ const EditVaccine = (props) => {
                     <>
                         <div className="welcome">
                             <Typography style={{ 'fontWeight': "bold" }} className="side-menu-green" variant="h6" component="h5" >
-                                Atualize o registro da vacina
+                                Adicione o registro da vacina
                             </Typography>
                         </div>
                         <div className="content-wrapper">
@@ -53,4 +55,4 @@ const EditVaccine = (props) => {
 
 };
 
-export default EditVaccine;
+export default NewVaccine;

@@ -8,17 +8,16 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
 
 import { makeStyles } from '@material-ui/core/styles';
 import { useToasts } from 'react-toast-notifications';
 
-import MeasureCard from '../MeasureCard';
+import VaccineCard from '../VaccineCard';
 import DatePickerInput from '../DatePickerInput';
 import CustomSwitch from '../CustomSwitch';
 
 
-import { updateVaccine } from '../../services/api';
+import { newVaccine, updateVaccine } from '../../services/api';
 
 const useStyles = makeStyles({
     buttonAdd: {
@@ -39,10 +38,7 @@ const useStyles = makeStyles({
 });
 
 const FormVaccine = (props) => {
-
     const { data } = props;
-    console.log("FormVaccine > data >>>")
-    console.log(data)
 
     const { addToast } = useToasts();
     const history = useHistory();
@@ -76,7 +72,6 @@ const FormVaccine = (props) => {
     };
 
     const handleChangeApplicationDate = (value) => {
-        console.log("handleChangeApplicationDate >>>"+value)
         setApplicationDate(value)
     };
 
@@ -125,12 +120,6 @@ const FormVaccine = (props) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        /* console.log("today >>> "+today)
-        console.log("kidBirth >>> "+kidBirth)
-        console.log("applicationDate >>> "+applicationDate)
-        console.log("Math.abs(applicationDate.getTime() - kidBirth.getTime())"+(applicationDate.getTime() - kidBirth.getTime()))
-        console.log("Math.abs(today.getTime() - applicationDate.getTime())"+(today.getTime() - applicationDate.getTime())) */
-
         if(isFieldsOk()){
             const params = {
                 name:               vacName,
@@ -140,19 +129,21 @@ const FormVaccine = (props) => {
                 isSet:              isSet,
             }
 
-            // APAGAR
-            addToast("sucesso TESTE", { appearance: 'success', autoDismissTimeout: 3000, autoDismiss: true });
-            //setTimeout(() => { history.push("/kid/detail/"+kid._id+"/vaccines") }, 1000)
-            // APAGAR
-
-            /* let request;
-            request = await updateVaccine(vaccineId, params);
+            let request = {};
+            if (data.form === 'edit') {
+                request = await updateVaccine(vaccineId, params);
+            } else {
+                params.kid = kid
+                console.log("FormVaccine > params >>>")
+                console.log(params)
+                request = await newVaccine(params);
+            }
             if(request.status === 200) {
                 addToast(request.data.message, { appearance: 'success', autoDismissTimeout: 3000, autoDismiss: true });
                 setTimeout(() => { history.push("/kid/detail/"+kid._id+"/vaccines") }, 1000)
             } else {
                 addToast(request.data.message, { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true });
-            } */
+            }
         } else {
             addToast('Preencha todos os campos obrigatórios!', { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true });
         }
@@ -162,16 +153,18 @@ const FormVaccine = (props) => {
         if (data){
             setKid(data.kid)
             setKidBirth(new Date(data.kid.birth))
-            setVaccineId(data.vaccine._id)
-            setDueMonth(data.vaccine.dueMonth)
-            setVacName(data.vaccine.name)
-            setDescription(data.vaccine.description)
-            setIsSet(data.vaccine.isSet)
-            setIsSUS(data.vaccine.isSUS)
-            if (data.vaccine.isSet) {
-                setApplicationDate(data.vaccine.applicationDate)
-            } else {
-                setApplicationDate(today)
+            if (data.form === 'edit') {
+                setVaccineId(data.vaccine._id)
+                setDueMonth(data.vaccine.dueMonth)
+                setVacName(data.vaccine.name)
+                setDescription(data.vaccine.description)
+                setIsSet(data.vaccine.isSet)
+                setIsSUS(data.vaccine.isSUS)
+                if (data.vaccine.isSet) {
+                    setApplicationDate(data.vaccine.applicationDate)
+                } else {
+                    setApplicationDate(new Date(new Date().getFullYear(), new Date().getMonth() ,new Date().getDate())) // TODAY
+                }
             }
         }
     }, [data]);
@@ -180,7 +173,7 @@ const FormVaccine = (props) => {
         <>
             {kid ?
             <>
-                {/* <MeasureCard data={data}/> */}
+                {kid ? <VaccineCard data={data}/> : null }
                 <br/>
                 <form className="form form-create-kid" autoComplete="off" method="post" onSubmit={handleSubmit}>
                     <Grid container spacing={2} >
@@ -300,7 +293,7 @@ const FormVaccine = (props) => {
                         </Grid>
                     </Grid>         
                 </form>
-            </> : null}
+            </> : null }
         </>
     );
 };

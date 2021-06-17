@@ -6,7 +6,7 @@ import FormKid from '../../components/FormKid';
 import Typography from '@material-ui/core/Typography';
 
 
-const CreateKid = () => {
+const NewKid = () => {
 
     return (
         <>
@@ -29,4 +29,4 @@ const CreateKid = () => {
 
 };
 
-export default CreateKid;
+export default NewKid;
