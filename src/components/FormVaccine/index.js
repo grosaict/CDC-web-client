@@ -39,6 +39,8 @@ const useStyles = makeStyles({
 
 const FormVaccine = (props) => {
     const { data } = props;
+    console.log("FormVaccine > data >>>")
+    console.log(data)
 
     const { addToast } = useToasts();
     const history = useHistory();
@@ -55,7 +57,6 @@ const FormVaccine = (props) => {
     const [ applicationDate, setApplicationDate ] = useState(today);
     const [ applicationDateError, setErrorApplicationDate ] = useState(false);
     const [ description, setDescription ] = useState('');
-    const [ descriptionError, setErrorDescription ] = useState(false);
     const [ isSet, setIsSet ] = useState(false);
     const [ isSUS, setIsSUS ] = useState(false);
 
@@ -109,11 +110,6 @@ const FormVaccine = (props) => {
             }
         }
 
-        if(!description     || description === ''   || description === undefined){
-            isValid = false;
-            setErrorDescription(true);
-        } else { setErrorDescription(false); }
-
         return isValid;
     }
 
@@ -122,8 +118,8 @@ const FormVaccine = (props) => {
 
         if(isFieldsOk()){
             const params = {
-                name:               vacName,
                 dueMonth:           dueMonth,
+                name:               vacName,
                 applicationDate:    isSet ? applicationDate : null,
                 description:        description,
                 isSet:              isSet,
@@ -134,7 +130,7 @@ const FormVaccine = (props) => {
                 request = await updateVaccine(vaccineId, params);
             } else {
                 params.kid = kid
-                console.log("FormVaccine > params >>>")
+                console.log("FormVaccine > params >>>") /// #### APAGAR
                 console.log(params)
                 request = await newVaccine(params);
             }
@@ -161,7 +157,7 @@ const FormVaccine = (props) => {
                 setIsSet(data.vaccine.isSet)
                 setIsSUS(data.vaccine.isSUS)
                 if (data.vaccine.isSet) {
-                    setApplicationDate(data.vaccine.applicationDate)
+                    setApplicationDate(new Date(data.vaccine.applicationDate))
                 } else {
                     setApplicationDate(new Date(new Date().getFullYear(), new Date().getMonth() ,new Date().getDate())) // TODAY
                 }
@@ -275,7 +271,6 @@ const FormVaccine = (props) => {
                                     rowsMax={6}
                                     onChange={handleChangeDescription}
                                     value={description}
-                                    error={descriptionError}
                                     disabled={isSUS}/>
                             </FormControl>
                         </Grid>

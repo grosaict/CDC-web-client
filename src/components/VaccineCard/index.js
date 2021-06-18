@@ -29,9 +29,9 @@ export default function VaccineCard(props) {
 
   const scheduleDateTag = () => {
       if (v) {
-        return v.isSUS ? "É oferecida pelo SUS" : "Não é oferecida pelo SUS"
+        return v.isSUS ? "Vacina oferecida no SUS" : "Vacina não oferecida no SUS"
       } else {
-        return "Não é oferecida pelo SUS"
+        return "Vacina não oferecida no SUS"
       }
   }
 

@@ -8,18 +8,21 @@ import AppBar from '../../components/AppBar';
 import FormVaccine from '../../components/FormVaccine';
 
 const NewVaccine = (props) => {
-
     const idKid = (props.location.state ? props.location.state.id : props.match.params.id);
 
     const [ params, setParams ]     = useState(undefined);
-    const [ loading, setLoading ]   = useState(false);
+    const [ loading, setLoading ]   = useState(true);
 
     const loadKid = async (idK) => {
         setLoading(true)
         let { data } = await getKidById(idK);
+        console.log("NewVaccine > data >>>")
+        console.log(data)
         let obj = {}
-            obj.kid = data.data
-            obj.form = "new"
+            obj.status  = data.status
+            obj.message = data.message
+            obj.kid     = data.data
+            obj.form    = "new"
         setParams(obj)
         setLoading(false)
     }
@@ -28,7 +31,6 @@ const NewVaccine = (props) => {
         loadKid(idKid)
     }, [idKid]);
 
-
     return (
         <>
             <AppBar />
@@ -36,23 +38,30 @@ const NewVaccine = (props) => {
                 {
                     loading ?
                         <h3>carregando ... </h3>
-                    :
+                    : 
                     <>
-                        <div className="welcome">
-                            <Typography style={{ 'fontWeight': "bold" }} className="side-menu-green" variant="h6" component="h5" >
-                                Adicione o registro da vacina
-                            </Typography>
-                        </div>
-                        <div className="content-wrapper">
-                            <FormVaccine data={params}/>
-                        </div>
+                        { params.status === 200 ?
+                            <>
+                                <div className="welcome">
+                                    <Typography style={{ 'fontWeight': "bold" }} className="side-menu-green" variant="h6" component="h5" >
+                                        Adicione o registro da vacina
+                                    </Typography>
+                                </div>
+                                <div className="content-wrapper">
+                                    <FormVaccine data={params}/>
+                                </div>
+                            </> : 
+                            <>
+                                <Typography style={{ 'fontWeight': "bold" }} className="side-menu-green" variant="h6" component="h5" >
+                                    ESSA PÁGINA NÃO EXISTE
+                                </Typography>
+                            </>
+                        }
                     </>
                 }
             </main>
         </>
-
     );
-
 };
 
 export default NewVaccine;

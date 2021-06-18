@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Redirect } from "react-router-dom";
 
 import AppBar from '../../components/AppBar';
 import KidCard from '../../components/KidCard';
@@ -11,14 +12,17 @@ const KidDashboard = (props) => {
     const idKid     = (props.location.state ? props.location.state.id : props.match.params.id);
     const path      = props.match.path
 
+    console.log("KidDashboard > path >>>")
+    console.log(path)
+
     const [ data,           setData ]           = useState(undefined);
     const [ loading,        setLoading ]        = useState(true);
     const [ pediatricsShow, setPediatricsShow]  = useState(false);
     const [ measuresShow,   setMeasuresShow]    = useState(false);
     const [ vaccinesShow,   setVaccinesShow]    = useState(false);
 
-    const setDashboard = (p) => {
-        switch (p) {
+    const setDashboard = () => {
+        switch (path) {
             case "/kid/detail/:id/pediatrics":
                 setPediatricsShow(true)
                 break;
@@ -29,72 +33,69 @@ const KidDashboard = (props) => {
                 setVaccinesShow(true)
                 break;
             default:
-                setVaccinesShow(true)
-                //setMeasuresShow(true)
+                //setVaccinesShow(true)
+                setMeasuresShow(true)
                 break;
         }
     }
 
     const switchKidDashboard = (showComponent) => {
+        setPediatricsShow(false);
+        setMeasuresShow(false);
+        setVaccinesShow(false);
         switch (showComponent){
             case 'Pediatrics':
                 setPediatricsShow(true);
-                setMeasuresShow(false);
-                setVaccinesShow(false);
                 break;
             case 'Measures':
-                setPediatricsShow(false);
                 setMeasuresShow(true);
-                setVaccinesShow(false);
                 break;
             case 'Vaccines':
-                setPediatricsShow(false);
-                setMeasuresShow(false);
                 setVaccinesShow(true);
                 break;
             default:
-                setPediatricsShow(false);
-                setMeasuresShow(false);
-                setVaccinesShow(false);
+                setDashboard();
         }
     }
 
-    useEffect(() =>{
+    const loadKid = async (idK) => {
         setLoading(true)
-        const loadKid = async () => {
-            let { data } = await getKidById(idKid);
-            let props = {
-                kid:                data.data,
-                switchKidDashboard: switchKidDashboard
-            }
-            setData(props)
-            setLoading(false)
-            setDashboard(path)
+        let { data } = await getKidById(idK);
+        let props = {
+            kid:                data.data,
+            status:             data.status,
+            message:            data.message
         }
-        loadKid();
-    }, [idKid, path])
+        setData(props)
+        setLoading(false)
+        setDashboard()
+    }
+
+    useEffect(() =>{
+        loadKid(idKid)
+    }, [idKid])
 
     return (
-        <>
-            <AppBar data={data}/>
-            <main className="fixed-main-wrapper p-8 p-32">
-                {
-                    loading ?
+            <>
+                <AppBar data={data} switchKidDashboard={switchKidDashboard} />
+                <main className="fixed-main-wrapper p-8 p-32">
+                    { loading ?
                         <h3>carregando ... </h3>
                     : 
                         <>
-                            { data && data.kid._id ?
+                            { data.status === 200 ?
                                 <>
                                     <KidCard data={data.kid} />
                                     { pediatricsShow    ? <p>CONSULTAS</p>              : null }
                                     { measuresShow      ? <Measures data={data.kid}/>   : null }
                                     { vaccinesShow      ? <Vaccines data={data.kid}/>   : null }
                                 </>
-                            : null}
+                            :   <Redirect to={{pathname: '/', state: {from: props.location}}} />
+                            }
                         </>
-                }
-            </main>
-        </>
+                    }
+                </main>
+            </>
     );
 
 }

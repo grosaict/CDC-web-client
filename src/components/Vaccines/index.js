@@ -144,7 +144,8 @@ function Row (props) {
 function recommendedMsg (dMonth) {
     switch (dMonth) {
         case 0:     return "Aplicação recomendada nos primeiros 7 dias do nascimento"
-        default:    return "Aplicação recomendada a partir do "+dMonth+"º mês de aniversário"
+        case 1:     return "Aplicação recomendada a partir de "+dMonth+" mês de idade"
+        default:    return "Aplicação recomendada a partir de "+dMonth+" meses de idade"
     }
 }
 

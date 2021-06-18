@@ -295,6 +295,14 @@ a {
     z-index: 100000000000;
 }
 
+#div-click-here{
+    display: block;
+    position: fixed;
+    bottom: 10px;
+    right: 90px;
+    z-index: 100000000000;
+}
+
 #div-button-register #button-register{
     outline: none;
     border-radius: 100%;

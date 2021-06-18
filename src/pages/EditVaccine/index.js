@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Redirect } from "react-router-dom";
 
 import Typography from '@material-ui/core/Typography';
 
@@ -8,15 +9,14 @@ import AppBar from '../../components/AppBar';
 import FormVaccine from '../../components/FormVaccine';
 
 const EditVaccine = (props) => {
-
     const idVaccine = (props.location.state ? props.location.state.id : props.match.params.id);
-
+    
     const [ params, setParams ]     = useState(undefined);
-    const [ loading, setLoading ]   = useState(false);
+    const [ loading, setLoading ]   = useState(true);
 
     const loadKid = async (idV) => {
         setLoading(true)
-        let { data } = await getKidByVaccineId(idV);
+        let data = await getKidByVaccineId(idV);
         data.data.form = "edit"
         setParams(data.data)
         setLoading(false)
@@ -36,14 +36,18 @@ const EditVaccine = (props) => {
                         <h3>carregando ... </h3>
                     :
                     <>
-                        <div className="welcome">
-                            <Typography style={{ 'fontWeight': "bold" }} className="side-menu-green" variant="h6" component="h5" >
-                                Atualize o registro da vacina
-                            </Typography>
-                        </div>
-                        <div className="content-wrapper">
-                            <FormVaccine data={params}/>
-                        </div>
+                        { params.status === 200 ?
+                            <>
+                                <div className="welcome">
+                                    <Typography style={{ 'fontWeight': "bold" }} className="side-menu-green" variant="h6" component="h5" >
+                                        Atualize o registro da vacina
+                                    </Typography>
+                                </div>
+                                <div className="content-wrapper">
+                                    <FormVaccine data={params}/>
+                                </div>
+                                </> : <Redirect to={{pathname: '/', state: {from: props.location}}} />
+                        }
                     </>
                 }
             </main>

@@ -34,6 +34,9 @@ const FormMeasures = (props) => {
 
     const { data } = props;
 
+    console.log("FormMeasures > data >>>")
+    console.log(data)
+
     const { addToast } = useToasts();
     const history = useHistory();
     const classes = useStyles();
@@ -109,16 +112,6 @@ const FormMeasures = (props) => {
             if(request.status === 200) {
                 addToast(request.data.message, { appearance: 'success', autoDismissTimeout: 3000, autoDismiss: true });
                 setTimeout(() => { history.push("/kid/detail/"+kidId+"/measures") }, 1000)
-                /* setTimeout(() => {
-                    history.push({
-                        pathname: "/kid/detail/"+kidId,
-                        state: {
-                            id: kidId,
-                            component: "Measures"
-                        }
-                    })
-                }, 1000) */
-                //to={{ pathname: `/kid/detail/${k._id}`, state: { id: k._id, component: "Measures" } }}
             } else {
                 addToast(request.data.message, { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true });
             }
