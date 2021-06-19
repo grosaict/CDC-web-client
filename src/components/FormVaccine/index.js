@@ -39,8 +39,6 @@ const useStyles = makeStyles({
 
 const FormVaccine = (props) => {
     const { data } = props;
-    console.log("FormVaccine > data >>>")
-    console.log(data)
 
     const { addToast } = useToasts();
     const history = useHistory();
@@ -130,8 +128,6 @@ const FormVaccine = (props) => {
                 request = await updateVaccine(vaccineId, params);
             } else {
                 params.kid = kid
-                console.log("FormVaccine > params >>>") /// #### APAGAR
-                console.log(params)
                 request = await newVaccine(params);
             }
             if(request.status === 200) {
@@ -174,7 +170,7 @@ const FormVaccine = (props) => {
                 <form className="form form-create-kid" autoComplete="off" method="post" onSubmit={handleSubmit}>
                     <Grid container spacing={2} >
                         <Grid item xs={12}>
-                            <FormControl className="form-control" disabled={isSUS}>
+                            <FormControl className="form-control" disabled={isSUS} >
                                 <InputLabel id="input-dueMonth-label" variant="filled">
                                     Aplicação recomendada</InputLabel>
                                 <Select

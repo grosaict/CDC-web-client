@@ -86,7 +86,7 @@ export default function Measures(props) {
             { kid && kid._id ? <>
                 <>
                     <br/>
-                    <TableContainer component={Paper}>
+                    <TableContainer component={Paper} >
                         <Table /* className={classes.table} */ size="small" aria-label="a dense table">
                             <TableHead>
                                 <TableRow>

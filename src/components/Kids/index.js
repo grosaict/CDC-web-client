@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+
 import { makeStyles } from '@material-ui/core/styles';
-import KidCard from '../KidCard';
 import Grid from '@material-ui/core/Grid';
+
+import KidCard from '../KidCard';
 
 import { getKids } from '../../services/api'
 
@@ -46,7 +48,7 @@ const Kids = () => {
                                     {
                                         data.map((kid, index )=> (
                                             <Grid item xs={12} sm={6} md={4} lg={4} key={`grid-kid-${index}`}>
-                                                <KidCard key={`card-kid-${index}`} data={kid} />
+                                                <KidCard key={`card-kid-${index}`} data={kid} link={true} />
                                             </Grid>
                                         ))
                                     }

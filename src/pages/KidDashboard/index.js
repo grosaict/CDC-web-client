@@ -12,32 +12,11 @@ const KidDashboard = (props) => {
     const idKid     = (props.location.state ? props.location.state.id : props.match.params.id);
     const path      = props.match.path
 
-    console.log("KidDashboard > path >>>")
-    console.log(path)
-
     const [ data,           setData ]           = useState(undefined);
     const [ loading,        setLoading ]        = useState(true);
     const [ pediatricsShow, setPediatricsShow]  = useState(false);
     const [ measuresShow,   setMeasuresShow]    = useState(false);
     const [ vaccinesShow,   setVaccinesShow]    = useState(false);
-
-    const setDashboard = () => {
-        switch (path) {
-            case "/kid/detail/:id/pediatrics":
-                setPediatricsShow(true)
-                break;
-            case "/kid/detail/:id/measures":
-                setMeasuresShow(true)
-                break;
-            case "/kid/detail/:id/vaccines":
-                setVaccinesShow(true)
-                break;
-            default:
-                //setVaccinesShow(true)
-                setMeasuresShow(true)
-                break;
-        }
-    }
 
     const switchKidDashboard = (showComponent) => {
         setPediatricsShow(false);
@@ -54,7 +33,8 @@ const KidDashboard = (props) => {
                 setVaccinesShow(true);
                 break;
             default:
-                setDashboard();
+                setMeasuresShow(true);
+                //setDashboard();
         }
     }
 
@@ -68,12 +48,33 @@ const KidDashboard = (props) => {
         }
         setData(props)
         setLoading(false)
-        setDashboard()
     }
 
     useEffect(() =>{
         loadKid(idKid)
     }, [idKid])
+
+    useEffect(() =>{
+        const setDashboard = () => {
+            switch (path) {
+                case "/kid/detail/:id/pediatrics":
+                    setPediatricsShow(true)
+                    break;
+                case "/kid/detail/:id/measures":
+                    setMeasuresShow(true)
+                    break;
+                case "/kid/detail/:id/vaccines":
+                    setVaccinesShow(true)
+                    break;
+                default:
+                    setPediatricsShow(false)
+                    setVaccinesShow(false)
+                    setMeasuresShow(true)
+                    break;
+            }
+        }
+        setDashboard();
+    }, [path])
 
     return (
             <>
@@ -85,7 +86,7 @@ const KidDashboard = (props) => {
                         <>
                             { data.status === 200 ?
                                 <>
-                                    <KidCard data={data.kid} />
+                                    <KidCard data={data.kid}  link={false} />
                                     { pediatricsShow    ? <p>CONSULTAS</p>              : null }
                                     { measuresShow      ? <Measures data={data.kid}/>   : null }
                                     { vaccinesShow      ? <Vaccines data={data.kid}/>   : null }

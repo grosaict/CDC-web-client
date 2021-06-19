@@ -31,11 +31,7 @@ const useStyles = makeStyles({
 });
 
 const FormMeasures = (props) => {
-
     const { data } = props;
-
-    console.log("FormMeasures > data >>>")
-    console.log(data)
 
     const { addToast } = useToasts();
     const history = useHistory();
@@ -148,7 +144,8 @@ const FormMeasures = (props) => {
                                     label="Peso (gramas)"
                                     onChange={handleChangeWeight}
                                     onBlur={handleFormatWeight}
-                                    error={weightError} value={weight}/>
+                                    error={weightError}
+                                    value={weight}/>
                             </FormControl>
                         </Grid>
                         <Grid item xs={12}>
@@ -161,7 +158,8 @@ const FormMeasures = (props) => {
                                     label="Altura (centímetros)"
                                     onChange={handleChangeLength}
                                     onBlur={handleFormatLength}
-                                    error={lengthError} value={length}/>
+                                    error={lengthError}
+                                    value={length}/>
                             </FormControl>
                         </Grid>
                         <Grid item xs={12}>
@@ -174,7 +172,8 @@ const FormMeasures = (props) => {
                                     label="Perímetro Cefálico (centímetros)"
                                     onChange={handleChangeHead}
                                     onBlur={handleFormatHead}
-                                    error={headError} value={head}/>
+                                    error={headError}
+                                    value={head}/>
                             </FormControl>
                         </Grid>
                     </Grid>

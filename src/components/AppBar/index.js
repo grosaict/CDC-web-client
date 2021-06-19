@@ -79,8 +79,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AppBarMenu(props) {
-  const data                = props.data;
-  const switchKidDashboard  = props.switchKidDashboard;
+  const data      = props.data;
+  const switchKid = props.switchKidDashboard;
+
+  const switchKidDashboard = (component) => {
+    switchKid(component)
+  }
 
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
