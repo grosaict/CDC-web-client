@@ -34,7 +34,7 @@ const useStyles = makeStyles({
     }
 });
 
-const FormKid = (props) => {
+const KidForm = (props) => {
 
     const { dataEdit, idKid } = props;
 
@@ -110,12 +110,12 @@ const FormKid = (props) => {
                 setTimeout(() => { history.push("/") }, 1000)
             } else {
                 addToast(request.data.message, { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true });
+                setDisabledButton(false)
             }
-            
         } else {
             addToast('Preencha todos os campos obrigatórios!', { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true });
+            setDisabledButton(false)
         }
-        setDisabledButton(false)
     };
 
     useEffect(() =>{
@@ -203,4 +203,4 @@ const FormKid = (props) => {
     );
 };
 
-export default FormKid;
+export default KidForm;

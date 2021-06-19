@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import { getKidByMeasureId } from '../../services/api'
 
 import AppBar from '../../components/AppBar';
-import FormMeasures from '../../components/FormMeasures';
+import MeasuresForm from '../../components/MeasuresForm';
 
 const EditMeasures = (props) => {
 
@@ -37,16 +37,16 @@ const EditMeasures = (props) => {
                     :
                     <>
                         { params.status === 200 ?
-                        <>
-                            <div className="welcome">
-                                <Typography style={{ 'fontWeight': "bold" }} className="side-menu-green" variant="h5" component="h5" >
-                                    Atualize as medidas 
-                                </Typography>
-                            </div>
-                            <div className="content-wrapper">
-                                <FormMeasures data={params}/>
-                            </div>
-                        </> : <Redirect to={{pathname: '/', state: {from: props.location}}} />
+                            <>
+                                <div className="welcome">
+                                    <Typography style={{ 'fontWeight': "bold" }} className="side-menu-green" variant="h5" component="h5" >
+                                        Atualize as medidas 
+                                    </Typography>
+                                </div>
+                                <div className="content-wrapper">
+                                    <MeasuresForm data={params}/>
+                                </div>
+                            </> : <Redirect to={{pathname: '/', state: {from: props.location}}} />
                         }
                     </>
                 }

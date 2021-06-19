@@ -1,13 +1,12 @@
 import React from 'react';
 
 import AppBar from '../../components/AppBar';
-import FormKid from '../../components/FormKid';
+import KidForm from '../../components/KidForm';
 
 import Typography from '@material-ui/core/Typography';
 
 
-const NewKid = () => {
-
+const KidNew = () => {
     return (
         <>
             <AppBar/>
@@ -19,14 +18,12 @@ const NewKid = () => {
                 </div>
 
                 <div className="content-wrapper">
-                    <FormKid/>
+                    <KidForm/>
                 </div>
 
             </main>
         </>
-
     );
-
 };
 
-export default NewKid;
+export default KidNew;

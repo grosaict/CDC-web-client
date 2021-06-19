@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import { getKidById } from '../../services/api'
 
 import AppBar from '../../components/AppBar';
-import FormVaccine from '../../components/FormVaccine';
+import VaccineForm from '../../components/VaccineForm';
 
 const NewVaccine = (props) => {
     const idKid = (props.location.state ? props.location.state.id : props.match.params.id);
@@ -16,8 +16,6 @@ const NewVaccine = (props) => {
     const loadKid = async (idK) => {
         setLoading(true)
         let { data } = await getKidById(idK);
-        console.log("NewVaccine > data >>>")
-        console.log(data)
         let obj = {}
             obj.status  = data.status
             obj.message = data.message
@@ -48,7 +46,7 @@ const NewVaccine = (props) => {
                                     </Typography>
                                 </div>
                                 <div className="content-wrapper">
-                                    <FormVaccine data={params}/>
+                                    <VaccineForm data={params}/>
                                 </div>
                             </> : 
                             <>

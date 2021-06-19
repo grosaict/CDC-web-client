@@ -16,7 +16,7 @@ const MeasuresTable = (props) => {
 
     return (
         <>
-            <Typography className="side-menu-green" variant="caption">
+            <Typography style={{color:'blue'}} variant="caption">
                 Clique na data para adicionar ou alterar as medidas</Typography>
             <TableContainer component={Paper}>
                 <Table size="small" aria-label="a dense table">

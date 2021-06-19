@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useToasts } from 'react-toast-notifications';
 
 import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
@@ -10,7 +11,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Button from '@material-ui/core/Button';
 
 import { makeStyles } from '@material-ui/core/styles';
-import { useToasts } from 'react-toast-notifications';
 
 import VaccineCard from '../VaccineCard';
 import DatePickerInput from '../DatePickerInput';
@@ -37,7 +37,7 @@ const useStyles = makeStyles({
     },
 });
 
-const FormVaccine = (props) => {
+const VaccineForm = (props) => {
     const { data } = props;
 
     const { addToast } = useToasts();
@@ -85,7 +85,7 @@ const FormVaccine = (props) => {
     const isFieldsOk = () => {
         let isValid = true;
 
-        if(dueMonth === ''  || dueMonth === undefined || dueMonth < 0 || dueMonth > 24 ){
+        if(dueMonth === ''  || dueMonth === undefined || dueMonth < 0 || dueMonth > 24){
             isValid = false;
             setErrorDueMonth(true);
         } else { setErrorDueMonth(false); }
@@ -289,4 +289,4 @@ const FormVaccine = (props) => {
     );
 };
 
-export default FormVaccine;
+export default VaccineForm;

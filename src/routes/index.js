@@ -3,15 +3,15 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Auth from '../services/auth'
 
 import Error            from '../pages/Error';
-import NotImplemented   from '../pages/NotImplemented';
+import Pending   from '../pages/Pending';
 import Login            from '../pages/Login';
 import Register         from '../pages/Register';
 import Home             from '../pages/Home';
 import KidDashboard     from '../pages/KidDashboard';
-import NewKid           from '../pages/NewKid';
-import EditMeasures     from '../pages/EditMeasures';
-import NewVaccine       from '../pages/NewVaccine';
-import EditVaccine      from '../pages/EditVaccine';
+import KidNew           from '../pages/KidNew';
+import MeasuresEdit     from '../pages/MeasuresEdit';
+import VaccineNew       from '../pages/VaccineNew';
+import VaccineEdit      from '../pages/VaccineEdit';
 
 const PrivateRoute = ({component: Component, ...rest}) => (
     <Route {...rest} render={props => (
@@ -27,19 +27,19 @@ export default function Routes() {
     return (
       <BrowserRouter>
         <Switch>
-            <PrivateRoute   exact path='/' component={Home}/>
-            <PrivateRoute   exact path='/kid/detail/:id' component={KidDashboard}/>
+            <PrivateRoute   exact path='/'                          component={Home}/>
+            <PrivateRoute   exact path='/kid/detail/:id'            component={KidDashboard}/>
             <PrivateRoute   exact path='/kid/detail/:id/pediatrics' component={KidDashboard}/>
-            <PrivateRoute   exact path='/kid/detail/:id/measures' component={KidDashboard}/>
-            <PrivateRoute   exact path='/kid/detail/:id/vaccines' component={KidDashboard}/>
-            <PrivateRoute   exact path='/kid/new' component={NewKid}/>
-            <PrivateRoute   exact path='/measure/:id' component={EditMeasures}/>
-            <PrivateRoute   exact path='/vaccine/:id' component={EditVaccine}/>
-            <PrivateRoute   exact path='/vaccine/new/:id' component={NewVaccine}/>
-            <Route          exact path='/login' component={Login}/>
-            <Route          exact path='/register' component={Register}/>
-            <Route          exact path='/NotImplemented' component={NotImplemented}/>
-            <PrivateRoute   exact path='*' component={Error}/>
+            <PrivateRoute   exact path='/kid/detail/:id/measures'   component={KidDashboard}/>
+            <PrivateRoute   exact path='/kid/detail/:id/vaccines'   component={KidDashboard}/>
+            <PrivateRoute   exact path='/kid/new'                   component={KidNew}/>
+            <PrivateRoute   exact path='/measure/:id'               component={MeasuresEdit}/>
+            <PrivateRoute   exact path='/vaccine/:id'               component={VaccineEdit}/>
+            <PrivateRoute   exact path='/vaccine/new/:id'           component={VaccineNew}/>
+            <Route          exact path='/login'                     component={Login}/>
+            <Route          exact path='/register'                  component={Register}/>
+            <Route          exact path='/Pending'                   component={Pending}/>
+            <PrivateRoute   exact path='*'                          component={Error}/>
         </Switch>
       </BrowserRouter>
     );

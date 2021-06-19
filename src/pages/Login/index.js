@@ -84,7 +84,7 @@ const Login = (props) => {
         if(verificarCamposPrenchidos()){
             let request = await userLogin({email: emailLogin, password: pwdLogin});
             (request.status === 200) ? localStorage.setItem('token', request.data.token) : addToast(request.data.message, { appearance: 'error', placement: 'bottom-right', autoDismissTimeout: 3000, autoDismiss: true });
-            history.push("/");
+            history.go("/");
         } else {
             addToast('Preencha todos os campos obrigatórios!', { appearance: 'error', placement: 'bottom-right', autoDismissTimeout: 3000, autoDismiss: true });
         }
@@ -146,14 +146,14 @@ const Login = (props) => {
                     </div>
                     <Grid container spacing={2} direction="row" justify="center" alignItems="center">
                         <Grid item>
-                            <Link to={{pathname: "/NotImplemented"}}>
+                            <Link to={{pathname: "/Pending", state: {from: props.location} }}>
                                 <Button type="button" color="primary">
                                     Esqueci minha senha
                                 </Button>
                             </Link>
                         </Grid>
                         <Grid item>
-                            <Link to={{pathname: "/register"}}>
+                            <Link to={{pathname: "/register", state: {from: props.location} }}>
                                 <Button type="button" color="primary" >
                                     Faça o seu cadastro
                                 </Button>

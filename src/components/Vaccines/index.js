@@ -18,8 +18,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import WarningRoundedIcon from '@material-ui/icons/WarningRounded';
+
 import AddIcon from '@material-ui/icons/Add';
+import AlarmOnRoundedIcon from '@material-ui/icons/AlarmOnRounded';
+import AccessAlarmRoundedIcon from '@material-ui/icons/AccessAlarmRounded';
+import SnoozeRoundedIcon from '@material-ui/icons/SnoozeRounded';
 
 import AlertDialogSlide from '../AlertDialogSlide';
 
@@ -60,8 +63,12 @@ export default function Vaccines(props) {
             <Typography className="side-menu-green" variant="button">
                     Histórico de Aplicação de Vacinas</Typography>
             <br/><br/>
-            <Typography className="side-menu-green" variant="caption" color='error'>
-                <WarningRoundedIcon color='error' fontSize='small' /> Aplicação atrasada</Typography>
+            <Typography variant="caption" style={{color:'green'}}>
+                <AlarmOnRoundedIcon fontSize='small' /> ok </Typography>
+            <Typography variant="caption" style={{color:'orange'}}>
+                <AccessAlarmRoundedIcon fontSize='small' /> Pendente </Typography>
+            <Typography variant="caption" color='error'>
+                <SnoozeRoundedIcon fontSize='small' /> Atrasada </Typography>
             <TableContainer component={Paper}>
                 <Table aria-label="collapsible table">
                 <TableHead>
@@ -74,7 +81,7 @@ export default function Vaccines(props) {
                 </TableHead>
                 <TableBody>
                     {vaccines.map((row, index) => (
-                        <Row key={index} row={row} />
+                        <Row key={index} row={row}/>
                     ))}
                 </TableBody>
                 </Table>
@@ -108,9 +115,9 @@ function Row (props) {
         <React.Fragment >
             <TableRow key={vac.name+"headVaccine"} className={classes.root} onClick={() => setOpen(!open)}>
                 <TableCell className="side-menu-green" component="th" scope="row" align="center" >
-                    {format(new Date(vac.scheduleDate),'dd/MM/yyyy')}</TableCell>
+                    {checkVacAplication(vac)}</TableCell>
                 <TableCell className="side-menu-green" align="left">
-                    {checkVacDelay(vac)}</TableCell>
+                    {vac.name}</TableCell>
             </TableRow>
             <TableRow key={vac.name+"vaccine"}>
                 <TableCell className="side-menu-green" style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={2}>
@@ -122,8 +129,7 @@ function Row (props) {
 
                                 <Typography style={{color:'#269500'}} variant="button" gutterBottom component="div">
                                     Registro da Aplicação</Typography>
-                                {/* <Typography style={{color:'blue'}} className="side-menu-green" variant="caption">
-                                    Clique na data para atualizar o registro</Typography> */}
+
                                 <Table size="small" aria-label="purchases">
                                     <TableHead>
                                         <TableRow key={vac.name+"headApplication"}>
@@ -133,9 +139,8 @@ function Row (props) {
                                     </TableHead>
                                     <TableBody>
                                         <TableRow key={vac.name+"application"}>
-                                            <TableCell /* style={{color:'blue'}} */ component="th" scope="row" align="center">
-                                                {/* <Link to={{ pathname: "/vaccine/"+vac._id }} > */}
-                                                    { vac.isSet ? format(new Date(vac.applicationDate),'dd/MM/yyyy') : "Pendente" }{/* </Link> */}
+                                            <TableCell component="th" scope="row" align="center">
+                                                { vac.isSet ? format(new Date(vac.applicationDate),'dd/MM/yyyy') : "Pendente" }
                                             </TableCell>
                                             <TableCell align="center">
                                                 { vac.isSUS ? "Sim  " : "Não  "}</TableCell>
@@ -161,13 +166,9 @@ function Row (props) {
                                             label="Excluir"
                                             title="Confirma a exclusão da vacina abaixo?"
                                             message={vac.name}
-                                            action={"/vaccine/"+vac._id}
+                                            action={"deleteVaccine"}
+                                            params={{vId: vac._id, kId: vac.kid}}
                                         />
-                                        /* <Grid item>
-                                            <Button type="submit" variant="contained" color="primary" className={buttonClass.delete}>
-                                                {'Excluir'}
-                                            </Button>
-                                        </Grid> */
                                     : null }
                                     <Grid item>
                                         <Button href={"/vaccine/"+vac._id} variant="contained" color="primary" className={buttonClass.edit}>
@@ -193,14 +194,14 @@ function recommendedMsg (dMonth) {
     }
 }
 
-function checkVacDelay (v) {
+function checkVacAplication (v) {
     if (v.isSet) {
-        return v.name
+        return (<> <AlarmOnRoundedIcon style={{color:'green'}} fontSize='small' /> {format(new Date(v.scheduleDate),'dd/MM/yyyy')} </>)
     } else {
         if (new Date(v.scheduleDate).valueOf() < new Date().valueOf()) {
-            return (<>{v.name} <WarningRoundedIcon color='error' fontSize='small' /></>)
+            return (<> <SnoozeRoundedIcon color='error' fontSize='small' /> {format(new Date(v.scheduleDate),'dd/MM/yyyy')} </>)
         } else {
-            return v.name
+            return (<> <AccessAlarmRoundedIcon style={{color:'orange'}} fontSize='small' /> {format(new Date(v.scheduleDate),'dd/MM/yyyy')} </>)
         }
     }
 }

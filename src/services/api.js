@@ -98,6 +98,16 @@ export const newVaccine = async (data) => {
     }
 }
 
+export const deleteVaccine = async (id) => {
+    try {
+        return await axios.delete(`http://localhost:5000/api/vaccine/delete/${id}`, {
+        headers: { token: localStorage.getItem('token') }
+    });
+    } catch (err) {
+        return (err.response)
+    }
+}
+
 // >>>>>>>>>>>>>>>          LOGIN and USER          <<<<<<<<<<<<<<<
 
 export const userLogin = async (data) => {

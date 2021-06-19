@@ -1,5 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { useToasts } from 'react-toast-notifications';
 
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -10,6 +11,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
+
+import { deleteVaccine } from '../../services/api';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -34,9 +37,11 @@ const useStyles = makeStyles({
 });
 
 export default function AlertDialogSlide (props) {
-  const { label, title, message, action } = props;
+  const { label, title, message, action, params } = props;
+  const { addToast }    = useToasts();
+  const history         = useHistory();
 
-  const buttonClass       = useStyles();
+  const buttonClass     = useStyles();
 
   const [open, setOpen] = React.useState(false);
 
@@ -48,6 +53,33 @@ export default function AlertDialogSlide (props) {
     setOpen(false);
   };
 
+  const handleSubmit = () => {
+    switch (action) {
+      case "deleteVaccine":
+        deleteVac()
+        setOpen(false);
+        break;
+      default:
+        setOpen(false);
+        break;
+    }
+  };
+
+  const deleteVac = async () => {
+    if(params.vId){
+        let request = await deleteVaccine(params.vId);
+        if(request.status === 200) {
+            addToast(request.data.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true });
+            setTimeout(() => { history.go("/kid/detail/"+params.kId+"/vaccines") }, 1000)
+        } else {
+            addToast(request.data.message, { appearance: 'error', autoDismissTimeout: 1000, autoDismiss: true });
+        }
+    } else {
+        addToast('Erro interno', { appearance: 'error', autoDismissTimeout: 1000, autoDismiss: true });
+        setTimeout(() => { history.go("/kid/detail/"+params.kId+"/vaccines") }, 1000)
+    }
+  }
+
   return (
     <>
       <Grid item>
@@ -56,9 +88,6 @@ export default function AlertDialogSlide (props) {
           </Button>
       </Grid>
       <div>
-        {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-          Slide in alert dialog
-        </Button> */}
         <Dialog
           open={open}
           TransitionComponent={Transition}
@@ -67,24 +96,22 @@ export default function AlertDialogSlide (props) {
           aria-labelledby="alert-dialog-slide-title"
           aria-describedby="alert-dialog-slide-description"
         >
-          <DialogTitle id="alert-dialog-slide-title">
-              {title}</DialogTitle>
+              <DialogTitle id="alert-dialog-slide-title">
+                  {title}</DialogTitle>
 
-          <DialogContent>
-            <DialogContentText id="alert-dialog-slide-description">
-              {message}</DialogContentText>
-          </DialogContent>
+              <DialogContent>
+                    <DialogContentText id="alert-dialog-slide-description">
+                      {message}</DialogContentText>
+              </DialogContent>
 
-          <DialogActions>
-            <Button onClick={handleClose} color="primary">
-              CANCELA
-            </Button>
-            <Link to={{ pathname: action } } >
-              <Button /* onClick={handleClose} */ color="primary">
-                CONFIRMA
-              </Button>
-            </Link>
-          </DialogActions>
+              <DialogActions>
+                    <Button onClick={handleClose} color="primary">
+                        CANCELA
+                    </Button>
+                    <Button onClick={handleSubmit} color="primary">
+                        CONFIRMA
+                    </Button>
+              </DialogActions>
         </Dialog>
       </div>
     </>

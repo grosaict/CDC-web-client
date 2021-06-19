@@ -87,7 +87,7 @@ export default function Measures(props) {
                 <>
                     <br/>
                     <TableContainer component={Paper} >
-                        <Table /* className={classes.table} */ size="small" aria-label="a dense table">
+                        <Table className={classes.table} size="small" aria-label="a dense table">
                             <TableHead>
                                 <TableRow>
                                     <TableCell className={classes.generalButton} onClick={openCharts} align="center" size='small'>

@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import { getKidByVaccineId } from '../../services/api'
 
 import AppBar from '../../components/AppBar';
-import FormVaccine from '../../components/FormVaccine';
+import VaccineForm from '../../components/VaccineForm';
 
 const EditVaccine = (props) => {
     const idVaccine = (props.location.state ? props.location.state.id : props.match.params.id);
@@ -44,9 +44,9 @@ const EditVaccine = (props) => {
                                     </Typography>
                                 </div>
                                 <div className="content-wrapper">
-                                    <FormVaccine data={params}/>
+                                    <VaccineForm data={params}/>
                                 </div>
-                                </> : <Redirect to={{pathname: '/', state: {from: props.location}}} />
+                            </> : <Redirect to={{pathname: '/', state: {from: props.location}}} />
                         }
                     </>
                 }

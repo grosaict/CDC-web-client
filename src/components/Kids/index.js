@@ -52,7 +52,7 @@ const Kids = () => {
                                             </Grid>
                                         ))
                                     }
-                                </> 
+                                </>
                             : 
                                 <div className="p-8" id="div-click-here">
                                     <img src="https://github.com/grosaict/CDC-web-client/blob/master/src/imgs/arrow-310622_960_720_2.png?raw=true" alt="Adicionar Crinaça" width="80%" top="50%"></img>

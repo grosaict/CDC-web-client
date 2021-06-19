@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 
 import AppBar from '../../components/AppBar';
 import KidCard from '../../components/KidCard';
@@ -11,6 +11,8 @@ import { getKidById } from '../../services/api'
 const KidDashboard = (props) => {
     const idKid     = (props.location.state ? props.location.state.id : props.match.params.id);
     const path      = props.match.path
+
+    const history   = useHistory();
 
     const [ data,           setData ]           = useState(undefined);
     const [ loading,        setLoading ]        = useState(true);
@@ -28,9 +30,11 @@ const KidDashboard = (props) => {
                 break;
             case 'Measures':
                 setMeasuresShow(true);
+                if (idKid) { history.push("/kid/detail/"+idKid+"/measures") }
                 break;
             case 'Vaccines':
                 setVaccinesShow(true);
+                if (idKid) { history.push("/kid/detail/"+idKid+"/vaccines") }
                 break;
             default:
                 setMeasuresShow(true);
@@ -87,11 +91,12 @@ const KidDashboard = (props) => {
                             { data.status === 200 ?
                                 <>
                                     <KidCard data={data.kid}  link={false} />
-                                    { pediatricsShow    ? <p>CONSULTAS</p>              : null }
+                                    { pediatricsShow    ? <Redirect to={{pathname: '/pending', state: {from: props.location} }} /> : null }
                                     { measuresShow      ? <Measures data={data.kid}/>   : null }
                                     { vaccinesShow      ? <Vaccines data={data.kid}/>   : null }
                                 </>
-                            :   <Redirect to={{pathname: '/', state: {from: props.location}}} />
+                            :
+                                <Redirect to={{pathname: '/', state: {from: props.location}}} />
                             }
                         </>
                     }

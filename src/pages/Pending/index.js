@@ -1,11 +1,17 @@
 import React from 'react';
 
-import AppBar from '../../components/AppBar';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 
+import AppBar from '../../components/AppBar';
 
-const Error = (props) => {
+const Pending = (props) => {
+    let goBack
+    if (props.location.state) {
+        goBack = props.location.state.from.pathname
+    } else {
+        goBack = '/'
+    }
 
     return (
         <>
@@ -21,7 +27,13 @@ const Error = (props) => {
                 </Typography>
                 <br/>
                 <Typography align="center" variant="h6">
-                    <Link href="/">Ir para Página Inicial</Link>
+                    <Link href={goBack}>
+                        Voltar para Página Anterior</Link>
+                </Typography>
+                <br/>
+                <Typography align="center" variant="h6">
+                    <Link href="/">
+                        Ir para Página Inicial</Link>
                 </Typography>
             </main>
         </>
@@ -29,4 +41,4 @@ const Error = (props) => {
 
 }
 
-export default Error;
+export default Pending;

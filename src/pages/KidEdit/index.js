@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import AppBar from '../../components/AppBar';
-import FormKidCreate from '../../components/FormKidCreate';
+import KidForm from '../../components/KidForm';
 
 import { getKidById } from '../../services/api'
 
@@ -10,21 +10,21 @@ import { useHistory } from 'react-router-dom';
 
 const KidEdit = (props) => {
 
-    const idItem = (props.location.state ? props.location.state.id : props.match.params.id);
+    const idKid = (props.location.state ? props.location.state.id : props.match.params.id);
     const history = useHistory();
     const [ data, setData ] = useState(undefined);
 
     useEffect(() =>{
         const carregarKid = async () => {
-            let request = await getKidById(idItem);
-            if(request.status === 403){
-                history.push('/')
+            let request = await getKidById(idKid);
+            if(request.status === 400 || request.status === 403){
+                history.go('/')
             } else {
                 setData(request.data.data)
             }
         }
         carregarKid();
-    }, [idItem])
+    }, [idKid])
 
     useEffect(() =>{
     }, [data])
@@ -34,7 +34,7 @@ const KidEdit = (props) => {
             <AppBar/>
             <main className="fixed-main-wrapper p-8 pt-32">
                 <div className="content-wrapper">
-                    <FormKidCreate dataEdit={data} idItem={idItem}/>
+                    <KidForm dataEdit={data} idKid={idKid}/>
                 </div>
             </main>
         </>

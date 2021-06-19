@@ -109,17 +109,19 @@ const Register = (props) => {
         e.preventDefault();
 
         if (verificarCamposPrenchidos()) {
-
             if(passwordLogin !== confirmPasswordLogin){
                 setConfirmPasswordError(true);
                 addToast("Confirme sua senha novamente.", { appearance: 'error', placement: 'bottom-right', autoDismissTimeout: 3000, autoDismiss: true  });
             } else {
                 setConfirmPasswordError(false);
                 let request = await createUser({ email: emailLogin, password: passwordLogin, confirmPassword: confirmPasswordLogin, name: nameLogin });
-                (request.status === 200) ? localStorage.setItem('token', request.data.token) : addToast(request.data.message, { appearance: 'error', placement: 'bottom-right', autoDismissTimeout: 3000, autoDismiss: true  });
-                history.push("/");
+                if (request.status === 200) {
+                    localStorage.setItem('token', request.data.token)
+                    history.go("/");
+                } else {
+                    addToast(request.data.message, { appearance: 'error', placement: 'bottom-right', autoDismissTimeout: 3000, autoDismiss: true  });
+                }
             }
-
         } else {
             addToast('Preencha todos os campos obrigatórios!', { appearance: 'error', placement: 'bottom-right', autoDismissTimeout: 3000, autoDismiss: true });
         }
@@ -128,98 +130,96 @@ const Register = (props) => {
     return (
         !Auth.isAuthenticated() ? (
             <>
-                <>
-                    <AppBar />
-                    <main className="fixed-main-wrapper p-8 pt-32">
-                        <div className="welcome">
-                            <Typography style={{ 'fontWeight': "bold" }} variant="h4" component="h2" >
-                                Faça o seu cadastro
-                            </Typography>
-                        </div>
-                        <div className="content-wrapper login">
-                            <form className="form form-login" autoComplete="off" method="post" onSubmit={handleSubmit}>
-                                <Grid container spacing={2}>
-                                    <Grid item xs={12}>
-                                        <FormControl className="form-control">
-                                            <TextField variant="outlined" id="input-email" type="email" label="E-mail" onChange={handleEmail} error={emailError} value={emailLogin} />
-                                        </FormControl>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <FormControl className="form-control">
-                                            <TextField variant="outlined" id="input-name" label="Nome" onChange={handleName} error={nameError} value={nameLogin} />
-                                        </FormControl>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <FormControl variant="outlined" className="form-control">
-                                            <InputLabel htmlFor="input-senha-label">Senha</InputLabel>
-                                            <OutlinedInput
-                                                id="input-senha"
-                                                type={showPassword ? 'text' : 'password'}
-                                                error={passwordError}
-                                                value={passwordLogin}
-                                                label="Senha"
-                                                onChange={handlePassword}
-                                                endAdornment={
-                                                    <InputAdornment position="end">
-                                                        <IconButton
-                                                            aria-label="toggle password visibility"
-                                                            onClick={handleClickShowPassword}
-                                                            onMouseDown={handleMouseDownPassword}
-                                                            edge="end"
-                                                        >
-                                                            {showPassword ? <Visibility /> : <VisibilityOff />}
-                                                        </IconButton>
-                                                    </InputAdornment>
-                                                }
-                                            />
-                                        </FormControl>
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <FormControl variant="outlined" className="form-control">
-                                            <InputLabel htmlFor="input-confirmar-senha-label">Confirmar Senha</InputLabel>
-                                            <OutlinedInput
-                                                id="input-confirmar-senha"
-                                                type={showConfirmPassword ? 'text' : 'password'}
-                                                error={confirmPasswordError}
-                                                value={confirmPasswordLogin}
-                                                label="Confirmar Senha"
-                                                onChange={handleConfirmPassword}
-                                                endAdornment={
-                                                    <InputAdornment position="end">
-                                                        <IconButton
-                                                            aria-label="toggle password visibility"
-                                                            onClick={handleClickShowConfirmPassword}
-                                                            onMouseDown={handleMouseDownPassword}
-                                                            edge="end"
-                                                        >
-                                                            {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
-                                                        </IconButton>
-                                                    </InputAdornment>
-                                                }
-                                            />
-                                        </FormControl>
-                                    </Grid>
+                <AppBar />
+                <main className="fixed-main-wrapper p-8 pt-32">
+                    <div className="welcome">
+                        <Typography style={{ 'fontWeight': "bold" }} variant="h4" component="h2" >
+                            Faça o seu cadastro
+                        </Typography>
+                    </div>
+                    <div className="content-wrapper login">
+                        <form className="form form-login" autoComplete="off" method="post" onSubmit={handleSubmit}>
+                            <Grid container spacing={2}>
+                                <Grid item xs={12}>
+                                    <FormControl className="form-control">
+                                        <TextField variant="outlined" id="input-email" type="email" label="E-mail" onChange={handleEmail} error={emailError} value={emailLogin} />
+                                    </FormControl>
                                 </Grid>
-                                <Grid container spacing={2} direction="row" justify="flex-end" alignItems="flex-end">
-                                    <Grid item>
-                                        <Button type="submit" variant="contained" color="primary" className={classes.buttonLogin}>
-                                            Cadastrar
-                                        </Button>
-                                    </Grid>
+                                <Grid item xs={12}>
+                                    <FormControl className="form-control">
+                                        <TextField variant="outlined" id="input-name" label="Nome" onChange={handleName} error={nameError} value={nameLogin} />
+                                    </FormControl>
                                 </Grid>
-                            </form>
-                        </div>
-                        <Grid container spacing={2} direction="row" justify="center" alignItems="center">
-                            <Grid item>
-                                <Link to={{pathname: "/login"}}>
-                                    <Button type="submit" color="primary">
-                                        Já tenho conta! Quero fazer login
-                                    </Button>
-                                </Link>
+                                <Grid item xs={12}>
+                                    <FormControl variant="outlined" className="form-control">
+                                        <InputLabel htmlFor="input-senha-label">Senha</InputLabel>
+                                        <OutlinedInput
+                                            id="input-senha"
+                                            type={showPassword ? 'text' : 'password'}
+                                            error={passwordError}
+                                            value={passwordLogin}
+                                            label="Senha"
+                                            onChange={handlePassword}
+                                            endAdornment={
+                                                <InputAdornment position="end">
+                                                    <IconButton
+                                                        aria-label="toggle password visibility"
+                                                        onClick={handleClickShowPassword}
+                                                        onMouseDown={handleMouseDownPassword}
+                                                        edge="end"
+                                                    >
+                                                        {showPassword ? <Visibility /> : <VisibilityOff />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            }
+                                        />
+                                    </FormControl>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <FormControl variant="outlined" className="form-control">
+                                        <InputLabel htmlFor="input-confirmar-senha-label">Confirmar Senha</InputLabel>
+                                        <OutlinedInput
+                                            id="input-confirmar-senha"
+                                            type={showConfirmPassword ? 'text' : 'password'}
+                                            error={confirmPasswordError}
+                                            value={confirmPasswordLogin}
+                                            label="Confirmar Senha"
+                                            onChange={handleConfirmPassword}
+                                            endAdornment={
+                                                <InputAdornment position="end">
+                                                    <IconButton
+                                                        aria-label="toggle password visibility"
+                                                        onClick={handleClickShowConfirmPassword}
+                                                        onMouseDown={handleMouseDownPassword}
+                                                        edge="end"
+                                                    >
+                                                        {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            }
+                                        />
+                                    </FormControl>
+                                </Grid>
                             </Grid>
+                            <Grid container spacing={2} direction="row" justify="flex-end" alignItems="flex-end">
+                                <Grid item>
+                                    <Button type="submit" variant="contained" color="primary" className={classes.buttonLogin}>
+                                        Cadastrar
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                        </form>
+                    </div>
+                    <Grid container spacing={2} direction="row" justify="center" alignItems="center">
+                        <Grid item>
+                            <Link to={{pathname: "/login"}}>
+                                <Button type="submit" color="primary">
+                                    Já tenho conta! Quero fazer login
+                                </Button>
+                            </Link>
                         </Grid>
-                    </main>
-                </>
+                    </Grid>
+                </main>
             </>
         ) : (
                 <Redirect to={{ pathname: '/', state: { from: props.location } }} />

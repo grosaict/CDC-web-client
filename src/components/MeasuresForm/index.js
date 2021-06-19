@@ -30,7 +30,7 @@ const useStyles = makeStyles({
     }
 });
 
-const FormMeasures = (props) => {
+const MeasuresForm = (props) => {
     const { data } = props;
 
     const { addToast } = useToasts();
@@ -94,13 +94,14 @@ const FormMeasures = (props) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         const isFieldsOk = validateFields();
 
         if(isFieldsOk){
             const params = {
-                weight: weight,
-                length: length,
-                head:   head
+                weight: isNaN(weight)   ? parseInt(0, 10)           : weight,
+                length: isNaN(length)   ? parseFloat(0).toFixed(1)  : length,
+                head:   isNaN(head)     ? parseFloat(0).toFixed(1)  : head
             }
 
             let request;
@@ -195,4 +196,4 @@ const FormMeasures = (props) => {
     );
 };
 
-export default FormMeasures;
+export default MeasuresForm;

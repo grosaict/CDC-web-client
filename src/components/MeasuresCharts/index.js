@@ -6,8 +6,8 @@ import WhoChart from '../WhoChart';
 
 function setWeightChart(k) {
     let indexWHO, paramTitle
-    let min = 0
-    let max = 20
+    let min = 1
+    let max = 18
 
     if (k.gender === 'F') {
         indexWHO = 0    // ###### GIRL's DATA ######
@@ -106,8 +106,8 @@ function setWeightChart(k) {
 
 function setLengthChart(k) {
     let indexWHO, paramTitle
-    let min = 40
-    let max = 100
+    let min = 43
+    let max = 97
 
     if (k.gender === 'F') {
         indexWHO = 0    // ###### GIRL's DATA ######
@@ -205,8 +205,8 @@ function setLengthChart(k) {
 
 function setHeadChart(k) {
     let indexWHO, paramTitle
-    let min = 25
-    let max = 55
+    let min = 29
+    let max = 52
 
     if (k.gender === 'F') {
         indexWHO = 0    // ###### GIRL's DATA ######

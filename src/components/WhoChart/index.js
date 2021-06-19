@@ -7,7 +7,7 @@ export default function WhoChart(props) {
     return (
         <Chart
             chartType="LineChart"
-            loader={<div>Loading Chart</div>}
+            loader={<div>Carregando gráfico</div>}
             data={dataChart.data}
             options={{
                 title: dataChart.title,
@@ -15,9 +15,7 @@ export default function WhoChart(props) {
                 hAxis: {
                     title: dataChart.hAxis,
                     format: 0,
-                    /* baseline: 24, */
                     gridlines: {
-                        //color: '#fff',
                         minSpacing: 1,
                         count: 'number',
                         interval: 2,
@@ -49,7 +47,7 @@ export default function WhoChart(props) {
                     3: { color: 'lightgreen' },
                     7: {
                         color: 'blue',
-                        lineDashStyle: [1,1], // [8] [4, 1] [1, 1] [2, 2]
+                        lineDashStyle: [4, 6], // [8] [4, 1] [1, 1] [2, 2]
                         lineWidth: 4,
                         visibleInLegend: false
                     },
