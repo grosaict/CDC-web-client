@@ -171,7 +171,7 @@ function Row (props) {
                                         />
                                     : null }
                                     <Grid item>
-                                        <Button href={"/vaccine/"+vac._id} variant="contained" color="primary" className={buttonClass.edit}>
+                                        <Button href={"#/vaccine/"+vac._id} variant="contained" color="primary" className={buttonClass.edit}>
                                             {'Editar'}
                                         </Button>
                                     </Grid>

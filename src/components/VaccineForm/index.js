@@ -44,6 +44,7 @@ const VaccineForm = (props) => {
     const history = useHistory();
     const classes = useStyles();
     const today = new Date(new Date().getFullYear(), new Date().getMonth() ,new Date().getDate())
+    const [ disabledButton, setDisabledButton ] = useState(false);
 
     const [ kid, setKid ] = useState(undefined);
     const [ kidBirth, setKidBirth ] = useState(undefined);
@@ -112,6 +113,7 @@ const VaccineForm = (props) => {
     }
 
     const handleSubmit = async (e) => {
+        setDisabledButton(true)
         e.preventDefault();
 
         if(isFieldsOk()){
@@ -131,13 +133,15 @@ const VaccineForm = (props) => {
                 request = await newVaccine(params);
             }
             if(request.status === 200) {
-                addToast(request.data.message, { appearance: 'success', autoDismissTimeout: 3000, autoDismiss: true });
-                setTimeout(() => { history.push("/kid/detail/"+kid._id+"/vaccines") }, 1000)
+                addToast(request.data.message, { appearance: 'success', autoDismissTimeout: 2000, autoDismiss: true });
+                setTimeout(() => { history.push("/kid/detail/"+kid._id+"/vaccines") }, 2000)
             } else {
                 addToast(request.data.message, { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true });
+                setDisabledButton(false)
             }
         } else {
             addToast('Preencha todos os campos obrigatórios!', { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true });
+            setDisabledButton(false)
         }
     };
 
@@ -273,14 +277,22 @@ const VaccineForm = (props) => {
                     </Grid>
                     <Grid container spacing={2} direction="row" justify="flex-end" alignItems="flex-end">
                         <Grid item>
-                            <Button href={"/kid/detail/"+kid._id+"/vaccines"} variant="contained" color="primary" className={classes.buttonCancel}>
-                                {'Cancelar'}
-                            </Button>
+                            { !disabledButton ?
+                                <Button href={"#/kid/detail/"+kid._id+"/vaccines"} variant="contained" color="primary" className={classes.buttonCancel}>
+                                    {'Cancelar'}
+                                </Button>
+                            : null }
                         </Grid>
                         <Grid item>
-                            <Button type="submit" variant="contained" color="primary" className={classes.buttonAdd}>
-                                {'Salvar'}
-                            </Button>
+                            { disabledButton ?
+                                <Button type="submit" variant="contained" color="primary" className={classes.buttonAdd} disabled>
+                                    Aguarde
+                                </Button>
+                            :
+                                <Button type="submit" variant="contained" color="primary" className={classes.buttonAdd}>
+                                    {'Salvar'}
+                                </Button>
+                            }
                         </Grid>
                     </Grid>         
                 </form>

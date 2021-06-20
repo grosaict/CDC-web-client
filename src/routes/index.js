@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { HashRouter, BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Auth from '../services/auth'
 
 import Error            from '../pages/Error';
@@ -13,6 +13,7 @@ import MeasuresEdit     from '../pages/MeasuresEdit';
 import VaccineNew       from '../pages/VaccineNew';
 import VaccineEdit      from '../pages/VaccineEdit';
 
+
 const PrivateRoute = ({component: Component, ...rest}) => (
     <Route {...rest} render={props => (
         Auth.isAuthenticated() ? ( 
@@ -25,7 +26,8 @@ const PrivateRoute = ({component: Component, ...rest}) => (
 
 export default function Routes() {
     return (
-      <BrowserRouter>
+    //<BrowserRouter basename="/">
+    <HashRouter basename="/">
         <Switch>
             <PrivateRoute   exact path='/'                          component={Home}/>
             <PrivateRoute   exact path='/kid/detail/:id'            component={KidDashboard}/>
@@ -41,6 +43,6 @@ export default function Routes() {
             <Route          exact path='/pending'                   component={Pending}/>
             <PrivateRoute   exact path='*'                          component={Error}/>
         </Switch>
-      </BrowserRouter>
+      </HashRouter>
     );
   }

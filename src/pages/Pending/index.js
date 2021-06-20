@@ -8,7 +8,7 @@ import AppBar from '../../components/AppBar';
 const Pending = (props) => {
     let goBack
     if (props.location.state) {
-        goBack = props.location.state.from.pathname
+        goBack = "#"+props.location.state.from.pathname
     } else {
         goBack = '/'
     }

@@ -32,6 +32,7 @@ const useStyles = makeStyles({
 
 const MeasuresForm = (props) => {
     const { data } = props;
+    const [ disabledButton, setDisabledButton ] = useState(false);
 
     const { addToast } = useToasts();
     const history = useHistory();
@@ -93,6 +94,7 @@ const MeasuresForm = (props) => {
     }
 
     const handleSubmit = async (e) => {
+        setDisabledButton(true)
         e.preventDefault();
 
         const isFieldsOk = validateFields();
@@ -111,9 +113,11 @@ const MeasuresForm = (props) => {
                 setTimeout(() => { history.push("/kid/detail/"+kidId+"/measures") }, 1000)
             } else {
                 addToast(request.data.message, { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true });
+                setDisabledButton(false)
             }
         } else {
             addToast('Preencha todos os campos obrigatórios!', { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true });
+            setDisabledButton(false)
         }
     };
 
@@ -180,14 +184,22 @@ const MeasuresForm = (props) => {
                     </Grid>
                     <Grid container spacing={2} direction="row" justify="flex-end" alignItems="flex-end">
                         <Grid item>
-                            <Button href={"/kid/detail/"+kidId+"/measures"} variant="contained" color="primary" className={classes.buttonCancel}>
-                                {'Cancelar'}
-                            </Button>
+                            { !disabledButton ?
+                                <Button href={"#/kid/detail/"+kidId+"/measures"} variant="contained" color="primary" className={classes.buttonCancel}>
+                                    {'Cancelar'}
+                                </Button>
+                            : null }
                         </Grid>
                         <Grid item>
+                        { disabledButton ?
+                            <Button type="submit" variant="contained" color="primary" className={classes.buttonAdd} disabled>
+                                Aguarde
+                            </Button>
+                        :
                             <Button type="submit" variant="contained" color="primary" className={classes.buttonAdd}>
                                 {'Salvar'}
                             </Button>
+                        }
                         </Grid>
                     </Grid>         
                 </form>
