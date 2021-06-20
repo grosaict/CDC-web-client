@@ -146,7 +146,7 @@ const Login = (props) => {
                     </div>
                     <Grid container spacing={2} direction="row" justify="center" alignItems="center">
                         <Grid item>
-                            <Link to={{pathname: "/Pending", state: {from: props.location} }}>
+                            <Link to={{pathname: "/pending", state: {from: props.location} }}>
                                 <Button type="button" color="primary">
                                     Esqueci minha senha
                                 </Button>

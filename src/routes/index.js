@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Auth from '../services/auth'
 
 import Error            from '../pages/Error';
-import Pending   from '../pages/Pending';
+import Pending          from '../pages/Pending';
 import Login            from '../pages/Login';
 import Register         from '../pages/Register';
 import Home             from '../pages/Home';
@@ -38,7 +38,7 @@ export default function Routes() {
             <PrivateRoute   exact path='/vaccine/new/:id'           component={VaccineNew}/>
             <Route          exact path='/login'                     component={Login}/>
             <Route          exact path='/register'                  component={Register}/>
-            <Route          exact path='/Pending'                   component={Pending}/>
+            <Route          exact path='/pending'                   component={Pending}/>
             <PrivateRoute   exact path='*'                          component={Error}/>
         </Switch>
       </BrowserRouter>

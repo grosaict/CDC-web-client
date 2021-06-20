@@ -2,7 +2,6 @@ import axios from 'axios';
 
 // >>>>>>>>>>>>>>>          KID                     <<<<<<<<<<<<<<<
 
-
 export const getKids = async () => {
     try {
          const { data } = await axios.get('http://localhost:5000/api/kid/', {
