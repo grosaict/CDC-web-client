@@ -18,7 +18,7 @@ const KidEdit = (props) => {
         const carregarKid = async () => {
             let request = await getKidById(idKid);
             if(request.status === 400 || request.status === 403){
-                history.go('/')
+                history.push('/')
             } else {
                 setData(request.data.data)
             }

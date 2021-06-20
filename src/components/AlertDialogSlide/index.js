@@ -71,14 +71,12 @@ export default function AlertDialogSlide (props) {
         if(request.status === 200) {
             addToast(request.data.message, { appearance: 'success', autoDismissTimeout: 1000, autoDismiss: true });
             setTimeout(() => { history.push("/kid/detail/"+params.kId+"/vaccines") }, 1000)
-            history.go(0)
         } else {
             addToast(request.data.message, { appearance: 'error', autoDismissTimeout: 1000, autoDismiss: true });
         }
     } else {
         addToast('Erro interno', { appearance: 'error', autoDismissTimeout: 1000, autoDismiss: true });
         setTimeout(() => { history.push("/kid/detail/"+params.kId+"/vaccines") }, 1000)
-        history.go(0)
     }
   }
 

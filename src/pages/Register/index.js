@@ -117,7 +117,7 @@ const Register = (props) => {
                 let request = await createUser({ email: emailLogin, password: passwordLogin, confirmPassword: confirmPasswordLogin, name: nameLogin });
                 if (request.status === 200) {
                     localStorage.setItem('token', request.data.token)
-                    history.go("/");
+                    history.push("/");
                 } else {
                     addToast(request.data.message, { appearance: 'error', placement: 'bottom-right', autoDismissTimeout: 3000, autoDismiss: true  });
                 }

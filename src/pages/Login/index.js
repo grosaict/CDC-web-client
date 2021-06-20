@@ -85,7 +85,6 @@ const Login = (props) => {
             let request = await userLogin({email: emailLogin, password: pwdLogin});
             (request.status === 200) ? localStorage.setItem('token', request.data.token) : addToast(request.data.message, { appearance: 'error', placement: 'bottom-right', autoDismissTimeout: 3000, autoDismiss: true });
             history.push("/");
-            history.go(0);
         } else {
             addToast('Preencha todos os campos obrigatórios!', { appearance: 'error', placement: 'bottom-right', autoDismissTimeout: 3000, autoDismiss: true });
         }
