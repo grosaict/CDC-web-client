@@ -4,7 +4,7 @@ import axios from 'axios';
 
 export const getKids = async () => {
     try {
-         const { data } = await axios.get('http://localhost:5000/api/kid/', {
+         const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/api/kid/`, {
             headers: { token: localStorage.getItem('token') }
         });
         return data
@@ -15,7 +15,7 @@ export const getKids = async () => {
 
 export const getKidById = async (id) => {
     try {
-        return await axios.get(`http://localhost:5000/api/kid/${id}`, {
+        return await axios.get(`${process.env.REACT_APP_API_URL}/api/kid/${id}`, {
             headers: { token: localStorage.getItem('token') }
         });
     } catch (err) {
@@ -25,7 +25,7 @@ export const getKidById = async (id) => {
 
 export const createKid = async (data) => {
     try {
-        return await axios.post('http://localhost:5000/api/kid/', data, {
+        return await axios.post(`${process.env.REACT_APP_API_URL}/api/kid/`, data, {
         headers: {'Content-Type': 'application/json'/* 'multipart/form-data' */, token: localStorage.getItem('token') }
     });
     } catch (err) {
@@ -35,7 +35,7 @@ export const createKid = async (data) => {
 
 export const updateKid = async (id, data) => {
     try {
-        return await axios.put(`http://localhost:5000/api/kid/update/${id}`, data, {
+        return await axios.put(`${process.env.REACT_APP_API_URL}/api/kid/update/${id}`, data, {
         headers: {'Content-Type': 'application/json'/* 'multipart/form-data' */, token: localStorage.getItem('token') }
     });
     } catch (err) {
@@ -47,7 +47,7 @@ export const updateKid = async (id, data) => {
 
 export const getKidByMeasureId = async (id) => {
     try {
-        return await axios.get(`http://localhost:5000/api/kid/measure/${id}`, {
+        return await axios.get(`${process.env.REACT_APP_API_URL}/api/kid/measure/${id}`, {
             headers: { token: localStorage.getItem('token') }
         });
     } catch (err) {
@@ -57,7 +57,7 @@ export const getKidByMeasureId = async (id) => {
 
 export const updateMeasure = async (id, data) => {
     try {
-        return await axios.put(`http://localhost:5000/api/measure/update/${id}`, data, {
+        return await axios.put(`${process.env.REACT_APP_API_URL}/api/measure/update/${id}`, data, {
         headers: {'Content-Type': 'application/json', token: localStorage.getItem('token') }
     });
     } catch (err) {
@@ -69,7 +69,7 @@ export const updateMeasure = async (id, data) => {
 
 export const getKidByVaccineId = async (id) => {
     try {
-        return await axios.get(`http://localhost:5000/api/kid/vaccine/${id}`, {
+        return await axios.get(`${process.env.REACT_APP_API_URL}/api/kid/vaccine/${id}`, {
             headers: { token: localStorage.getItem('token') }
         });
     } catch (err) {
@@ -79,7 +79,7 @@ export const getKidByVaccineId = async (id) => {
 
 export const updateVaccine = async (id, data) => {
     try {
-        return await axios.put(`http://localhost:5000/api/vaccine/update/${id}`, data, {
+        return await axios.put(`${process.env.REACT_APP_API_URL}/api/vaccine/update/${id}`, data, {
         headers: {'Content-Type': 'application/json', token: localStorage.getItem('token') }
     });
     } catch (err) {
@@ -89,7 +89,7 @@ export const updateVaccine = async (id, data) => {
 
 export const newVaccine = async (data) => {
     try {
-        return await axios.post(`http://localhost:5000/api/vaccine/`, data, {
+        return await axios.post(`${process.env.REACT_APP_API_URL}/api/vaccine/`, data, {
         headers: {'Content-Type': 'application/json', token: localStorage.getItem('token') }
     });
     } catch (err) {
@@ -99,7 +99,7 @@ export const newVaccine = async (data) => {
 
 export const deleteVaccine = async (id) => {
     try {
-        return await axios.delete(`http://localhost:5000/api/vaccine/delete/${id}`, {
+        return await axios.delete(`${process.env.REACT_APP_API_URL}/api/vaccine/delete/${id}`, {
         headers: { token: localStorage.getItem('token') }
     });
     } catch (err) {
@@ -111,7 +111,7 @@ export const deleteVaccine = async (id) => {
 
 export const userLogin = async (data) => {
     try {
-        return await axios.post(`http://localhost:5000/api/login/`, data);
+        return await axios.post(`${process.env.REACT_APP_API_URL}/api/login/`, data);
     } catch (err) {
         return (err.response)
     }
@@ -119,7 +119,7 @@ export const userLogin = async (data) => {
 
 export const createUser = async (data) => {
     try {
-        return await axios.post(`http://localhost:5000/api/user/`, data);
+        return await axios.post(`${process.env.REACT_APP_API_URL}/api/user/`, data);
     } catch (err) {
         return (err.response)
     }
