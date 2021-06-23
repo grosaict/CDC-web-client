@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import Auth from '../../services/auth';
 import { Redirect } from "react-router-dom";
-import AppBar from '../../components/AppBar';
-import { useToasts } from 'react-toast-notifications';
+import { Link } from 'react-router-dom'
 import { useHistory } from 'react-router-dom';
+import { useToasts } from 'react-toast-notifications';
+
+import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
@@ -17,9 +17,10 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
+import Auth from '../../services/auth';
 import { userLogin } from '../../services/api';
 
-import { Link } from 'react-router-dom'
+import AppBar from '../../components/AppBar';
 
 const useStyles = makeStyles({
     buttonLogin: {
@@ -33,11 +34,11 @@ const useStyles = makeStyles({
 });
 
 const Login = (props) => {
-
     const classes       = useStyles();
     const { addToast }  = useToasts();
     const history       = useHistory();
 
+    const [ disabledButton, setDisabledButton ] = useState(false);
     const [ emailLogin, setEmailLogin ]     = useState('');
     const [ emailError, setEmailError ]     = useState(false);
     const [ pwdLogin, setPwdLogin ]         = useState('');
@@ -79,6 +80,7 @@ const Login = (props) => {
 
 
     const handleSubmit = async (e) => {
+        setDisabledButton(true)
         e.preventDefault();
 
         if(verificarCamposPrenchidos()){
@@ -87,12 +89,11 @@ const Login = (props) => {
             history.push("/");
         } else {
             addToast('Preencha todos os campos obrigatórios!', { appearance: 'error', placement: 'bottom-right', autoDismissTimeout: 3000, autoDismiss: true });
-        }
+            setDisabledButton(false)        }
     }
 
     return (
         !Auth.isAuthenticated() ? (
-
             <>
                 <AppBar/>
                 <main className="fixed-main-wrapper p-8 pt-32">
@@ -137,9 +138,15 @@ const Login = (props) => {
                             </Grid>
                             <Grid container spacing={2} direction="row" justify="flex-end" alignItems="flex-end">
                                 <Grid item>
+                                { disabledButton ?
+                                    <Button type="submit" variant="contained" color="primary" disabled>
+                                        Aguarde
+                                    </Button>
+                                :
                                     <Button type="submit" variant="contained" color="primary" className={classes.buttonLogin}>
                                         Login
                                     </Button>
+                                }
                                 </Grid>
                             </Grid>   
                         </form>

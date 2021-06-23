@@ -188,7 +188,7 @@ const KidForm = (props) => {
                     </Grid>
                     <Grid item>
                         { disabledButton ?
-                            <Button type="submit" variant="contained" color="primary" className={classes.buttonAdd} disabled>
+                            <Button type="submit" variant="contained" color="primary" disabled>
                                 Aguarde
                             </Button>
                         :

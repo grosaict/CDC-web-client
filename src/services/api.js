@@ -1,5 +1,24 @@
 import axios from 'axios';
 
+
+// >>>>>>>>>>>>>>>          LOGIN and USER          <<<<<<<<<<<<<<<
+
+export const userLogin = async (data) => {
+    try {
+        return await axios.post(`${process.env.REACT_APP_API_URL}/api/login/`, data);
+    } catch (err) {
+        return (err.response)
+    }
+}
+
+export const createUser = async (data) => {
+    try {
+        return await axios.post(`${process.env.REACT_APP_API_URL}/api/user/`, data);
+    } catch (err) {
+        return (err.response)
+    }
+}
+
 // >>>>>>>>>>>>>>>          KID                     <<<<<<<<<<<<<<<
 
 export const getKids = async () => {
@@ -102,24 +121,6 @@ export const deleteVaccine = async (id) => {
         return await axios.delete(`${process.env.REACT_APP_API_URL}/api/vaccine/delete/${id}`, {
         headers: { token: localStorage.getItem('token') }
     });
-    } catch (err) {
-        return (err.response)
-    }
-}
-
-// >>>>>>>>>>>>>>>          LOGIN and USER          <<<<<<<<<<<<<<<
-
-export const userLogin = async (data) => {
-    try {
-        return await axios.post(`${process.env.REACT_APP_API_URL}/api/login/`, data);
-    } catch (err) {
-        return (err.response)
-    }
-}
-
-export const createUser = async (data) => {
-    try {
-        return await axios.post(`${process.env.REACT_APP_API_URL}/api/user/`, data);
     } catch (err) {
         return (err.response)
     }

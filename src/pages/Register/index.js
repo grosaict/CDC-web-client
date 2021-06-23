@@ -33,11 +33,11 @@ const useStyles = makeStyles({
 
 
 const Register = (props) => {
-
     const classes = useStyles();
     const { addToast } = useToasts();
     const history = useHistory();
 
+    const [ disabledButton, setDisabledButton ] = useState(false);
     const [emailLogin, setEmailLogin] = useState('');
     const [emailError, setEmailError] = useState(false);
     const [nameLogin, setNameLogin] = useState('');
@@ -106,12 +106,14 @@ const Register = (props) => {
 
 
     const handleSubmit = async (e) => {
+        setDisabledButton(true)
         e.preventDefault();
 
         if (verificarCamposPrenchidos()) {
             if(passwordLogin !== confirmPasswordLogin){
                 setConfirmPasswordError(true);
                 addToast("Confirme sua senha novamente.", { appearance: 'error', placement: 'bottom-right', autoDismissTimeout: 3000, autoDismiss: true  });
+                setDisabledButton(false)
             } else {
                 setConfirmPasswordError(false);
                 let request = await createUser({ email: emailLogin, password: passwordLogin, confirmPassword: confirmPasswordLogin, name: nameLogin });
@@ -120,10 +122,12 @@ const Register = (props) => {
                     history.push("/");
                 } else {
                     addToast(request.data.message, { appearance: 'error', placement: 'bottom-right', autoDismissTimeout: 3000, autoDismiss: true  });
+                    setDisabledButton(false)
                 }
             }
         } else {
             addToast('Preencha todos os campos obrigatórios!', { appearance: 'error', placement: 'bottom-right', autoDismissTimeout: 3000, autoDismiss: true });
+            setDisabledButton(false)
         }
     }
 
@@ -203,9 +207,15 @@ const Register = (props) => {
                             </Grid>
                             <Grid container spacing={2} direction="row" justify="flex-end" alignItems="flex-end">
                                 <Grid item>
+                                { disabledButton ?
+                                    <Button type="submit" variant="contained" color="primary" disabled>
+                                        Aguarde
+                                    </Button>
+                                :
                                     <Button type="submit" variant="contained" color="primary" className={classes.buttonLogin}>
                                         Cadastrar
                                     </Button>
+                                }
                                 </Grid>
                             </Grid>
                         </form>
