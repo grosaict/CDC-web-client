@@ -5,7 +5,9 @@ import Avatar from '@material-ui/core/Avatar';
 import { Link } from "react-router-dom";
 
 import { makeStyles } from '@material-ui/core/styles';
-import { format } from 'date-fns';
+//import { format } from 'date-fns';
+import { format } from 'date-fns-tz';
+import ptBR from 'date-fns/locale/pt-BR'
 
 const useStylesF = makeStyles((theme) => ({
   root: {
@@ -75,7 +77,7 @@ export default function KidCard(props) {
           <Card style={{height: '100%'}}>
               <CardHeader
                 avatar={<Avatar aria-label="recipe" className={(k.gender === 'F') ? classesF.root : classesM.root}>{k.name.substring(0, 1) }</Avatar>}
-                title={k.name+" ("+format(new Date(k.birth),'dd/MM/yyyy')+")"}
+                title={k.name+" ("+format(new Date(k.birth),'dd/MM/yyyy', { timeZone: 'America/Sao_Paulo', locale: ptBR, })+")"}
                 subheader={ageCalculator(new Date(k.birth))}
               />
           </Card>
