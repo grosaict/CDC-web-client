@@ -72,7 +72,7 @@ const VaccineForm = (props) => {
     };
 
     const handleChangeApplicationDate = (value) => {
-        setApplicationDate(value)
+        setApplicationDate(new Date(new Date(value).getFullYear(), new Date(value).getMonth() ,new Date(value).getDate()))
     };
 
     const handleChangeDescription = (e) => {
@@ -103,6 +103,17 @@ const VaccineForm = (props) => {
                 (applicationDate.getTime() - kidBirth.getTime()) < 0 || // applicationDate  < kidBirth
                 (today.getTime() - applicationDate.getTime()) < 0 ){    // today            < applicationDate
                 isValid = false;
+
+                console.log("applicationDate")
+                console.log(applicationDate)
+                console.log("applicationDate.getTime()")
+                console.log(applicationDate.getTime())
+                console.log("kidBirth")
+                console.log(kidBirth)
+                console.log("kidBirth.getTime()")
+                console.log(kidBirth.getTime())
+
+
                 setErrorApplicationDate(true);
             } else {
                 setErrorApplicationDate(false);

@@ -14,6 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useToasts } from 'react-toast-notifications';
 import { format } from 'date-fns';
 
+import Auth from '../../services/auth'
 import { createKid, updateKid } from '../../services/api';
 
 const useStyles = makeStyles({
@@ -110,6 +111,10 @@ const KidForm = (props) => {
                 setTimeout(() => { history.push("/") }, 1000)
             } else {
                 addToast(request.data.message, { appearance: 'error', autoDismissTimeout: 3000, autoDismiss: true });
+                if (request.data.status === 401) {
+                    Auth.logout()
+                    setTimeout(() => { history.push("/") }, 1000)
+                }
                 setDisabledButton(false)
             }
         } else {

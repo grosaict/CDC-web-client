@@ -28,8 +28,6 @@ const Kids = (props) => {
         let { status, data } = await getKids();
         setData(data)
         setStatus(status)
-        console.log("loadKidsData > status > data")
-        console.log(status+" > "+JSON.stringify(data))
         setLoading(false)
     }
 
@@ -53,13 +51,12 @@ const Kids = (props) => {
                         </>
                         :
                         <>
-                            { status === 200 ? 
+                            { status === 200 && data.length > 0 ? 
                             <>
-                                {
-                                    data.map((kid, index )=> (
-                                        <Grid item xs={12} sm={6} md={4} lg={4} key={`grid-kid-${index}`}>
-                                            <KidCard key={`card-kid-${index}`} data={kid} link={true} />
-                                        </Grid>
+                                { data.map((kid, index )=> (
+                                    <Grid item xs={12} sm={6} md={4} lg={4} key={`grid-kid-${index}`}>
+                                        <KidCard key={`card-kid-${index}`} data={kid} link={true} />
+                                    </Grid>
                                     ))
                                 }
                             </>
