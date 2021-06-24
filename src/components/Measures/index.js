@@ -40,8 +40,8 @@ export default function Measures(props) {
     });
     const classes = useStyles();
 
-    const [chartsShow, setChartsShow]               = useState(false);
-    const [tableShow, setTableShow]                 = useState(true);
+    const [chartsShow, setChartsShow]   = useState(true);
+    const [tableShow, setTableShow]     = useState(false);
     
     const switchMeasuresDashboard = (showComponent) => {
         switch (showComponent){

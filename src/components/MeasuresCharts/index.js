@@ -248,7 +248,8 @@ function setHeadChart(k) {
                             ],
                         //  ###### index 1 = BOYS's DATA ######
                             [
-                            //  ['x', '3', '2', '1', '0', '-1', '-2', '-3', k.name],[0, 38.3, 37.0, 35.7, 34.5, 33.2, 31.9, 30.7],
+                            //  ['x', '3', '2', '1', '0', '-1', '-2', '-3', k.name],
+                                [0, 38.3, 37.0, 35.7, 34.5, 33.2, 31.9, 30.7],
                                 [1, 40.8, 39.6, 38.4, 37.3, 36.1, 34.9, 33.8],
                                 [2, 42.6, 41.5, 40.3, 39.1, 38.0, 36.8, 35.6],
                                 [3, 44.1, 42.9, 41.7, 40.5, 39.3, 38.1, 37.0],
@@ -288,7 +289,7 @@ function setHeadChart(k) {
             max = (paramData[index+1][8] > max ?   paramData[index+1][8] : max)
         } else {
             paramData[index+1][8]   = null
-        }       
+        }
     }
 
     return isSet ? {
@@ -317,7 +318,7 @@ export default function MeasuresCharts(props) {
                             <div className="title-container"> 
                                 { weightChartData   ? <WhoChart data={weightChartData}/>
                                                     : <Typography className="side-menu-green" variant="caption" >
-                                                        Medidas de peso não informadas<br/>Acesse MEDIÇÕES para adicioná-las
+                                                        Medidas de peso não informadas<br/>Clique em MEDIÇÕES para adicioná-las
                                                         </Typography> }
                             </div>
                         </div>
@@ -328,7 +329,7 @@ export default function MeasuresCharts(props) {
                             <div className="title-container"> 
                                 { lengthChartData   ? <WhoChart data={lengthChartData}/>
                                                     : <Typography className="side-menu-green" variant="caption" >
-                                                        Medidas de altura não informadas<br/>Acesse MEDIÇÕES para adicioná-las
+                                                        Medidas de altura não informadas<br/>Clique em MEDIÇÕES para adicioná-las
                                                         </Typography> }
                             </div>
                         </div>
@@ -339,7 +340,7 @@ export default function MeasuresCharts(props) {
                             <div className="title-container"> 
                                 { headChartData     ? <WhoChart data={headChartData}/>
                                                     : <Typography className="side-menu-green" variant="caption" >
-                                                        Medidas do perímetro cefálico não informadas<br/>Acesse MEDIÇÕES para adicioná-las
+                                                        Medidas do perímetro cefálico não informadas<br/>Clique em MEDIÇÕES para adicioná-las
                                                         </Typography> }
                             </div>
                         </div>

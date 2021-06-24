@@ -43,7 +43,7 @@ const VaccineForm = (props) => {
     const { addToast } = useToasts();
     const history = useHistory();
     const classes = useStyles();
-    const today = new Date(new Date().getFullYear(), new Date().getMonth() ,new Date().getDate())
+    const today = new Date(new Date().getFullYear(), new Date().getMonth() ,new Date().getDate(), 3)
     const [ disabledButton, setDisabledButton ] = useState(false);
 
     const [ kid, setKid ] = useState(undefined);
@@ -72,7 +72,7 @@ const VaccineForm = (props) => {
     };
 
     const handleChangeApplicationDate = (value) => {
-        setApplicationDate(new Date(new Date(value).getFullYear(), new Date(value).getMonth() ,new Date(value).getDate()))
+        setApplicationDate(new Date(new Date(value).getFullYear(), new Date(value).getMonth() ,new Date(value).getDate(), 3))
     };
 
     const handleChangeDescription = (e) => {
@@ -96,6 +96,20 @@ const VaccineForm = (props) => {
             setErrorVacName(true);
         } else { setErrorVacName(false); }
 
+
+        console.log("today")
+        console.log(today)
+        console.log("today.getTime()")
+        console.log(today.getTime())
+        console.log("applicationDate")
+        console.log(applicationDate)
+        console.log("applicationDate.getTime()")
+        console.log(applicationDate.getTime())
+        console.log("kidBirth")
+        console.log(kidBirth)
+        console.log("kidBirth.getTime()")
+        console.log(kidBirth.getTime())
+
         if (isSet) {
             if(!applicationDate ||
                 applicationDate === '' ||
@@ -103,17 +117,6 @@ const VaccineForm = (props) => {
                 (applicationDate.getTime() - kidBirth.getTime()) < 0 || // applicationDate  < kidBirth
                 (today.getTime() - applicationDate.getTime()) < 0 ){    // today            < applicationDate
                 isValid = false;
-
-                console.log("applicationDate")
-                console.log(applicationDate)
-                console.log("applicationDate.getTime()")
-                console.log(applicationDate.getTime())
-                console.log("kidBirth")
-                console.log(kidBirth)
-                console.log("kidBirth.getTime()")
-                console.log(kidBirth.getTime())
-
-
                 setErrorApplicationDate(true);
             } else {
                 setErrorApplicationDate(false);
@@ -170,7 +173,7 @@ const VaccineForm = (props) => {
                 if (data.vaccine.isSet) {
                     setApplicationDate(new Date(data.vaccine.applicationDate))
                 } else {
-                    setApplicationDate(new Date(new Date().getFullYear(), new Date().getMonth() ,new Date().getDate())) // TODAY
+                    setApplicationDate(new Date(new Date().getFullYear(), new Date().getMonth() ,new Date().getDate()), 3) // TODAY
                 }
             }
         }
