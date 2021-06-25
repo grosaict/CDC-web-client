@@ -25,7 +25,7 @@ const useStylesM = makeStyles((theme) => ({
 
 const ageCalculator = (birth) => {
   // GETTING NOW AT 00:00 GMT
-  const today = new Date(new Date().getFullYear(), new Date().getMonth() ,new Date().getDate())
+  const today = new Date(new Date().getFullYear(), new Date().getMonth() ,new Date().getDate(), 3)
   // AGE IN MILLISECONDS
   const diff  = Math.abs(today.getTime() - birth.getTime())
 
