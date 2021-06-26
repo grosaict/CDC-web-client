@@ -24,7 +24,7 @@ export default function Measures(props) {
                 color: '#fff'
             },
             width:      width,
-            boxShadow: '0 3px 5px 2px rgba(38, 149, 0, .58)',
+            //boxShadow: '0 3px 5px 2px rgba(38, 149, 0, .3)',
             marginTop: '10px'
         },
         cancelButton: {
@@ -34,7 +34,7 @@ export default function Measures(props) {
                 color: '#fff'
             },
             width:      width,
-            boxShadow: '0 3px 5px 2px rgba(255, 0, 0, 1)',
+            //boxShadow: '0 3px 5px 2px rgba(255, 0, 0, 1)',
             /* boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)', */
         }
     });

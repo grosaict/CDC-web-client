@@ -26,7 +26,8 @@ const useStyles = makeStyles({
         '&:hover': {
             backgroundColor: '#000000'
         },
-        boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+        //boxShadow: '0 3px 5px 2px rgba(38, 149, 0, .3)',
+        //boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
         marginTop: '10px'
     },
 });
@@ -138,7 +139,7 @@ const Register = (props) => {
                 <main className="fixed-main-wrapper p-8 pt-32">
                     <div className="welcome">
                         <Typography style={{ 'fontWeight': "bold" }} variant="h4" component="h2" >
-                            Faça o seu cadastro
+                            Faça seu cadastro
                         </Typography>
                     </div>
                     <div className="content-wrapper login">
@@ -151,7 +152,7 @@ const Register = (props) => {
                                 </Grid>
                                 <Grid item xs={12}>
                                     <FormControl className="form-control">
-                                        <TextField variant="outlined" id="input-name" label="Nome" onChange={handleName} error={nameError} value={nameLogin} />
+                                        <TextField variant="outlined" id="input-name" label="Nome mamãe, papai, cuidadora ..." onChange={handleName} error={nameError} value={nameLogin} />
                                     </FormControl>
                                 </Grid>
                                 <Grid item xs={12}>
