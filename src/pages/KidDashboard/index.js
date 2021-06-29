@@ -72,8 +72,8 @@ const KidDashboard = (props) => {
                     break;
                 default:
                     setPediatricsShow(false)
-                    setVaccinesShow(false)
-                    setMeasuresShow(true)
+                    setVaccinesShow(true)
+                    setMeasuresShow(false)
                     break;
             }
         }
